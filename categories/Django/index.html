@@ -45,7 +45,7 @@
       labels: {"input_placeholder":"Search for Posts","hits_empty":"我们没有找到任何搜索结果: ${query}","hits_stats":"找到约${hits}条结果（用时${time}ms）"}
     },
     localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
-    path: 'search.xml',
+    path: './public/search.xml',
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     translation: {
       copy_button: '复制',
@@ -215,18 +215,17 @@
   <span class="search-icon">
     <i class="fa fa-search"></i>
   </span>
-  <div class="search-input" id="search-input"></div>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
   <span class="popup-btn-close">
     <i class="fa fa-times-circle"></i>
   </span>
 </div>
-<div class="algolia-results">
-  <div id="algolia-stats"></div>
-  <div id="algolia-hits"></div>
-  <div id="algolia-pagination" class="algolia-pagination"></div>
-</div>
+<div id="search-result"></div>
 
-  
 </div>
 <div class="search-pop-overlay"></div>
 
@@ -304,35 +303,6 @@
         
           <a class="post-title-link" href="/2016/03/25/Django 下配置MYSQL/" itemprop="url">
             <span itemprop="name">Django 下配置MYSQL</span>
-          </a>
-        
-      </h2>
-
-    </header>
-  </article>
-
-
-
-  
-  
-
-  
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2016-03-25T15:20:40+08:00"
-              content="2016-03-25">
-          03-25
-        </time>
-      </div>
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2016/03/25/Django 中类的继承/" itemprop="url">
-            <span itemprop="name">Django 中类的继承</span>
           </a>
         
       </h2>
@@ -447,64 +417,6 @@
 
       <h2 class="post-title">
         
-          <a class="post-title-link" href="/2016/03/25/django简易图片上传/" itemprop="url">
-            <span itemprop="name">在setting.py 中 配置静态目录</span>
-          </a>
-        
-      </h2>
-
-    </header>
-  </article>
-
-
-
-  
-  
-
-  
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2016-03-25T15:20:40+08:00"
-              content="2016-03-25">
-          03-25
-        </time>
-      </div>
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2016/03/25/vue分页/" itemprop="url">
-            <span itemprop="name">vue分页</span>
-          </a>
-        
-      </h2>
-
-    </header>
-  </article>
-
-
-
-  
-  
-
-  
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2016-03-25T15:20:40+08:00"
-              content="2016-03-25">
-          03-25
-        </time>
-      </div>
-
-      <h2 class="post-title">
-        
           <a class="post-title-link" href="/2016/03/25/django分页（模板）/" itemprop="url">
             <span itemprop="name">django分页（模板）</span>
           </a>
@@ -534,8 +446,8 @@
 
       <h2 class="post-title">
         
-          <a class="post-title-link" href="/2016/03/25/序列化器/" itemprop="url">
-            <span itemprop="name">序列化器</span>
+          <a class="post-title-link" href="/2016/03/25/Django 中类的继承/" itemprop="url">
+            <span itemprop="name">Django 中类的继承</span>
           </a>
         
       </h2>
@@ -565,6 +477,93 @@
         
           <a class="post-title-link" href="/2016/03/25/python包的批量安装/" itemprop="url">
             <span itemprop="name">python包的批量安装</span>
+          </a>
+        
+      </h2>
+
+    </header>
+  </article>
+
+
+
+  
+  
+
+  
+
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <div class="post-meta">
+        <time itemprop="dateCreated"
+              datetime="2016-03-25T15:20:40+08:00"
+              content="2016-03-25">
+          03-25
+        </time>
+      </div>
+
+      <h2 class="post-title">
+        
+          <a class="post-title-link" href="/2016/03/25/vscode自定义代码提示/" itemprop="url">
+            <span itemprop="name">用户自定义代码提示</span>
+          </a>
+        
+      </h2>
+
+    </header>
+  </article>
+
+
+
+  
+  
+
+  
+
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <div class="post-meta">
+        <time itemprop="dateCreated"
+              datetime="2016-03-25T15:20:40+08:00"
+              content="2016-03-25">
+          03-25
+        </time>
+      </div>
+
+      <h2 class="post-title">
+        
+          <a class="post-title-link" href="/2016/03/25/md5加密/" itemprop="url">
+            <span itemprop="name">md5加密</span>
+          </a>
+        
+      </h2>
+
+    </header>
+  </article>
+
+
+
+  
+  
+
+  
+
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <div class="post-meta">
+        <time itemprop="dateCreated"
+              datetime="2016-03-25T15:20:40+08:00"
+              content="2016-03-25">
+          03-25
+        </time>
+      </div>
+
+      <h2 class="post-title">
+        
+          <a class="post-title-link" href="/2016/03/25/vue分页/" itemprop="url">
+            <span itemprop="name">vue分页</span>
           </a>
         
       </h2>
@@ -776,10 +775,7 @@
 
 
 
-  
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/instantsearch.js@2/dist/instantsearch.min.css">
-<script src="//cdn.jsdelivr.net/npm/instantsearch.js@2/dist/instantsearch.min.js"></script><script src="/js/algolia-search.js?v=7.4.1"></script>
-
+  <script src="/js/local-search.js?v=7.4.1"></script>
 
 
 

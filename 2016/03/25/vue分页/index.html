@@ -45,7 +45,7 @@
       labels: {"input_placeholder":"Search for Posts","hits_empty":"我们没有找到任何搜索结果: ${query}","hits_stats":"找到约${hits}条结果（用时${time}ms）"}
     },
     localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
-    path: 'search.xml',
+    path: './public/search.xml',
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     translation: {
       copy_button: '复制',
@@ -219,18 +219,17 @@
   <span class="search-icon">
     <i class="fa fa-search"></i>
   </span>
-  <div class="search-input" id="search-input"></div>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
   <span class="popup-btn-close">
     <i class="fa fa-times-circle"></i>
   </span>
 </div>
-<div class="algolia-results">
-  <div id="algolia-stats"></div>
-  <div id="algolia-hits"></div>
-  <div id="algolia-pagination" class="algolia-pagination"></div>
-</div>
+<div id="search-result"></div>
 
-  
 </div>
 <div class="search-pop-overlay"></div>
 
@@ -443,8 +442,8 @@
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
               
-                <a href="/2016/03/25/django分页（模板）/" rel="next" title="django分页（模板）">
-                  <i class="fa fa-chevron-left"></i> django分页（模板）
+                <a href="/2016/03/25/笔记/" rel="next" title="笔记">
+                  <i class="fa fa-chevron-left"></i> 笔记
                 </a>
               
             </div>
@@ -453,8 +452,8 @@
 
             <div class="post-nav-prev post-nav-item">
               
-                <a href="/2016/03/25/django简易图片上传/" rel="prev" title="在setting.py 中 配置静态目录">
-                  在setting.py 中 配置静态目录 <i class="fa fa-chevron-right"></i>
+                <a href="/2016/03/25/md5加密/" rel="prev" title="md5加密">
+                  md5加密 <i class="fa fa-chevron-right"></i>
                 </a>
               
             </div>
@@ -664,10 +663,7 @@
 
 
 
-  
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/instantsearch.js@2/dist/instantsearch.min.css">
-<script src="//cdn.jsdelivr.net/npm/instantsearch.js@2/dist/instantsearch.min.js"></script><script src="/js/algolia-search.js?v=7.4.1"></script>
-
+  <script src="/js/local-search.js?v=7.4.1"></script>
 
 
 

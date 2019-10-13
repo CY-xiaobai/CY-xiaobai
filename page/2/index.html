@@ -44,8 +44,8 @@
       hits: {"per_page":10},
       labels: {"input_placeholder":"Search for Posts","hits_empty":"我们没有找到任何搜索结果: ${query}","hits_stats":"找到约${hits}条结果（用时${time}ms）"}
     },
-    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
-    path: '',
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     translation: {
       copy_button: '复制',
@@ -254,7 +254,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://cy-blogs.cn/2016/03/25/python包的批量安装/">
+    <link itemprop="mainEntityOfPage" href="https://cy-blogs.cn/2016/03/25/md5加密/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="哼着自己旳小调调">
@@ -268,7 +268,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
             
-            <a href="/2016/03/25/python包的批量安装/" class="post-title-link" itemprop="url">python包的批量安装</a>
+            <a href="/2016/03/25/md5加密/" class="post-title-link" itemprop="url">md5加密</a>
           
         </h1>
 
@@ -294,7 +294,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-10-13 15:50:50" itemprop="dateModified" datetime="2019-10-13T15:50:50+08:00">2019-10-13</time>
+                <time title="修改时间：2019-10-13 15:50:09" itemprop="dateModified" datetime="2019-10-13T15:50:09+08:00">2019-10-13</time>
               </span>
             
           
@@ -325,9 +325,9 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <!-- <span title="本文字数">1k</span> -->
+                <!-- <span title="本文字数">2.6k</span> -->
 			        <span title="本文字数">
-                  54字
+                  188字
                 </span>
               
 
@@ -346,140 +346,20 @@
 
       
         
-          <h4 id="python包的批量安装"><a href="#python包的批量安装" class="headerlink" title="python包的批量安装"></a>python包的批量安装</h4><p>导出—命令：pip freeze &gt;requirements.txt</p>
-<p>注意：导出的路径为绝对路径</p>
-<p>新建一个requirements.txt，内容如下：</p>
-<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">six</span><br><span class="line">tqdm</span><br><span class="line">torchtext&gt;=<span class="number">0.2</span><span class="number">.1</span></span><br><span class="line">future</span><br><span class="line"><span class="number">1234</span></span><br></pre></td></tr></table></figure>
-
-<p>然后运行命令：</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip <span class="keyword">install</span> -r requirements.txt</span><br></pre></td></tr></table></figure>
-
-
-        
-      
-    </div>
-  <div>
-  
-</div>
-
-    
-    
-    
-      <footer class="post-footer">
-        
-        
-          <div class="post-eof"></div>
-        
-      </footer>
-    
-  </article>
-  
-  
-  
-
-    
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://cy-blogs.cn/2016/03/25/vscode自定义代码提示/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="哼着自己旳小调调">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/author.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="哼着自己旳小调调">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-            
-            <a href="/2016/03/25/vscode自定义代码提示/" class="post-title-link" itemprop="url">用户自定义代码提示</a>
-          
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              
-                
-              
-
-              <time title="创建时间：2016-03-25 15:20:40" itemprop="dateCreated datePublished" datetime="2016-03-25T15:20:40+08:00">2016-03-25</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-10-13 15:51:07" itemprop="dateModified" datetime="2019-10-13T15:51:07+08:00">2019-10-13</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Django/" itemprop="url" rel="index"><span itemprop="name">Django</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">本文字数：</span>
-                
-                <!-- <span title="本文字数">1.4k</span> -->
-			        <span title="本文字数">
-                  99字
-                </span>
-              
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-        
-          <h3 id="用户自定义代码提示"><a href="#用户自定义代码提示" class="headerlink" title="用户自定义代码提示"></a>用户自定义代码提示</h3><ol>
-<li><h6 id="左下角–-gt-管理-–-gt-用户代码片段-–-gt-选择提示类型"><a href="#左下角–-gt-管理-–-gt-用户代码片段-–-gt-选择提示类型" class="headerlink" title="左下角–&gt; 管理 –&gt;用户代码片段 –&gt; 选择提示类型"></a>左下角–&gt; 管理 –&gt;用户代码片段 –&gt; 选择提示类型</h6></li>
+          <blockquote>
+<ol>
+<li>导包 hashlib</li>
 </ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">	<span class="string">"Print to console"</span>: &#123;  // 自定义命名，不可重复</span><br><span class="line">		<span class="string">"prefix"</span>: <span class="string">"ab"</span>,  // 代码提示前缀</span><br><span class="line">		<span class="string">"body"</span>: [  </span><br><span class="line">			<span class="string">"abstract$1"</span>,   // 代码提示主要内容(逗号隔开，内容用双引号包起来)[$<span class="number">1</span>为光标停留位置]</span><br><span class="line">		],</span><br><span class="line">		<span class="string">"description"</span>: <span class="string">"Name the class as the base class"</span>   // 代码片段描述</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
+</blockquote><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line"><span class="comment"># 定义变量接收md5</span></span><br><span class="line">md5_ = hashlib.md5()</span><br><span class="line"><span class="comment"># 对变量 password 进行加密</span></span><br><span class="line">md5_.update(password.encode())</span><br><span class="line"><span class="comment"># 定义变量接收返回值</span></span><br><span class="line">pwd = md5_.hexdigest()</span><br></pre></td></tr></table></figure><h1 id="python3中digest-和hexdigest-区别"><a href="#python3中digest-和hexdigest-区别" class="headerlink" title="python3中digest()和hexdigest()区别"></a><a href="https://www.cnblogs.com/yrxns/p/7727471.html" target="_blank" rel="noopener">python3中digest()和hexdigest()区别</a></h1>
+          <!--noindex-->
+          
+            <div class="post-button">
+              <a class="btn" href="/2016/03/25/md5加密/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -637,7 +517,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://cy-blogs.cn/2016/03/25/序列化器/">
+    <link itemprop="mainEntityOfPage" href="https://cy-blogs.cn/2016/03/25/django分页（模板）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="哼着自己旳小调调">
@@ -651,7 +531,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
             
-            <a href="/2016/03/25/序列化器/" class="post-title-link" itemprop="url">序列化器</a>
+            <a href="/2016/03/25/django分页（模板）/" class="post-title-link" itemprop="url">django分页（模板）</a>
           
         </h1>
 
@@ -677,7 +557,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-10-13 15:45:16" itemprop="dateModified" datetime="2019-10-13T15:45:16+08:00">2019-10-13</time>
+                <time title="修改时间：2019-10-13 15:49:25" itemprop="dateModified" datetime="2019-10-13T15:49:25+08:00">2019-10-13</time>
               </span>
             
           
@@ -708,9 +588,9 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <!-- <span title="本文字数">7k</span> -->
+                <!-- <span title="本文字数">3.8k</span> -->
 			        <span title="本文字数">
-                  250字
+                  161字
                 </span>
               
 
@@ -729,17 +609,9 @@
 
       
         
-          <h3 id="1-建一个-serializer-py-文件"><a href="#1-建一个-serializer-py-文件" class="headerlink" title="1. 建一个 serializer.py 文件"></a>1. 建一个 serializer.py 文件</h3><h3 id="2-在-settings-py-中注册-rest-framework"><a href="#2-在-settings-py-中注册-rest-framework" class="headerlink" title="2. 在 settings.py 中注册 rest_framework"></a>2. 在 settings.py 中注册 rest_framework</h3><blockquote>
-<h5 id="第一步，在-settings-py-中进行"><a href="#第一步，在-settings-py-中进行" class="headerlink" title="第一步，在 settings.py 中进行"></a>第一步，在 settings.py 中进行</h5></blockquote><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">INSTALLED_APPS = [</span><br><span class="line">    <span class="string">'django.contrib.admin'</span>,</span><br><span class="line">    <span class="string">'django.contrib.auth'</span>,</span><br><span class="line">    <span class="string">'django.contrib.contenttypes'</span>,</span><br><span class="line">    <span class="string">'django.contrib.sessions'</span>,</span><br><span class="line">    <span class="string">'django.contrib.messages'</span>,</span><br><span class="line">    <span class="string">'django.contrib.staticfiles'</span>,</span><br><span class="line">    <span class="comment"># 第三方库</span></span><br><span class="line">    <span class="string">'rest_framework'</span>,</span><br><span class="line">    <span class="string">'corsheaders'</span>,</span><br><span class="line">    <span class="comment"># 自建 app</span></span><br><span class="line">    <span class="string">'myapp'</span>,</span><br><span class="line">    <span class="string">'goods'</span>,</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          
-            <div class="post-button">
-              <a class="btn" href="/2016/03/25/序列化器/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
+          <h2 id="django分页（模板）"><a href="#django分页（模板）" class="headerlink" title="django分页（模板）"></a>django分页（模板）</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 导入django的分页包</span></span><br><span class="line"><span class="keyword">from</span> django.core.paginator <span class="keyword">import</span> Paginator</span><br><span class="line"></span><br><span class="line"><span class="comment"># 首页 分页展示所有</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Index</span><span class="params">(View)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get</span><span class="params">(self,request)</span>:</span></span><br><span class="line">        <span class="comment"># 获取到所有数据</span></span><br><span class="line">        booklist = models.Books.objects.all()</span><br><span class="line">        <span class="comment"># 实例化分页器，参数：等待分页的数据集(booklist)，每页显示的数据条数(2)</span></span><br><span class="line">        paginator = Paginator(booklist,<span class="number">2</span>)</span><br><span class="line">        <span class="comment">#获取分页结果,默认为1</span></span><br><span class="line">        p = request.GET.get(<span class="string">'p'</span>, <span class="number">1</span>) <span class="comment"># 页码</span></span><br><span class="line">        <span class="comment"># 获取 当页（p）数据</span></span><br><span class="line">        books = paginator.page(p)</span><br><span class="line">        <span class="comment">#总页数</span></span><br><span class="line">        totalpage = paginator.num_pages</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> render(request,<span class="string">'index.html'</span>,locals())</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line"><span class="comment"># 模板中的写法 		</span></span><br><span class="line">&lt;script&gt;</span><br><span class="line">    $(<span class="string">'#pagination'</span>).pagination(&#123;</span><br><span class="line">    //当前页</span><br><span class="line">    currentPage:&#123;&#123; p &#125;&#125;,</span><br><span class="line">    //总页数</span><br><span class="line">    totalPage: &#123;&#123; totalpage &#125;&#125;,</span><br><span class="line">    callback:function (p) &#123;</span><br><span class="line">        window.location.href=<span class="string">'?p='</span> + p</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+
         
       
     </div>
@@ -998,6 +870,136 @@
           
             <div class="post-button">
               <a class="btn" href="/2016/03/25/笔记/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+  <div>
+  
+</div>
+
+    
+    
+    
+      <footer class="post-footer">
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+    
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://cy-blogs.cn/2016/03/25/序列化器/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="哼着自己旳小调调">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/author.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="哼着自己旳小调调">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2016/03/25/序列化器/" class="post-title-link" itemprop="url">序列化器</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2016-03-25 15:20:40" itemprop="dateCreated datePublished" datetime="2016-03-25T15:20:40+08:00">2016-03-25</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-10-13 15:45:16" itemprop="dateModified" datetime="2019-10-13T15:45:16+08:00">2019-10-13</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Django/" itemprop="url" rel="index"><span itemprop="name">Django</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <!-- <span title="本文字数">7k</span> -->
+			        <span title="本文字数">
+                  250字
+                </span>
+              
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        
+          <h3 id="1-建一个-serializer-py-文件"><a href="#1-建一个-serializer-py-文件" class="headerlink" title="1. 建一个 serializer.py 文件"></a>1. 建一个 serializer.py 文件</h3><h3 id="2-在-settings-py-中注册-rest-framework"><a href="#2-在-settings-py-中注册-rest-framework" class="headerlink" title="2. 在 settings.py 中注册 rest_framework"></a>2. 在 settings.py 中注册 rest_framework</h3><blockquote>
+<h5 id="第一步，在-settings-py-中进行"><a href="#第一步，在-settings-py-中进行" class="headerlink" title="第一步，在 settings.py 中进行"></a>第一步，在 settings.py 中进行</h5></blockquote><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">INSTALLED_APPS = [</span><br><span class="line">    <span class="string">'django.contrib.admin'</span>,</span><br><span class="line">    <span class="string">'django.contrib.auth'</span>,</span><br><span class="line">    <span class="string">'django.contrib.contenttypes'</span>,</span><br><span class="line">    <span class="string">'django.contrib.sessions'</span>,</span><br><span class="line">    <span class="string">'django.contrib.messages'</span>,</span><br><span class="line">    <span class="string">'django.contrib.staticfiles'</span>,</span><br><span class="line">    <span class="comment"># 第三方库</span></span><br><span class="line">    <span class="string">'rest_framework'</span>,</span><br><span class="line">    <span class="string">'corsheaders'</span>,</span><br><span class="line">    <span class="comment"># 自建 app</span></span><br><span class="line">    <span class="string">'myapp'</span>,</span><br><span class="line">    <span class="string">'goods'</span>,</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          
+            <div class="post-button">
+              <a class="btn" href="/2016/03/25/序列化器/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>

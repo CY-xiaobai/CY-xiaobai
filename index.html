@@ -386,7 +386,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://cy-blogs.cn/2016/03/25/Django 中 session 和 cookie 的存、取、删除/">
+    <link itemprop="mainEntityOfPage" href="https://cy-blogs.cn/2016/03/25/Django 中类的继承/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="哼着自己旳小调调">
@@ -400,7 +400,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
             
-            <a href="/2016/03/25/Django 中 session 和 cookie 的存、取、删除/" class="post-title-link" itemprop="url">Django 中 session 和 cookie 的存、取、删除</a>
+            <a href="/2016/03/25/Django 中类的继承/" class="post-title-link" itemprop="url">Django 中类的继承</a>
           
         </h1>
 
@@ -426,7 +426,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-10-13 15:47:39" itemprop="dateModified" datetime="2019-10-13T15:47:39+08:00">2019-10-13</time>
+                <time title="修改时间：2019-10-13 15:48:43" itemprop="dateModified" datetime="2019-10-13T15:48:43+08:00">2019-10-13</time>
               </span>
             
           
@@ -457,9 +457,9 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <!-- <span title="本文字数">4k</span> -->
+                <!-- <span title="本文字数">2.7k</span> -->
 			        <span title="本文字数">
-                  300字
+                  164字
                 </span>
               
 
@@ -478,16 +478,11 @@
 
       
         
-          <h2 id="Django-中-session-和-cookie-的存、取、删除"><a href="#Django-中-session-和-cookie-的存、取、删除" class="headerlink" title="Django 中 session 和 cookie 的存、取、删除"></a>Django 中 session 和 cookie 的存、取、删除</h2><h4 id="cookie的存："><a href="#cookie的存：" class="headerlink" title="cookie的存："></a><em>cookie的存：</em></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">response = HttpResponse(<span class="string">'登陆成功'</span>)     <span class="comment">#改成重定向等都可以</span></span><br><span class="line">response.set_cookie(<span class="string">'username'</span>,username)</span><br><span class="line"><span class="comment">#response.set_signed_cookie('username',username,salt='asdasd')    #带签名的cookie(加盐)response.set_cookie('password',password) return response</span></span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          
-            <div class="post-button">
-              <a class="btn" href="/2016/03/25/Django 中 session 和 cookie 的存、取、删除/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
+          <h1 id="Django-中类的继承"><a href="#Django-中类的继承" class="headerlink" title="Django 中类的继承"></a>Django 中类的继承</h1><blockquote>
+<h3 id="Django-中对于创建时间和更新时间的继承"><a href="#Django-中对于创建时间和更新时间的继承" class="headerlink" title="Django 中对于创建时间和更新时间的继承"></a>Django 中对于创建时间和更新时间的继承</h3></blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 可被继承类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Base</span><span class="params">(models.Model)</span>:</span></span><br><span class="line">    <span class="comment"># 设定创建时间，以后修改对象时，字段的值不会再更新</span></span><br><span class="line">    create_time = models.DateTimeField(auto_now_add=<span class="literal">True</span>)</span><br><span class="line">    <span class="comment"># 设定更新时间 ，将其值设置为当前时间，并且每次修改model，都会自动更新</span></span><br><span class="line">    update_time = models.DateTimeField(auto_now=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 如果将一个类设置为abstract,则此类必须被继承使用。 此类不可生成对象</span></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Meta</span>:</span></span><br><span class="line">        abstract = <span class="literal">True</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 管理员表</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Admins</span><span class="params">(Base, models.Model)</span>:</span></span><br><span class="line">    username = models.CharField(max_length=<span class="number">30</span>)</span><br><span class="line">    password = models.CharField(max_length=<span class="number">30</span>)</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Meta</span>:</span></span><br><span class="line">        db_table = <span class="string">'admins'</span>  <span class="comment"># 定义一个表名，避免数据库中表名过长</span></span><br></pre></td></tr></table></figure>
+
+
         
       
     </div>
@@ -644,130 +639,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://cy-blogs.cn/2016/03/25/Django 中类的继承/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="哼着自己旳小调调">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/author.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="哼着自己旳小调调">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-            
-            <a href="/2016/03/25/Django 中类的继承/" class="post-title-link" itemprop="url">Django 中类的继承</a>
-          
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              
-                
-              
-
-              <time title="创建时间：2016-03-25 15:20:40" itemprop="dateCreated datePublished" datetime="2016-03-25T15:20:40+08:00">2016-03-25</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-10-13 15:48:43" itemprop="dateModified" datetime="2019-10-13T15:48:43+08:00">2019-10-13</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Django/" itemprop="url" rel="index"><span itemprop="name">Django</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">本文字数：</span>
-                
-                <!-- <span title="本文字数">2.7k</span> -->
-			        <span title="本文字数">
-                  164字
-                </span>
-              
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-        
-          <h1 id="Django-中类的继承"><a href="#Django-中类的继承" class="headerlink" title="Django 中类的继承"></a>Django 中类的继承</h1><blockquote>
-<h3 id="Django-中对于创建时间和更新时间的继承"><a href="#Django-中对于创建时间和更新时间的继承" class="headerlink" title="Django 中对于创建时间和更新时间的继承"></a>Django 中对于创建时间和更新时间的继承</h3></blockquote>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 可被继承类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Base</span><span class="params">(models.Model)</span>:</span></span><br><span class="line">    <span class="comment"># 设定创建时间，以后修改对象时，字段的值不会再更新</span></span><br><span class="line">    create_time = models.DateTimeField(auto_now_add=<span class="literal">True</span>)</span><br><span class="line">    <span class="comment"># 设定更新时间 ，将其值设置为当前时间，并且每次修改model，都会自动更新</span></span><br><span class="line">    update_time = models.DateTimeField(auto_now=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 如果将一个类设置为abstract,则此类必须被继承使用。 此类不可生成对象</span></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Meta</span>:</span></span><br><span class="line">        abstract = <span class="literal">True</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 管理员表</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Admins</span><span class="params">(Base, models.Model)</span>:</span></span><br><span class="line">    username = models.CharField(max_length=<span class="number">30</span>)</span><br><span class="line">    password = models.CharField(max_length=<span class="number">30</span>)</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Meta</span>:</span></span><br><span class="line">        db_table = <span class="string">'admins'</span>  <span class="comment"># 定义一个表名，避免数据库中表名过长</span></span><br></pre></td></tr></table></figure>
-
-
-        
-      
-    </div>
-  <div>
-  
-</div>
-
-    
-    
-    
-      <footer class="post-footer">
-        
-        
-          <div class="post-eof"></div>
-        
-      </footer>
-    
-  </article>
-  
-  
-  
-
-    
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://cy-blogs.cn/2016/03/25/admin中注册自建表/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -863,6 +734,265 @@
           <h3 id="在-admin-中-注册-自建表"><a href="#在-admin-中-注册-自建表" class="headerlink" title="在 admin 中 注册 自建表"></a>在 admin 中 注册 自建表</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.contrib <span class="keyword">import</span> admin</span><br><span class="line"><span class="keyword">from</span> .models <span class="keyword">import</span> *  <span class="comment"># 从 models 中导入所有的表</span></span><br><span class="line"><span class="comment"># Register your models here.</span></span><br><span class="line"></span><br><span class="line">model_lsit = [User,Goods]  <span class="comment"># 将需要的表名放入列表</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> model <span class="keyword">in</span> model_lsit:  <span class="comment"># 循环遍历所有表名</span></span><br><span class="line">    admin.site.register(model)  <span class="comment"># 依次注册</span></span><br></pre></td></tr></table></figure>
 
 
+        
+      
+    </div>
+  <div>
+  
+</div>
+
+    
+    
+    
+      <footer class="post-footer">
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+    
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://cy-blogs.cn/2016/03/25/django的增删改查/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="哼着自己旳小调调">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/author.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="哼着自己旳小调调">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2016/03/25/django的增删改查/" class="post-title-link" itemprop="url">样式列表</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2016-03-25 15:20:40" itemprop="dateCreated datePublished" datetime="2016-03-25T15:20:40+08:00">2016-03-25</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-10-13 15:49:10" itemprop="dateModified" datetime="2019-10-13T15:49:10+08:00">2019-10-13</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Django/" itemprop="url" rel="index"><span itemprop="name">Django</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <!-- <span title="本文字数">11k</span> -->
+			        <span title="本文字数">
+                  488字
+                </span>
+              
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        
+          <blockquote>
+<h4 id="样式列表"><a href="#样式列表" class="headerlink" title="样式列表"></a>样式列表</h4></blockquote><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span><span class="params">(models.Model)</span>:</span></span><br><span class="line">    name = models.CharField(max_length=<span class="number">30</span>)</span><br><span class="line">    password = models.CharField(max_length=<span class="number">255</span>)</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Meta</span>:</span></span><br><span class="line">        db_table = <span class="string">'user'</span></span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          
+            <div class="post-button">
+              <a class="btn" href="/2016/03/25/django的增删改查/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+  <div>
+  
+</div>
+
+    
+    
+    
+      <footer class="post-footer">
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+    
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://cy-blogs.cn/2016/03/25/Django 中 session 和 cookie 的存、取、删除/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="哼着自己旳小调调">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/author.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="哼着自己旳小调调">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2016/03/25/Django 中 session 和 cookie 的存、取、删除/" class="post-title-link" itemprop="url">Django 中 session 和 cookie 的存、取、删除</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2016-03-25 15:20:40" itemprop="dateCreated datePublished" datetime="2016-03-25T15:20:40+08:00">2016-03-25</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-10-13 15:47:39" itemprop="dateModified" datetime="2019-10-13T15:47:39+08:00">2019-10-13</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Django/" itemprop="url" rel="index"><span itemprop="name">Django</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <!-- <span title="本文字数">4k</span> -->
+			        <span title="本文字数">
+                  300字
+                </span>
+              
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        
+          <h2 id="Django-中-session-和-cookie-的存、取、删除"><a href="#Django-中-session-和-cookie-的存、取、删除" class="headerlink" title="Django 中 session 和 cookie 的存、取、删除"></a>Django 中 session 和 cookie 的存、取、删除</h2><h4 id="cookie的存："><a href="#cookie的存：" class="headerlink" title="cookie的存："></a><em>cookie的存：</em></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">response = HttpResponse(<span class="string">'登陆成功'</span>)     <span class="comment">#改成重定向等都可以</span></span><br><span class="line">response.set_cookie(<span class="string">'username'</span>,username)</span><br><span class="line"><span class="comment">#response.set_signed_cookie('username',username,salt='asdasd')    #带签名的cookie(加盐)response.set_cookie('password',password) return response</span></span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          
+            <div class="post-button">
+              <a class="btn" href="/2016/03/25/Django 中 session 和 cookie 的存、取、删除/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -1147,261 +1277,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://cy-blogs.cn/2016/03/25/django的增删改查/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="哼着自己旳小调调">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/author.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="哼着自己旳小调调">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-            
-            <a href="/2016/03/25/django的增删改查/" class="post-title-link" itemprop="url">样式列表</a>
-          
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              
-                
-              
-
-              <time title="创建时间：2016-03-25 15:20:40" itemprop="dateCreated datePublished" datetime="2016-03-25T15:20:40+08:00">2016-03-25</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-10-13 15:49:10" itemprop="dateModified" datetime="2019-10-13T15:49:10+08:00">2019-10-13</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Django/" itemprop="url" rel="index"><span itemprop="name">Django</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">本文字数：</span>
-                
-                <!-- <span title="本文字数">11k</span> -->
-			        <span title="本文字数">
-                  488字
-                </span>
-              
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-        
-          <blockquote>
-<h4 id="样式列表"><a href="#样式列表" class="headerlink" title="样式列表"></a>样式列表</h4></blockquote><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span><span class="params">(models.Model)</span>:</span></span><br><span class="line">    name = models.CharField(max_length=<span class="number">30</span>)</span><br><span class="line">    password = models.CharField(max_length=<span class="number">255</span>)</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Meta</span>:</span></span><br><span class="line">        db_table = <span class="string">'user'</span></span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          
-            <div class="post-button">
-              <a class="btn" href="/2016/03/25/django的增删改查/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-  <div>
-  
-</div>
-
-    
-    
-    
-      <footer class="post-footer">
-        
-        
-          <div class="post-eof"></div>
-        
-      </footer>
-    
-  </article>
-  
-  
-  
-
-    
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://cy-blogs.cn/2016/03/25/vscode自定义代码提示/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="哼着自己旳小调调">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/author.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="哼着自己旳小调调">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-            
-            <a href="/2016/03/25/vscode自定义代码提示/" class="post-title-link" itemprop="url">用户自定义代码提示</a>
-          
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              
-                
-              
-
-              <time title="创建时间：2016-03-25 15:20:40" itemprop="dateCreated datePublished" datetime="2016-03-25T15:20:40+08:00">2016-03-25</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-10-13 15:51:07" itemprop="dateModified" datetime="2019-10-13T15:51:07+08:00">2019-10-13</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Django/" itemprop="url" rel="index"><span itemprop="name">Django</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">本文字数：</span>
-                
-                <!-- <span title="本文字数">1.4k</span> -->
-			        <span title="本文字数">
-                  99字
-                </span>
-              
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-        
-          <h3 id="用户自定义代码提示"><a href="#用户自定义代码提示" class="headerlink" title="用户自定义代码提示"></a>用户自定义代码提示</h3><ol>
-<li><h6 id="左下角–-gt-管理-–-gt-用户代码片段-–-gt-选择提示类型"><a href="#左下角–-gt-管理-–-gt-用户代码片段-–-gt-选择提示类型" class="headerlink" title="左下角–&gt; 管理 –&gt;用户代码片段 –&gt; 选择提示类型"></a>左下角–&gt; 管理 –&gt;用户代码片段 –&gt; 选择提示类型</h6></li>
-</ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">	<span class="string">"Print to console"</span>: &#123;  // 自定义命名，不可重复</span><br><span class="line">		<span class="string">"prefix"</span>: <span class="string">"ab"</span>,  // 代码提示前缀</span><br><span class="line">		<span class="string">"body"</span>: [  </span><br><span class="line">			<span class="string">"abstract$1"</span>,   // 代码提示主要内容(逗号隔开，内容用双引号包起来)[$<span class="number">1</span>为光标停留位置]</span><br><span class="line">		],</span><br><span class="line">		<span class="string">"description"</span>: <span class="string">"Name the class as the base class"</span>   // 代码片段描述</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-        
-      
-    </div>
-  <div>
-  
-</div>
-
-    
-    
-    
-      <footer class="post-footer">
-        
-        
-          <div class="post-eof"></div>
-        
-      </footer>
-    
-  </article>
-  
-  
-  
-
-    
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://cy-blogs.cn/2016/03/25/hello-world/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1442,7 +1317,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-10-13 16:12:42" itemprop="dateModified" datetime="2019-10-13T16:12:42+08:00">2019-10-13</time>
+                <time title="修改时间：2019-10-13 16:13:28" itemprop="dateModified" datetime="2019-10-13T16:13:28+08:00">2019-10-13</time>
               </span>
             
           
@@ -1496,6 +1371,139 @@
         
           <p>这个美好的世界，今天不努力以后拿什么去享受美好的世界呢。</p>
 
+        
+      
+    </div>
+  <div>
+  
+</div>
+
+    
+    
+    
+      <footer class="post-footer">
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+    
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://cy-blogs.cn/2016/03/25/md5加密/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="哼着自己旳小调调">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/author.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="哼着自己旳小调调">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2016/03/25/md5加密/" class="post-title-link" itemprop="url">md5加密</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2016-03-25 15:20:40" itemprop="dateCreated datePublished" datetime="2016-03-25T15:20:40+08:00">2016-03-25</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-10-13 15:50:09" itemprop="dateModified" datetime="2019-10-13T15:50:09+08:00">2019-10-13</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Django/" itemprop="url" rel="index"><span itemprop="name">Django</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <!-- <span title="本文字数">2.6k</span> -->
+			        <span title="本文字数">
+                  188字
+                </span>
+              
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        
+          <blockquote>
+<ol>
+<li>导包 hashlib</li>
+</ol>
+</blockquote><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line"><span class="comment"># 定义变量接收md5</span></span><br><span class="line">md5_ = hashlib.md5()</span><br><span class="line"><span class="comment"># 对变量 password 进行加密</span></span><br><span class="line">md5_.update(password.encode())</span><br><span class="line"><span class="comment"># 定义变量接收返回值</span></span><br><span class="line">pwd = md5_.hexdigest()</span><br></pre></td></tr></table></figure><h1 id="python3中digest-和hexdigest-区别"><a href="#python3中digest-和hexdigest-区别" class="headerlink" title="python3中digest()和hexdigest()区别"></a><a href="https://www.cnblogs.com/yrxns/p/7727471.html" target="_blank" rel="noopener">python3中digest()和hexdigest()区别</a></h1>
+          <!--noindex-->
+          
+            <div class="post-button">
+              <a class="btn" href="/2016/03/25/md5加密/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>

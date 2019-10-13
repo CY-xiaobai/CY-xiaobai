@@ -356,7 +356,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="Django-中-session-和-cookie-的存、取、删除"><a href="#Django-中-session-和-cookie-的存、取、删除" class="headerlink" title="Django 中 session 和 cookie 的存、取、删除"></a>Django 中 session 和 cookie 的存、取、删除</h2><h4 id="cookie的存："><a href="#cookie的存：" class="headerlink" title="cookie的存："></a><em>cookie的存：</em></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">response = HttpResponse(<span class="string">'登陆成功'</span>)     <span class="comment">#改成重定向等都可以</span></span><br><span class="line">response.set_cookie(<span class="string">'username'</span>,username)</span><br><span class="line"><span class="comment">#response.set_signed_cookie('username',username,salt='asdasd')    #带签名的cookie(加盐)response.set_cookie('password',password) return response</span></span><br></pre></td></tr></table></figure>
+        <h2 id="Django-中-session-和-cookie-的存、取、删除"><a href="#Django-中-session-和-cookie-的存、取、删除" class="headerlink" title="Django 中 session 和 cookie 的存、取、删除"></a>Django 中 session 和 cookie 的存、取、删除</h2><h4 id="cookie的存："><a href="#cookie的存：" class="headerlink" title="cookie的存："></a><em>cookie的存：</em></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">response = HttpResponse(<span class="string">'登陆成功'</span>)     <span class="comment">#改成重定向等都可以</span></span><br><span class="line">response.set_cookie(<span class="string">'username'</span>,username)</span><br><span class="line"><span class="comment">#response.set_signed_cookie('username',username,salt='asdasd')    #带签名的cookie(加盐)response.set_cookie('password',password) return response</span></span><br></pre></td></tr></table></figure><a id="more"></a>
 
 <p>cookie的取：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">username = request.COOKIES.get(<span class="string">'username'</span>)</span><br><span class="line"><span class="comment">#username=request.get_signed_cookie('username',salt='asdasd')     #获取带签名的cookie（盐要相同，不然拿不到）password = request.COOKIES.get('password')</span></span><br></pre></td></tr></table></figure>
@@ -528,7 +528,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-count">16</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

@@ -56,17 +56,17 @@
   };
 </script>
 
-  <meta name="description" content="1. 建一个 serializer.py 文件2. 在 settings.py 中注册 rest_framework 第一步，在 settings.py 中进行 1234567891011121314INSTALLED_APPS = [    &apos;django.contrib.admin&apos;,    &apos;django.contrib.auth&apos;,    &apos;django.contrib.contentty">
+  <meta name="description" content="1. 建一个 serializer.py 文件2. 在 settings.py 中注册 rest_framework 第一步，在 settings.py 中进行1234567891011121314INSTALLED_APPS = [    &apos;django.contrib.admin&apos;,    &apos;django.contrib.auth&apos;,    &apos;django.contrib.contenttyp">
 <meta property="og:type" content="article">
 <meta property="og:title" content="序列化器">
 <meta property="og:url" content="https://cy-blogs.cn/2016/03/25/序列化器/index.html">
 <meta property="og:site_name" content="哼着自己旳小调调">
-<meta property="og:description" content="1. 建一个 serializer.py 文件2. 在 settings.py 中注册 rest_framework 第一步，在 settings.py 中进行 1234567891011121314INSTALLED_APPS = [    &apos;django.contrib.admin&apos;,    &apos;django.contrib.auth&apos;,    &apos;django.contrib.contentty">
+<meta property="og:description" content="1. 建一个 serializer.py 文件2. 在 settings.py 中注册 rest_framework 第一步，在 settings.py 中进行1234567891011121314INSTALLED_APPS = [    &apos;django.contrib.admin&apos;,    &apos;django.contrib.auth&apos;,    &apos;django.contrib.contenttyp">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2019-10-13T07:45:16.116Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="序列化器">
-<meta name="twitter:description" content="1. 建一个 serializer.py 文件2. 在 settings.py 中注册 rest_framework 第一步，在 settings.py 中进行 1234567891011121314INSTALLED_APPS = [    &apos;django.contrib.admin&apos;,    &apos;django.contrib.auth&apos;,    &apos;django.contrib.contentty">
+<meta name="twitter:description" content="1. 建一个 serializer.py 文件2. 在 settings.py 中注册 rest_framework 第一步，在 settings.py 中进行1234567891011121314INSTALLED_APPS = [    &apos;django.contrib.admin&apos;,    &apos;django.contrib.auth&apos;,    &apos;django.contrib.contenttyp">
   <link rel="canonical" href="https://cy-blogs.cn/2016/03/25/序列化器/">
 
 
@@ -336,7 +336,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <!-- <span title="本文字数">6.9k</span> -->
+                <!-- <span title="本文字数">7k</span> -->
 			        <span title="本文字数">
                   250字
                 </span>
@@ -357,8 +357,8 @@
 
       
         <h3 id="1-建一个-serializer-py-文件"><a href="#1-建一个-serializer-py-文件" class="headerlink" title="1. 建一个 serializer.py 文件"></a>1. 建一个 serializer.py 文件</h3><h3 id="2-在-settings-py-中注册-rest-framework"><a href="#2-在-settings-py-中注册-rest-framework" class="headerlink" title="2. 在 settings.py 中注册 rest_framework"></a>2. 在 settings.py 中注册 rest_framework</h3><blockquote>
-<h5 id="第一步，在-settings-py-中进行"><a href="#第一步，在-settings-py-中进行" class="headerlink" title="第一步，在 settings.py 中进行"></a>第一步，在 settings.py 中进行</h5></blockquote>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">INSTALLED_APPS = [</span><br><span class="line">    <span class="string">'django.contrib.admin'</span>,</span><br><span class="line">    <span class="string">'django.contrib.auth'</span>,</span><br><span class="line">    <span class="string">'django.contrib.contenttypes'</span>,</span><br><span class="line">    <span class="string">'django.contrib.sessions'</span>,</span><br><span class="line">    <span class="string">'django.contrib.messages'</span>,</span><br><span class="line">    <span class="string">'django.contrib.staticfiles'</span>,</span><br><span class="line">    <span class="comment"># 第三方库</span></span><br><span class="line">    <span class="string">'rest_framework'</span>,</span><br><span class="line">    <span class="string">'corsheaders'</span>,</span><br><span class="line">    <span class="comment"># 自建 app</span></span><br><span class="line">    <span class="string">'myapp'</span>,</span><br><span class="line">    <span class="string">'goods'</span>,</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<h5 id="第一步，在-settings-py-中进行"><a href="#第一步，在-settings-py-中进行" class="headerlink" title="第一步，在 settings.py 中进行"></a>第一步，在 settings.py 中进行</h5></blockquote><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">INSTALLED_APPS = [</span><br><span class="line">    <span class="string">'django.contrib.admin'</span>,</span><br><span class="line">    <span class="string">'django.contrib.auth'</span>,</span><br><span class="line">    <span class="string">'django.contrib.contenttypes'</span>,</span><br><span class="line">    <span class="string">'django.contrib.sessions'</span>,</span><br><span class="line">    <span class="string">'django.contrib.messages'</span>,</span><br><span class="line">    <span class="string">'django.contrib.staticfiles'</span>,</span><br><span class="line">    <span class="comment"># 第三方库</span></span><br><span class="line">    <span class="string">'rest_framework'</span>,</span><br><span class="line">    <span class="string">'corsheaders'</span>,</span><br><span class="line">    <span class="comment"># 自建 app</span></span><br><span class="line">    <span class="string">'myapp'</span>,</span><br><span class="line">    <span class="string">'goods'</span>,</span><br><span class="line">]</span><br></pre></td></tr></table></figure><a id="more"></a>
+
 
 <blockquote>
 <h5 id="第二步，在-serializer-py-中进行"><a href="#第二步，在-serializer-py-中进行" class="headerlink" title="第二步，在 serializer.py 中进行"></a>第二步，在 serializer.py 中进行</h5></blockquote>
@@ -445,8 +445,8 @@
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
               
-                <a href="/2016/03/25/vue分页/" rel="next" title="vue分页">
-                  <i class="fa fa-chevron-left"></i> vue分页
+                <a href="/2016/03/25/python包的批量安装/" rel="next" title="python包的批量安装">
+                  <i class="fa fa-chevron-left"></i> python包的批量安装
                 </a>
               
             </div>
@@ -455,8 +455,8 @@
 
             <div class="post-nav-prev post-nav-item">
               
-                <a href="/2016/03/25/vscode自定义代码提示/" rel="prev" title="用户自定义代码提示">
-                  用户自定义代码提示 <i class="fa fa-chevron-right"></i>
+                <a href="/2016/03/25/md5加密/" rel="prev" title="md5加密">
+                  md5加密 <i class="fa fa-chevron-right"></i>
                 </a>
               
             </div>
@@ -522,7 +522,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-count">16</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

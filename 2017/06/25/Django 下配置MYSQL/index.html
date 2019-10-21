@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.1">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.4.1" color="#222">
+  <link rel="alternate" href="/atom.xml" title="哼着自己旳小调调" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.1">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.4.1',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":null},
+    back2top: {"enable":true,"b2t":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"我们没有找到任何搜索结果: ${query}","hits_stats":"找到约${hits}条结果（用时${time}ms）"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: './public/search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="Django 下配置MYSQL在settings.py中配置123456789101112import pymysql　　　　　　　　　　　# 配置MySQLpymysql.install_as_MySQLdb()DATABASES = &amp;#123;    &apos;default&apos;: &amp;#123;        &apos;ENGINE&apos;: &apos;django.db.backends.mysql&apos;,   # 数据库引">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Django 下配置MYSQL">
+<meta property="og:url" content="https://cy-blogs.cn/2017/06/25/Django 下配置MYSQL/index.html">
+<meta property="og:site_name" content="哼着自己旳小调调">
+<meta property="og:description" content="Django 下配置MYSQL在settings.py中配置123456789101112import pymysql　　　　　　　　　　　# 配置MySQLpymysql.install_as_MySQLdb()DATABASES = &amp;#123;    &apos;default&apos;: &amp;#123;        &apos;ENGINE&apos;: &apos;django.db.backends.mysql&apos;,   # 数据库引">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-06-25T07:20:40.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Django 下配置MYSQL">
+<meta name="twitter:description" content="Django 下配置MYSQL在settings.py中配置123456789101112import pymysql　　　　　　　　　　　# 配置MySQLpymysql.install_as_MySQLdb()DATABASES = &amp;#123;    &apos;default&apos;: &amp;#123;        &apos;ENGINE&apos;: &apos;django.db.backends.mysql&apos;,   # 数据库引">
+  <link rel="canonical" href="https://cy-blogs.cn/2017/06/25/Django 下配置MYSQL/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Django 下配置MYSQL | 哼着自己旳小调调</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">哼着自己旳小调调</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Happy hum their own small tune</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger">
+        
+          <i class="fa fa-search fa-fw"></i>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://cy-blogs.cn/2017/06/25/Django 下配置MYSQL/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="哼着自己旳小调调">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/author.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="哼着自己旳小调调">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Django 下配置MYSQL
+
+          
+        </h1>
+
+        <div class="post-meta">
+         
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2017-06-25 15:20:40" itemprop="dateCreated datePublished" datetime="2017-06-25T15:20:40+08:00">2017-06-25</time>
+            </span>
+          
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <!-- <span title="本文字数">9.3k</span> -->
+			        <span title="本文字数">
+                  758字
+                </span>
+              
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Django-下配置MYSQL"><a href="#Django-下配置MYSQL" class="headerlink" title="Django 下配置MYSQL"></a>Django 下配置MYSQL</h1><h1 id="在settings-py中配置"><a href="#在settings-py中配置" class="headerlink" title="在settings.py中配置"></a>在settings.py中配置</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pymysql　　　　　　　　　　　<span class="comment"># 配置MySQL</span></span><br><span class="line">pymysql.install_as_MySQLdb()</span><br><span class="line">DATABASES = &#123;</span><br><span class="line">    <span class="string">'default'</span>: &#123;</span><br><span class="line">        <span class="string">'ENGINE'</span>: <span class="string">'django.db.backends.mysql'</span>,   <span class="comment"># 数据库引擎</span></span><br><span class="line">        <span class="string">'NAME'</span>: <span class="string">'mydb'</span>,         <span class="comment"># 你要存储数据的库名，事先要创建之</span></span><br><span class="line">        <span class="string">'USER'</span>: <span class="string">'root'</span>,         <span class="comment"># 数据库用户名</span></span><br><span class="line">        <span class="string">'PASSWORD'</span>: <span class="string">''</span>,     <span class="comment"># 密码</span></span><br><span class="line">        <span class="string">'HOST'</span>: <span class="string">'localhost'</span>,    <span class="comment"># 主机</span></span><br><span class="line">        <span class="string">'PORT'</span>: <span class="string">'3306'</span>,         <span class="comment"># 数据库使用的端口</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><a id="more"></a>
+
+<h1 id="数据库结构迁移"><a href="#数据库结构迁移" class="headerlink" title="数据库结构迁移"></a>数据库结构迁移</h1><p>Python3不支持MySQLdb，可用pymysql代替。</p>
+<p>1.首先，在Python虚拟环境下安装pymysql：pip install pymysql。</p>
+<p>2.然后，在项目文件夹下的<em>init</em>.py（实际上也可以添加到settings.py中，如上。）添加如下代码即可。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pymysql</span><br><span class="line">pymysql.install_as_MySQLdb()</span><br></pre></td></tr></table></figure>
+
+<p>3.再者，在Terminal中执行数据库迁移命令：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">python manage.py makemigrations</span><br><span class="line">python manage.py migrate温馨提示：若执行python manage.py makemigrations时提示<span class="string">"No changes detected"</span>，则试试先执行python manage.py makemigrations --empty appname解决问题。</span><br></pre></td></tr></table></figure>
+
+<h1 id="数据迁移"><a href="#数据迁移" class="headerlink" title="数据迁移"></a>数据迁移</h1><h3 id="把SQLite数据导入到MySQL中"><a href="#把SQLite数据导入到MySQL中" class="headerlink" title="把SQLite数据导入到MySQL中"></a>把SQLite数据导入到MySQL中</h3><p>之前我们默认使用的是SQLite数据库，我们开发完成之后，里面有许多数据。如果我们想转换成Mysql数据库，那我们先得把旧数据从SQLite导出，然后再导入到新的Mysql数据库里去。</p>
+<p><strong>1、SQLite导出数据</strong></p>
+<p>导出之前，我们先确保settins.py数据库配置选项那里，还是使用的是SQLite配置，如果已经修改了，请先修改回来：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">DATABASES = &#123;</span><br><span class="line">    <span class="string">'default'</span>: &#123;</span><br><span class="line">        <span class="string">'ENGINE'</span>: <span class="string">'django.db.backends.sqlite3'</span>,</span><br><span class="line">        <span class="string">'NAME'</span>: os.path.join(BASE_DIR, <span class="string">'db.sqlite3'</span>),</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后在CMD命令行里输入：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">python</span> <span class="selector-tag">manage</span><span class="selector-class">.py</span> <span class="selector-tag">dumpdata</span> &gt; <span class="selector-tag">data</span><span class="selector-class">.json</span></span><br></pre></td></tr></table></figure>
+
+<p>这样就将数据导出到Django项目根目录下的data.json文件。</p>
+<p><strong>2、MySQL导入数据</strong><br>同样，先将Django的数据库配置改为MySQL的：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">DATABASES = &#123;</span><br><span class="line">    <span class="string">'default'</span>: &#123;</span><br><span class="line">        <span class="string">'ENGINE'</span>: <span class="string">'django.db.backends.mysql'</span>,</span><br><span class="line">        <span class="string">'NAME'</span>: <span class="string">'你的数据库名'</span>,</span><br><span class="line">        <span class="string">'USER'</span>: <span class="string">'你的MySQL用户名'</span>,</span><br><span class="line">        <span class="string">'PASSWORD'</span>: <span class="string">'你的密码'</span>,</span><br><span class="line">        <span class="string">'HOST'</span>: <span class="string">'localhost'</span>,</span><br><span class="line">        <span class="string">'PORT'</span>: <span class="string">'3306'</span>,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后在CMD命令行里输入：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">python</span> <span class="selector-tag">manage</span><span class="selector-class">.py</span> <span class="selector-tag">loaddata</span> <span class="selector-tag">data</span><span class="selector-class">.json</span></span><br></pre></td></tr></table></figure>
+
+<p>注意：</p>
+<p>确保Mysql用户表里为空的，如果之前有迁移过数据到Mysql，有可能会出错。注意出错的时候所报的错误信息。如果提示有重复主键，那需要先删掉数据。这些数据是在给MySQL数据库应用迁移文件的时候产生的，一般是content_type相关的表。</p>
+<p>进入到MySQL，执行如下的SQL语句：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> 你的数据库名;</span><br><span class="line"><span class="keyword">delete</span> <span class="keyword">from</span> auth_permission;</span><br><span class="line"><span class="keyword">delete</span> <span class="keyword">from</span> django_content_type;</span><br></pre></td></tr></table></figure>
+
+<p>删除数据之后，再执行一次导入命令即可。基本上，导入不了数据都是MySQL存在数据导致的。</p>
+<h3 id="加载时区表"><a href="#加载时区表" class="headerlink" title="加载时区表"></a>加载时区表</h3><p>另外，有可能所安装的MySQL没有加载时区表。这个可能会导致filter对日期的查询有问题。Django官方文档也指出这个问题。MySQL官网也有对应处理方法：<a href="https://dev.mysql.com/doc/refman/8.0/en/mysql-tzinfo-to-sql.html" target="_blank" rel="noopener">加载时区表</a></p>
+<p>Linux/Mac解决方法都很简单。windows系统要先下载一个sql文件：<a href="https://downloads.mysql.com/general/timezone_2018e_posix_sql.zip" target="_blank" rel="noopener">timezone_2018e_posix_sql.zip</a></p>
+<p>下载完成之后，解压得到一个sql文件，再执行cmd命令导入该文件即可：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -<span class="selector-tag">p</span> mysql &lt; timezone_posix.sql</span><br></pre></td></tr></table></figure>
+
+<h3 id="MySQL数据到PostgreSQL"><a href="#MySQL数据到PostgreSQL" class="headerlink" title="MySQL数据到PostgreSQL"></a>MySQL数据到PostgreSQL</h3><p>操作很简单：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">python</span> <span class="selector-tag">manage</span><span class="selector-class">.py</span> <span class="selector-tag">dumpdata</span> &gt; <span class="selector-tag">backup</span><span class="selector-class">.json</span></span><br></pre></td></tr></table></figure>
+
+<p>到PostgreSQL对应的配置中：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">python</span> <span class="selector-tag">manage</span><span class="selector-class">.py</span> <span class="selector-tag">loaddata</span> <span class="selector-tag">backup</span><span class="selector-class">.json</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+  <div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+  
+</div>
+
+    
+    
+    
+      
+
+      
+
+      
+        
+      
+      
+        <div id="reward-container">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/wechatpay.jpg" alt="哼着自己旳小调调 微信支付">
+        <p>微信支付</p>
+      </div>
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/alipay.jpg" alt="哼着自己旳小调调 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+      
+
+      
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>哼着自己旳小调调</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://cy-blogs.cn/2017/06/25/Django 下配置MYSQL/" title="Django 下配置MYSQL">https://cy-blogs.cn/2017/06/25/Django 下配置MYSQL/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+</ul>
+</div>
+
+      
+
+      <footer class="post-footer">
+        
+
+        
+
+
+        
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2017/05/25/admin中注册自建表/" rel="next" title="admin表管理">
+                  <i class="fa fa-chevron-left"></i> admin表管理
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2017/07/25/Django 中 session 和 cookie 的存、取、删除/" rel="prev" title="Django 中 session 和 cookie 的存、取、删除">
+                  Django 中 session 和 cookie 的存、取、删除 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Django-下配置MYSQL"><span class="nav-text">Django 下配置MYSQL</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#在settings-py中配置"><span class="nav-text">在settings.py中配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据库结构迁移"><span class="nav-text">数据库结构迁移</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据迁移"><span class="nav-text">数据迁移</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#把SQLite数据导入到MySQL中"><span class="nav-text">把SQLite数据导入到MySQL中</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#加载时区表"><span class="nav-text">加载时区表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL数据到PostgreSQL"><span class="nav-text">MySQL数据到PostgreSQL</span></a></li></ol></li></ol></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/author.jpg"
+      alt="哼着自己旳小调调">
+  <p class="site-author-name" itemprop="name">哼着自己旳小调调</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/CY-xiaobai/" title="GitHub &rarr; https://github.com/CY-xiaobai/" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="/347947872@qq.com" title="E-Mail &rarr; 347947872@qq.com"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    
+  
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2016 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">哼着自己旳小调调</span>
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    
+    <span title="post.totalcount">
+     5.7k字 </span>
+    <span title="站点总字数">21k</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+  
+    <span class="post-meta-divider">|</span>
+  
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+    
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.4.1"></script><script src="/js/motion.js?v=7.4.1"></script>
+<script src="/js/schemes/pisces.js?v=7.4.1"></script>
+
+<script src="/js/next-boot.js?v=7.4.1"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.4.1"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/clicklove.js"></script>
+</html>
+

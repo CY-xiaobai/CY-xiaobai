@@ -18,8 +18,8 @@
   
   <entry>
     <title>GitHub操作</title>
-    <link href="https://cy-blogs.cn/2019/12/09/Git/"/>
-    <id>https://cy-blogs.cn/2019/12/09/Git/</id>
+    <link href="https://cy-blogs.cn/Git/"/>
+    <id>https://cy-blogs.cn/Git/</id>
     <published>2019-12-09T11:56:21.542Z</published>
     <updated>2019-12-09T11:58:51.734Z</updated>
     
@@ -44,8 +44,8 @@
   
   <entry>
     <title>Vue-Cli</title>
-    <link href="https://cy-blogs.cn/2019/12/09/Vue-Cli/"/>
-    <id>https://cy-blogs.cn/2019/12/09/Vue-Cli/</id>
+    <link href="https://cy-blogs.cn/Vue-Cli/"/>
+    <id>https://cy-blogs.cn/Vue-Cli/</id>
     <published>2019-12-09T11:52:36.348Z</published>
     <updated>2019-12-09T11:54:42.448Z</updated>
     
@@ -74,8 +74,8 @@
   
   <entry>
     <title>Vue</title>
-    <link href="https://cy-blogs.cn/2019/12/09/Vue/"/>
-    <id>https://cy-blogs.cn/2019/12/09/Vue/</id>
+    <link href="https://cy-blogs.cn/Vue/"/>
+    <id>https://cy-blogs.cn/Vue/</id>
     <published>2019-12-09T11:52:36.346Z</published>
     <updated>2019-12-09T11:54:39.026Z</updated>
     
@@ -101,8 +101,8 @@
   
   <entry>
     <title>Vue-路由组件</title>
-    <link href="https://cy-blogs.cn/2019/12/09/Vue-%E8%B7%AF%E7%94%B1%E7%BB%84%E4%BB%B6/"/>
-    <id>https://cy-blogs.cn/2019/12/09/Vue-路由组件/</id>
+    <link href="https://cy-blogs.cn/Vue-%E8%B7%AF%E7%94%B1%E7%BB%84%E4%BB%B6/"/>
+    <id>https://cy-blogs.cn/Vue-路由组件/</id>
     <published>2019-12-09T11:52:36.344Z</published>
     <updated>2019-12-09T11:54:44.642Z</updated>
     
@@ -128,8 +128,8 @@
   
   <entry>
     <title>Django-DBrouter</title>
-    <link href="https://cy-blogs.cn/2019/12/09/Django%E6%95%B0%E6%8D%AE%E5%BA%93%E8%B7%AF%E7%94%B1%E5%99%A8/"/>
-    <id>https://cy-blogs.cn/2019/12/09/Django数据库路由器/</id>
+    <link href="https://cy-blogs.cn/Django%E6%95%B0%E6%8D%AE%E5%BA%93%E8%B7%AF%E7%94%B1%E5%99%A8/"/>
+    <id>https://cy-blogs.cn/Django数据库路由器/</id>
     <published>2019-12-09T11:29:54.640Z</published>
     <updated>2019-12-09T11:29:55.065Z</updated>
     
@@ -155,8 +155,8 @@
   
   <entry>
     <title>Django-DBrouter</title>
-    <link href="https://cy-blogs.cn/2019/12/09/Django-DBrouter/"/>
-    <id>https://cy-blogs.cn/2019/12/09/Django-DBrouter/</id>
+    <link href="https://cy-blogs.cn/Django-DBrouter/"/>
+    <id>https://cy-blogs.cn/Django-DBrouter/</id>
     <published>2019-12-09T09:11:32.684Z</published>
     <updated>2019-12-09T11:26:02.817Z</updated>
     
@@ -184,8 +184,8 @@
   
   <entry>
     <title>WebSSH</title>
-    <link href="https://cy-blogs.cn/2019/12/09/WebSSH/"/>
-    <id>https://cy-blogs.cn/2019/12/09/WebSSH/</id>
+    <link href="https://cy-blogs.cn/WebSSH/"/>
+    <id>https://cy-blogs.cn/WebSSH/</id>
     <published>2019-12-09T09:03:24.475Z</published>
     <updated>2019-12-09T11:26:56.071Z</updated>
     
@@ -211,8 +211,8 @@
   
   <entry>
     <title>Websocket</title>
-    <link href="https://cy-blogs.cn/2019/12/09/Websocket/"/>
-    <id>https://cy-blogs.cn/2019/12/09/Websocket/</id>
+    <link href="https://cy-blogs.cn/Websocket/"/>
+    <id>https://cy-blogs.cn/Websocket/</id>
     <published>2019-12-09T09:00:08.693Z</published>
     <updated>2019-12-09T11:26:53.607Z</updated>
     
@@ -237,8 +237,8 @@
   
   <entry>
     <title>Tinymce富文本编辑器</title>
-    <link href="https://cy-blogs.cn/2019/12/09/Tinymce%E5%AF%8C%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/"/>
-    <id>https://cy-blogs.cn/2019/12/09/Tinymce富文本编辑器/</id>
+    <link href="https://cy-blogs.cn/Tinymce%E5%AF%8C%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/"/>
+    <id>https://cy-blogs.cn/Tinymce富文本编辑器/</id>
     <published>2019-12-09T08:53:20.976Z</published>
     <updated>2019-12-09T11:28:03.240Z</updated>
     
@@ -267,8 +267,8 @@
   
   <entry>
     <title>HayStack全文检索在Django中应用</title>
-    <link href="https://cy-blogs.cn/2019/12/09/HayStack%E5%85%A8%E6%96%87%E6%A3%80%E7%B4%A2%E5%9C%A8Django%E4%B8%AD%E5%BA%94%E7%94%A8/"/>
-    <id>https://cy-blogs.cn/2019/12/09/HayStack全文检索在Django中应用/</id>
+    <link href="https://cy-blogs.cn/HayStack%E5%85%A8%E6%96%87%E6%A3%80%E7%B4%A2%E5%9C%A8Django%E4%B8%AD%E5%BA%94%E7%94%A8/"/>
+    <id>https://cy-blogs.cn/HayStack全文检索在Django中应用/</id>
     <published>2019-12-09T08:41:45.776Z</published>
     <updated>2019-12-09T11:26:38.345Z</updated>
     
@@ -300,8 +300,8 @@
   
   <entry>
     <title>Admin</title>
-    <link href="https://cy-blogs.cn/2019/12/09/Django%E4%B8%AD%E7%9A%84Admin%E7%BB%84%E4%BB%B6/"/>
-    <id>https://cy-blogs.cn/2019/12/09/Django中的Admin组件/</id>
+    <link href="https://cy-blogs.cn/Django%E4%B8%AD%E7%9A%84Admin%E7%BB%84%E4%BB%B6/"/>
+    <id>https://cy-blogs.cn/Django中的Admin组件/</id>
     <published>2019-12-09T08:29:50.000Z</published>
     <updated>2019-12-09T11:26:35.571Z</updated>
     
@@ -329,8 +329,8 @@
   
   <entry>
     <title>Django邮件发送及华丽呼哨的邮件格式</title>
-    <link href="https://cy-blogs.cn/2019/12/09/Django%E9%82%AE%E4%BB%B6%E5%8F%91%E9%80%81%E5%8F%8A%E5%8D%8E%E4%B8%BD%E5%91%BC%E5%93%A8%E7%9A%84%E9%82%AE%E4%BB%B6%E6%A0%BC%E5%BC%8F/"/>
-    <id>https://cy-blogs.cn/2019/12/09/Django邮件发送及华丽呼哨的邮件格式/</id>
+    <link href="https://cy-blogs.cn/Django%E9%82%AE%E4%BB%B6%E5%8F%91%E9%80%81%E5%8F%8A%E5%8D%8E%E4%B8%BD%E5%91%BC%E5%93%A8%E7%9A%84%E9%82%AE%E4%BB%B6%E6%A0%BC%E5%BC%8F/"/>
+    <id>https://cy-blogs.cn/Django邮件发送及华丽呼哨的邮件格式/</id>
     <published>2019-12-09T08:19:22.320Z</published>
     <updated>2019-12-09T11:26:32.354Z</updated>
     
@@ -356,8 +356,8 @@
   
   <entry>
     <title>Django缓存系统</title>
-    <link href="https://cy-blogs.cn/2019/12/09/Django%E7%BC%93%E5%AD%98%E7%B3%BB%E7%BB%9F/"/>
-    <id>https://cy-blogs.cn/2019/12/09/Django缓存系统/</id>
+    <link href="https://cy-blogs.cn/Django%E7%BC%93%E5%AD%98%E7%B3%BB%E7%BB%9F/"/>
+    <id>https://cy-blogs.cn/Django缓存系统/</id>
     <published>2019-12-09T08:16:28.960Z</published>
     <updated>2019-12-09T11:26:29.098Z</updated>
     
@@ -385,8 +385,8 @@
   
   <entry>
     <title>Django的消息框架(message)与Django分页组件(paginator)</title>
-    <link href="https://cy-blogs.cn/2019/12/09/Django%E7%9A%84%E6%B6%88%E6%81%AF%E6%A1%86%E6%9E%B6(message)%E4%B8%8EDjango%E5%88%86%E9%A1%B5%E7%BB%84%E4%BB%B6(paginator)/"/>
-    <id>https://cy-blogs.cn/2019/12/09/Django的消息框架(message)与Django分页组件(paginator)/</id>
+    <link href="https://cy-blogs.cn/Django%E7%9A%84%E6%B6%88%E6%81%AF%E6%A1%86%E6%9E%B6(message)%E4%B8%8EDjango%E5%88%86%E9%A1%B5%E7%BB%84%E4%BB%B6(paginator)/"/>
+    <id>https://cy-blogs.cn/Django的消息框架(message)与Django分页组件(paginator)/</id>
     <published>2019-12-09T08:11:25.363Z</published>
     <updated>2019-12-09T11:26:22.907Z</updated>
     
@@ -412,8 +412,8 @@
   
   <entry>
     <title>Django的CBV类视图</title>
-    <link href="https://cy-blogs.cn/2019/12/09/Django%E7%9A%84CBV%E7%B1%BB%E8%A7%86%E5%9B%BE/"/>
-    <id>https://cy-blogs.cn/2019/12/09/Django的CBV类视图/</id>
+    <link href="https://cy-blogs.cn/Django%E7%9A%84CBV%E7%B1%BB%E8%A7%86%E5%9B%BE/"/>
+    <id>https://cy-blogs.cn/Django的CBV类视图/</id>
     <published>2019-12-09T08:07:02.109Z</published>
     <updated>2019-12-09T11:26:26.250Z</updated>
     
@@ -440,8 +440,8 @@
   
   <entry>
     <title>Django初识</title>
-    <link href="https://cy-blogs.cn/2019/12/09/Django%E5%88%9D%E8%AF%86/"/>
-    <id>https://cy-blogs.cn/2019/12/09/Django初识/</id>
+    <link href="https://cy-blogs.cn/Django%E5%88%9D%E8%AF%86/"/>
+    <id>https://cy-blogs.cn/Django初识/</id>
     <published>2019-12-09T07:48:31.829Z</published>
     <updated>2019-12-09T11:35:21.463Z</updated>
     
@@ -466,8 +466,8 @@
   
   <entry>
     <title>Django-Views-视图层</title>
-    <link href="https://cy-blogs.cn/2019/12/09/Django-Views-%E8%A7%86%E5%9B%BE%E5%B1%82/"/>
-    <id>https://cy-blogs.cn/2019/12/09/Django-Views-视图层/</id>
+    <link href="https://cy-blogs.cn/Django-Views-%E8%A7%86%E5%9B%BE%E5%B1%82/"/>
+    <id>https://cy-blogs.cn/Django-Views-视图层/</id>
     <published>2019-12-09T07:43:24.816Z</published>
     <updated>2019-12-09T11:26:17.262Z</updated>
     
@@ -494,8 +494,8 @@
   
   <entry>
     <title>Django-Urls-路由层</title>
-    <link href="https://cy-blogs.cn/2019/12/09/Django-Urls-%E8%B7%AF%E7%94%B1%E5%B1%82/"/>
-    <id>https://cy-blogs.cn/2019/12/09/Django-Urls-路由层/</id>
+    <link href="https://cy-blogs.cn/Django-Urls-%E8%B7%AF%E7%94%B1%E5%B1%82/"/>
+    <id>https://cy-blogs.cn/Django-Urls-路由层/</id>
     <published>2019-12-09T05:56:43.065Z</published>
     <updated>2019-12-09T11:26:14.411Z</updated>
     
@@ -527,8 +527,8 @@
   
   <entry>
     <title>Django-Models-模型层</title>
-    <link href="https://cy-blogs.cn/2019/12/03/Django-Models-%E6%A8%A1%E5%9E%8B%E5%B1%82/"/>
-    <id>https://cy-blogs.cn/2019/12/03/Django-Models-模型层/</id>
+    <link href="https://cy-blogs.cn/Django-Models-%E6%A8%A1%E5%9E%8B%E5%B1%82/"/>
+    <id>https://cy-blogs.cn/Django-Models-模型层/</id>
     <published>2019-12-03T08:05:23.931Z</published>
     <updated>2019-12-09T11:26:11.153Z</updated>
     
@@ -556,8 +556,8 @@
   
   <entry>
     <title>Cookie和Session</title>
-    <link href="https://cy-blogs.cn/2019/10/26/Cookie%E5%92%8CSession/"/>
-    <id>https://cy-blogs.cn/2019/10/26/Cookie和Session/</id>
+    <link href="https://cy-blogs.cn/Cookie%E5%92%8CSession/"/>
+    <id>https://cy-blogs.cn/Cookie和Session/</id>
     <published>2019-10-26T03:24:15.603Z</published>
     <updated>2019-12-09T11:25:59.925Z</updated>
     

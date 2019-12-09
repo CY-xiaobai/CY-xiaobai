@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.1">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.4.1" color="#222">
+  <link rel="alternate" href="/atom.xml" title="哼着自己旳小调调" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.1">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.4.1',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":null},
+    back2top: {"enable":true,"b2t":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"我们没有找到任何搜索结果: ${query}","hits_stats":"找到约${hits}条结果（用时${time}ms）"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: './public/search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="路由层 路由是Web服务的入口，就好像办事大厅有各个服务窗口一样  Django奉行DRY主义，提倡使用简洁、优雅的URL：  可以不用.html、.php或.cgi之类后缀  尽量不要单独使用无序随机数字这样无意义的东西  让你随心所欲设计你的URL，不受框架束缚 路由urlpatterns urlpatterns是路由文件中的一个全局变量，用来存放路由及视图函数的映射关系 用户发起的请求URL">
+<meta name="keywords" content="Django">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Django-Urls-路由层">
+<meta property="og:url" content="https://cy-blogs.cn/2019/12/09/Django-Urls-路由层/index.html">
+<meta property="og:site_name" content="哼着自己旳小调调">
+<meta property="og:description" content="路由层 路由是Web服务的入口，就好像办事大厅有各个服务窗口一样  Django奉行DRY主义，提倡使用简洁、优雅的URL：  可以不用.html、.php或.cgi之类后缀  尽量不要单独使用无序随机数字这样无意义的东西  让你随心所欲设计你的URL，不受框架束缚 路由urlpatterns urlpatterns是路由文件中的一个全局变量，用来存放路由及视图函数的映射关系 用户发起的请求URL">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-12-09T11:26:14.411Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Django-Urls-路由层">
+<meta name="twitter:description" content="路由层 路由是Web服务的入口，就好像办事大厅有各个服务窗口一样  Django奉行DRY主义，提倡使用简洁、优雅的URL：  可以不用.html、.php或.cgi之类后缀  尽量不要单独使用无序随机数字这样无意义的东西  让你随心所欲设计你的URL，不受框架束缚 路由urlpatterns urlpatterns是路由文件中的一个全局变量，用来存放路由及视图函数的映射关系 用户发起的请求URL">
+  <link rel="canonical" href="https://cy-blogs.cn/2019/12/09/Django-Urls-路由层/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Django-Urls-路由层 | 哼着自己旳小调调</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">哼着自己旳小调调</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Happy hum their own small tune</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger">
+        
+          <i class="fa fa-search fa-fw"></i>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://cy-blogs.cn/2019/12/09/Django-Urls-路由层/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="哼着自己旳小调调">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/author.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="哼着自己旳小调调">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Django-Urls-路由层
+
+          
+        </h1>
+
+        <div class="post-meta">
+         
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <!-- <span title="本文字数">26k</span> -->
+			        <span title="本文字数">
+                  2.9k字
+                </span>
+              
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="路由层"><a href="#路由层" class="headerlink" title="路由层"></a>路由层</h2><blockquote>
+<p>路由是Web服务的入口，就好像办事大厅有各个服务窗口一样</p>
+</blockquote><blockquote>
+<p>Django奉行DRY主义，提倡使用简洁、优雅的URL：</p>
+<p> 可以不用<code>.html</code>、<code>.php</code>或<code>.cgi</code>之类后缀</p>
+<p> 尽量不要单独使用无序随机数字这样无意义的东西</p>
+<p> 让你随心所欲设计你的URL，不受框架束缚</p>
+</blockquote><h3 id="路由"><a href="#路由" class="headerlink" title="路由"></a>路由</h3><h4 id="urlpatterns"><a href="#urlpatterns" class="headerlink" title="urlpatterns"></a>urlpatterns</h4><blockquote>
+<p>urlpatterns是路由文件中的一个全局变量，用来存放路由及视图函数的映射关系</p>
+<p>用户发起的请求<code>URL</code>都会首先进入主控制目录下的这个<code>urls.py</code>文件中进行查找匹配</p>
+</blockquote><a id="more"></a>
+
+
+<ol>
+<li>首先找到<code>urls.py</code>下的<code>urlpatterns</code>全局变量，这是一个路由规则实例的列表数据。</li>
+<li>按照先后定义顺序，进行路由匹配。</li>
+<li>找到第一个匹配项时停止匹配，执行匹配到的视图函数。</li>
+<li>遍历完全，未发现匹配，<code>django</code>进行异常处理</li>
+</ol>
+<blockquote>
+<p>其中<code>urlpatterns</code>中的每一个路由映射规则可以由<code>path</code>或<code>re_path</code>进行构造</p>
+</blockquote>
+<blockquote>
+<p><strong>注意</strong>：<code>Django</code>的路由不考虑<code>HTTP</code>请求方式，仅根据URL进行路由；即，只要<code>URL</code>相同，无论<code>POST</code>、<code>GET</code>等哪种请求方式都指向同一个操作函数</p>
+</blockquote>
+<h4 id="path"><a href="#path" class="headerlink" title="path"></a>path</h4><ul>
+<li><p><code>path(regex, view, kwargs=None, name=None)</code></p>
+<blockquote>
+<p><code>regex</code>：一个匹配对应url地址的规则字符串。</p>
+<p><code>view</code>：路由对应的视图函数，并且会自动封装HttpRequest作为第一个参数给这个视图函</p>
+<p><code>kwargs</code>：视图函数的关键字参数。</p>
+<p><code>name</code>：该路由的全局命名，可以让我们方便的在django项目中任意部分显示的使用，相当于为<code>url</code>取变量名，接下来全局使用该命名值即可；当对应<code>url</code>路由改变之后，结合路由反向解析使用的地方不需要更改路由</p>
+<p>此外，<code>django</code>还提供了一个兼容老版本<strong>url</strong>路由配置函数的<strong>re_path</strong>函数；<code>re_path</code>：第一个参数部分为一个正则匹配规则，其他与path同</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="静态路由"><a href="#静态路由" class="headerlink" title="静态路由"></a>静态路由</h3><blockquote>
+<p>静态路由用来映射对应视图函数，以下是一个简单的例子</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.http <span class="keyword">import</span> HttpResponse</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">(request)</span>:</span>  </span><br><span class="line">    <span class="keyword">return</span> HttpResponse(<span class="string">'Hello Worlds!'</span>)</span><br><span class="line"><span class="keyword">from</span> django.urls <span class="keyword">import</span> path,re_path</span><br><span class="line"><span class="keyword">from</span> urlapp <span class="keyword">import</span> views</span><br><span class="line">urlpatterns = [    path(<span class="string">''</span>,views.index),    re_path(<span class="string">r"^"</span>,views.index),]</span><br></pre></td></tr></table></figure>
+
+<h3 id="路由传参"><a href="#路由传参" class="headerlink" title="路由传参"></a>路由传参</h3><blockquote>
+<p>有的时候，我们的路由设置不能一直维持一个一成不变的状态；</p>
+<p>比如遇到一些内容翻页的场景，那么我们的连接可能是：<code>xx.com/airticle_list/1/</code>、<code>xx.com/airticle_list/2/</code></p>
+<p>那么这样的路由其实对应的都应该是一个视图函数，用以展示页面内容，那么如何设计这样的路由，就要涉及到动态路由及路由传参</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">(request,x,y)</span>:</span>  </span><br><span class="line">    content = <span class="string">"x:%s\ny:%s"</span> % (x,y)  	</span><br><span class="line">    <span class="keyword">return</span> HttpResponse(content)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>定义如上函数，将会接收连接中的后两部份<code>path</code>值作为参数，分别依次给到<code>x</code>和<code>y</code></p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.urls <span class="keyword">import</span> path,re_path</span><br><span class="line"><span class="keyword">from</span> urlapp <span class="keyword">import</span> views</span><br><span class="line">urlpatterns = [    path(<span class="string">'&lt;int:x&gt;/&lt;str:y&gt;/'</span>,views.index), </span><br><span class="line">               <span class="comment">#指明类型    path("&lt;x&gt;/&lt;y&gt;/",views.index)  </span></span><br><span class="line">               <span class="comment">#不指明类型    re_path(r"^(?P&lt;x&gt;\d+)/(?P&lt;y&gt;[a-zA-Z]+)/$"),</span></span><br><span class="line">               <span class="comment"># (?P&lt;name&gt;pattern) 正则分组   </span></span><br><span class="line">               re_path(<span class="string">r"^(\d+)/([a-zA-Z]+)/$"</span>),]</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>路由通过尖括号进行分组匹配，使用int以及str内置转换器将连接对应部分的值进行转换；并将匹配到的结果传递到视图函数对应的参数位置上；</p>
+<p>访问：<code>http://127.0.0.1:8000/1/abc/</code></p>
+<p>其中<code>1</code>将作为x的参数值，<code>abc</code>将作为y的参数</p>
+<p>但如果访问连接是：<code>http://127.0.0.1:8000/abc/abc/</code>，这会匹配到第二个路由，第二个路由没有对传递参数的类型进行限定</p>
+</blockquote>
+<ul>
+<li>内置Path转换器：</li>
+</ul>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">str：匹配除了路径分隔符（`/`）之外的非空字符串，这是默认的形式<span class="built_in">int</span>：匹配正整数，包含<span class="number">0</span>slug：匹配字母、数字以及横杠、下划线组成的字符串uuid：匹配格式化的uuid，如 <span class="number">075194</span>d3<span class="number">-6885</span><span class="number">-417</span>e-a8a8<span class="number">-6</span>c931e272f00path：匹配任何非空字符串，包含了路径分隔符</span><br></pre></td></tr></table></figure>
+
+<h4 id="自定义转换器"><a href="#自定义转换器" class="headerlink" title="自定义转换器"></a>自定义转换器</h4><blockquote>
+<p>除了以上<code>django</code>所提供的path转换器，如果还觉得无法实现我们想要的功能，我们可以通过编写一个类进行自定义<code>path</code>转换器</p>
+</blockquote>
+<ol>
+<li><p>定义转换器类，类名随意</p>
+</li>
+<li><p>定义类中必须属性</p>
+<blockquote>
+<p><code>regex</code>：一个字符串形式的正则表达式，也是对应的路由规则</p>
+<p><code>to_python(self, value)</code>：用于将匹配到的路由字符串转换为<code>Python</code>中的数据类型，并传递给视图函数，<strong>如果转换失败，必须抛出ValueError</strong>，路由映射视图函数时使用</p>
+<p><code>to_url(self, value)</code>：将<code>Python</code>数据类型转换为一段url的方法，<code>to_python</code>方法的反向操作，反向解析时使用</p>
+</blockquote>
+</li>
+<li><p>通过django.urls模块中的register_converter函数进行注册</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">函数第一个参数为转换器类</span><br><span class="line">函数第二个参数为转换器别名</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<blockquote>
+<p>以下定义一个路由参数只能是三位字符的路由规则</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#先将转换器类定义</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ThreeChar</span>:</span>  </span><br><span class="line">    regex = <span class="string">"[a-zA-Z]&#123;3&#125;"</span>   </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">to_python</span><span class="params">(self,value)</span>:</span>    </span><br><span class="line">        print(<span class="string">"to_python"</span>)       </span><br><span class="line">        <span class="keyword">return</span> str(value)   </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">to_url</span><span class="params">(self,value)</span>:</span>    </span><br><span class="line">        <span class="comment"># 当通过反向路由解析时，将会调用该函数    </span></span><br><span class="line">        print(<span class="string">'to_url'</span>)        </span><br><span class="line">        <span class="keyword">return</span> str(value)[:<span class="number">3</span>]   </span><br><span class="line">    <span class="comment">#此处切片操作是为了当反向路由解析传参字符串长于3时，可以将其截断，符合转换器正则规则#注册转换器</span></span><br><span class="line">    <span class="keyword">from</span> django.urls <span class="keyword">import</span> register_converterregister_converter(ThreeChar,<span class="string">'tc'</span>)</span><br><span class="line">urlpatterns = [    path(<span class="string">'&lt;tc:x&gt;/&lt;tc:y&gt;/'</span>,views.index)]<span class="comment">#127.0.0.1:8000/aaa/bbb/</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>接下里，通过路由进行访问该视图映射时，一定是三个字符所组成的路由才可以，否则是访问不到的</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#urls.py</span></span><br><span class="line">app_name = <span class="string">"app"</span>path(<span class="string">'&lt;tc:x&gt;/&lt;tc:y&gt;/'</span>,</span><br><span class="line">                     views.index, name=<span class="string">"threechr"</span>)</span><br><span class="line"><span class="comment">#views.py</span></span><br><span class="line"><span class="keyword">return</span> redirect(reverse(<span class="string">"app:threechr"</span>,args=(<span class="string">'aaaa'</span>,<span class="string">'bbbb'</span>)))</span><br><span class="line"><span class="comment">#此时会调用three路由规则中的tc转换器中的to_url反向合成路由，并切片只取参数前三位</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="路由分发"><a href="#路由分发" class="headerlink" title="路由分发"></a>路由分发</h3><blockquote>
+<p>我们的路由编写都是在项目主要目录下的<code>urls.py</code>文件中，但是如果<code>app</code>有很多的话，这么多路由都写到一起，明显是一件很不方便管理的事情</p>
+<p>其实在之前的练习中，我们使用的方式均是路由分发，每个子<code>app</code>都拥有自己独立的<code>urls.py</code>路由映射文件，而主控路由文件里只需要使用<code>include</code>函数导入子<code>app</code>下路由文件即可，这就是路由分发</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.contrib <span class="keyword">import</span> admin</span><br><span class="line"><span class="keyword">from</span> django.urls <span class="keyword">import</span> path,include</span><br><span class="line">urlpatterns = [    path(<span class="string">'admin/'</span>, admin.site.urls),</span><br><span class="line">               path(<span class="string">''</span>,include(<span class="string">"urlapp.urls"</span>)) </span><br><span class="line">               <span class="comment"># 使用include 实现路由分发，找到子app下的路由文件</span></span><br><span class="line">              ]</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>路由分发为我们带来的好处有很多，可以让我们在多个<code>app</code>的项目中更加方便有效的管理每一个路由</p>
+<p>并且也可以让我们的用户在访问时看到浏览器中的<code>URL</code>地址更加<strong>赏心悦目</strong></p>
+</blockquote>
+<h3 id="路由反向解析"><a href="#路由反向解析" class="headerlink" title="路由反向解析"></a>路由反向解析</h3><blockquote>
+<p>到了这里，思考一下，之前我们已经设置过了很多路由；</p>
+<p>但是现在会出现一个问题，比如我们把其中某个路由规则进行了修改，把<code>aaa</code>换成了<code>aba</code>，那么现在我们需要回到每一个使用到这个路由的地方进行同步修改，这显然非常麻烦的，如果修改的路由更多，这甚至是一个灾难</p>
+</blockquote>
+<blockquote>
+<p><code>django</code>也为我们提供了一个解决办法，通过为路由映射使用<code>name</code>参数，来为每一个路由映射设置一个独立唯一的变量名</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">path(<span class="string">'left/&lt;str:x&gt;/'</span>,views.left, name=<span class="string">"left"</span>),</span><br><span class="line">path(<span class="string">'right/&lt;int:x&gt;/'</span>,views.right, name=<span class="string">"right"</span>),</span><br><span class="line"><span class="comment"># 通过正则命名分组方式</span></span><br><span class="line">re_path(<span class="string">r'^left/([a-zA-Z]+)/$'</span>,views.left,name=<span class="string">"left"</span>),</span><br><span class="line">re_path(<span class="string">r'^right/(?P&lt;x&gt;\d+)/$'</span>,views.right, name=<span class="string">"right"</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>两个视图函数对应如下：</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">left</span><span class="params">(request,x)</span>:</span></span><br><span class="line">    <span class="comment"># x: str    </span></span><br><span class="line">    content = &#123;        <span class="string">'message'</span>:x,    &#125;    </span><br><span class="line">    <span class="keyword">return</span> render(request, <span class="string">"left.html"</span>, content)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">right</span><span class="params">(request,x)</span>:</span></span><br><span class="line">    <span class="comment"># x: int</span></span><br><span class="line">    content = &#123;        <span class="string">'message'</span>:x,    &#125;    </span><br><span class="line">    <span class="keyword">return</span> render(request, <span class="string">"right.html"</span>,content)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>两个HTML页面</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>我是左页面<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>路由参数: &#123;&#123; message &#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"&#123;% url 'right' 123 %&#125;"</span>&gt;</span>右页面<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- ------另一个页面------ --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>我是右页面<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>路由参数: &#123;&#123; message &#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"&#123;% url 'left' 'abc' %&#125;"</span>&gt;</span>右页面<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight django"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml">&gt; 在模板页面中，对于已命名路由可以通过</span><span class="template-tag">&#123;% <span class="name"><span class="name">url</span></span> “name” “arg” %&#125;</span><span class="xml">模板标签进行反向解析</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>参数以空格隔开，在标签后传入</p>
+</blockquote>
+<ul>
+<li>视图函数反向解析</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">(request)</span>:</span>   </span><br><span class="line">    <span class="keyword">return</span> redirect(reverse(<span class="string">"left"</span>,args=(<span class="string">'aaa'</span>,) ))</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>在视图函数中需要使用到路由命名时，进行反向解析需要我们通过<code>django.shortcuts</code>模块下的<code>reverse</code>函数</p>
+</blockquote>
+<ul>
+<li><code>reverse(viewname,args=None,kwargs=None)</code></li>
+</ul>
+<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">参数介绍viewname：视图函数、命名路由映射、或视图函数路径的字符串<span class="built_in">args</span>：元组形式路由传参。kwargs：字典形式路由传参</span><br></pre></td></tr></table></figure>
+
+<h3 id="命名空间"><a href="#命名空间" class="headerlink" title="命名空间"></a>命名空间</h3><blockquote>
+<p>如果想在多个<code>app</code>下使用相同的<code>name</code>路由命名，那么我们可以通过路由分发过程中的include函数来指定不同<code>app</code>所属的命名空间</p>
+</blockquote>
+<p>​<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.contrib <span class="keyword">import</span> admin</span><br><span class="line"><span class="keyword">from</span> django.urls <span class="keyword">import</span> path,include</span><br><span class="line">urlpatterns = [    path(<span class="string">'admin/'</span>, admin.site.urls),</span><br><span class="line">               path(<span class="string">'app1/'</span>,include((<span class="string">"app1.urls"</span>,<span class="string">'app1'</span>))), </span><br><span class="line">               <span class="comment">#直接传递一个元祖，元祖第一个值为分发路由地址，第二个值为命名空间</span></span><br><span class="line">               path(<span class="string">'app2/'</span>,include((<span class="string">"app2.urls"</span>,<span class="string">'app2'</span>)))]</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>当为每个<code>app</code>的路由分发映射设置了命名空间，接下来在模板页面以及视图函数对路由的反向解析将是如下所示的样子，路由解析前加冒号指明命名空间</p>
+</blockquote>
+<figure class="highlight django"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml">def index(request):</span></span><br><span class="line"><span class="xml">    return redirect(reverse("app1:left"))</span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"</span></span></span><span class="template-tag">&#123;% <span class="name"><span class="name">url</span></span> 'app2:left' %&#125;</span><span class="xml"><span class="tag"><span class="string">"</span>&gt;</span>app2:left<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<h4 id="应用命名空间：app-name"><a href="#应用命名空间：app-name" class="headerlink" title="应用命名空间：app_name"></a>应用命名空间：app_name</h4><blockquote>
+<p>使用<code>app_name</code>指明命名空间，在子<code>app</code>的<code>urls.py</code>文件下配置全局变量<code>app_name</code>，这个值是唯一的</p>
+<p>在这个路由文件中定义的其他映射关系，将具有命名空间<code>app1</code></p>
+</blockquote>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">app_name</span> = <span class="string">"app1"</span> <span class="comment"># 这个值应该是唯一的urlpatterns = [   	...]</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="实例命名空间：namespace"><a href="#实例命名空间：namespace" class="headerlink" title="实例命名空间：namespace"></a>实例命名空间：namespace</h4><blockquote>
+<p>当有多个子<code>app</code>同时引入同一个子路由映射文件，比如这样</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.contrib <span class="keyword">import</span> admin</span><br><span class="line"><span class="keyword">from</span> django.urls <span class="keyword">import</span> path,include</span><br><span class="line">urlpatterns = [    path(<span class="string">'admin/'</span>, admin.site.urls),</span><br><span class="line">               path(<span class="string">'app1/'</span>,include(<span class="string">"app1.urls"</span>)),</span><br><span class="line">               path(<span class="string">'app2/'</span>,include(<span class="string">"app1.urls"</span>))]</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这就会出现一个问题，不同的路由访问在做路由反向解析时，会造成混淆，</p>
+<p>此时需要给每一个路由分发的规则设置<code>namespace</code>属性，为实例进行命名空间</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.contrib <span class="keyword">import</span> admin</span><br><span class="line"><span class="keyword">from</span> django.urls <span class="keyword">import</span> path,include</span><br><span class="line">urlpatterns = [    path(<span class="string">'admin/'</span>, admin.site.urls),    path(<span class="string">'app1/'</span>,include(<span class="string">"app1.urls"</span>,namespace=<span class="string">"app1"</span>)),    path(<span class="string">'app2/'</span>,include(<span class="string">"app1.urls"</span>,namespace=<span class="string">"app2"</span>))]</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这样做的好处，可以在不同路由导向同一<code>app</code>下时，为他们的不同命名空间；</p>
+<p>虽然看起来到最后执行的视图函数功能是一样的，但可以分清楚究竟是哪个路由引起视图函数在工作</p>
+<p>接下来视图及模板页面中使用<code>namespace</code>的值</p>
+</blockquote>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">    我是左页面</span><br><span class="line"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">    路由参数: &#123;&#123; message &#125;&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"&#123;% url 'app1:right' 123 %&#125;"</span>&gt;</span>app1的右页面<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>我是右页面<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>路由参数: &#123;&#123; message &#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"&#123;% url 'app1:left' 'abc' %&#125;"</span>&gt;</span>app1的左页面<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- ----------------------------------------- --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>我是左页面<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>路由参数: &#123;&#123; message &#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"&#123;% url 'app2:right' 123 %&#125;"</span>&gt;</span>app2的右页面<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>我是右页面<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>路由参数: &#123;&#123; message &#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"&#123;% url 'app2:left' 'abc' %&#125;"</span>&gt;</span>app2的左页面<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+  <div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+  
+</div>
+
+    
+    
+    
+      
+
+      
+
+      
+        
+      
+      
+        <div id="reward-container">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/wechatpay.jpg" alt="哼着自己旳小调调 微信支付">
+        <p>微信支付</p>
+      </div>
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/alipay.jpg" alt="哼着自己旳小调调 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+      
+
+      
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>哼着自己旳小调调</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://cy-blogs.cn/2019/12/09/Django-Urls-路由层/" title="Django-Urls-路由层">https://cy-blogs.cn/2019/12/09/Django-Urls-路由层/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+</ul>
+</div>
+
+      
+
+      <footer class="post-footer">
+        
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/Django/" rel="tag"># Django</a>
+            
+          </div>
+        
+
+        
+
+
+        
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/12/03/Django-Models-模型层/" rel="next" title="Django-Models-模型层">
+                  <i class="fa fa-chevron-left"></i> Django-Models-模型层
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2019/12/09/Django-Views-视图层/" rel="prev" title="Django-Views-视图层">
+                  Django-Views-视图层 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#路由层"><span class="nav-text">路由层</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#路由"><span class="nav-text">路由</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#urlpatterns"><span class="nav-text">urlpatterns</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#path"><span class="nav-text">path</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#静态路由"><span class="nav-text">静态路由</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#路由传参"><span class="nav-text">路由传参</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#自定义转换器"><span class="nav-text">自定义转换器</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#路由分发"><span class="nav-text">路由分发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#路由反向解析"><span class="nav-text">路由反向解析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#命名空间"><span class="nav-text">命名空间</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#应用命名空间：app-name"><span class="nav-text">应用命名空间：app_name</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实例命名空间：namespace"><span class="nav-text">实例命名空间：namespace</span></a></li></ol></li></ol></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/author.jpg"
+      alt="哼着自己旳小调调">
+  <p class="site-author-name" itemprop="name">哼着自己旳小调调</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives">
+        
+          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/CY-xiaobai/" title="GitHub &rarr; https://github.com/CY-xiaobai/" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="/347947872@qq.com" title="E-Mail &rarr; 347947872@qq.com"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    
+  
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2016 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">哼着自己旳小调调</span>
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    
+    <span title="post.totalcount">
+     59.4k字 </span>
+    <span title="站点总字数">175k</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+  
+    <span class="post-meta-divider">|</span>
+  
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+    
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.4.1"></script><script src="/js/motion.js?v=7.4.1"></script>
+<script src="/js/schemes/pisces.js?v=7.4.1"></script>
+
+<script src="/js/next-boot.js?v=7.4.1"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.4.1"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/clicklove.js"></script>
+</html>
+

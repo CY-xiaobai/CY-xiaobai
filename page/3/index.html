@@ -231,6 +231,400 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://cy-blogs.cn/Django的CBV类视图/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="哼着自己旳小调调">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/author.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="哼着自己旳小调调">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/Django的CBV类视图/" class="post-title-link" itemprop="url">Django的CBV类视图</a>
+          
+        </h1>
+
+        <div class="post-meta">
+         
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <!-- <span title="本文字数">13k</span> -->
+			        <span title="本文字数">
+                  941字
+                </span>
+              
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        
+          <h2 id="CBV"><a href="#CBV" class="headerlink" title="CBV"></a>CBV</h2><blockquote>
+<p><strong>CBV（class base views）</strong> 就是在视图里使用类处理请求</p>
+<p>之前的代码中，我们的视图函数都是通过函数来进行<code>request</code>的响应以及<code>response</code>的返回，并且通常我们需要判断的请求方式<code>get</code>或是<code>post</code>都需要我们在代码中通过<code>if</code>进行条件判断，这样的视图功能编写就叫做<code>FBV</code></p>
+</blockquote><blockquote>
+<p>但现在在<code>django</code>中还提供了一种方式叫做<code>CBV</code>，在类中编写视图功能， 并且将传统的<code>get</code>、<code>post</code>判断设置为了类中函数，这样当用户发起不同的请求，会自动进入到对应的类中函数上，像是下面这样</p>
+</blockquote>
+          <!--noindex-->
+          
+            <div class="post-button">
+              <a class="btn" href="/Django的CBV类视图/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+  <div>
+  
+</div>
+
+    
+    
+    
+      <footer class="post-footer">
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+    
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://cy-blogs.cn/Django-Views-视图层/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="哼着自己旳小调调">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/author.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="哼着自己旳小调调">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/Django-Views-视图层/" class="post-title-link" itemprop="url">Django-Views-视图层</a>
+          
+        </h1>
+
+        <div class="post-meta">
+         
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <!-- <span title="本文字数">28k</span> -->
+			        <span title="本文字数">
+                  3k字
+                </span>
+              
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        
+          <h2 id="视图层"><a href="#视图层" class="headerlink" title="视图层"></a>视图层</h2><blockquote>
+<p>视图函数一般用来接收一个<code>Web</code>请求<code>HttpRequest</code>，之后返回一个Web响应<code>HttpResponse</code></p>
+</blockquote><h3 id="HttpRequest"><a href="#HttpRequest" class="headerlink" title="HttpRequest"></a>HttpRequest</h3><blockquote>
+<p>一个视图函数用来响应用户的<code>Request</code>请求，每个视图函数默认的第一个位置参数<code>request</code>用来接收用户发起请求的<code>HttpRequest</code>信息。</p>
+<p>视图函数的返回值，为一个<code>HttpResponse</code>值，包括我们要返回给用户的<code>HTML</code>页面或者字符串等等，以及对应的头部字段信息</p>
+</blockquote>
+          <!--noindex-->
+          
+            <div class="post-button">
+              <a class="btn" href="/Django-Views-视图层/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+  <div>
+  
+</div>
+
+    
+    
+    
+      <footer class="post-footer">
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+    
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://cy-blogs.cn/Django-Urls-路由层/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="哼着自己旳小调调">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/author.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="哼着自己旳小调调">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/Django-Urls-路由层/" class="post-title-link" itemprop="url">Django-Urls-路由层</a>
+          
+        </h1>
+
+        <div class="post-meta">
+         
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <!-- <span title="本文字数">26k</span> -->
+			        <span title="本文字数">
+                  2.9k字
+                </span>
+              
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        
+          <h2 id="路由层"><a href="#路由层" class="headerlink" title="路由层"></a>路由层</h2><blockquote>
+<p>路由是Web服务的入口，就好像办事大厅有各个服务窗口一样</p>
+</blockquote><blockquote>
+<p>Django奉行DRY主义，提倡使用简洁、优雅的URL：</p>
+<p> 可以不用<code>.html</code>、<code>.php</code>或<code>.cgi</code>之类后缀</p>
+<p> 尽量不要单独使用无序随机数字这样无意义的东西</p>
+<p> 让你随心所欲设计你的URL，不受框架束缚</p>
+</blockquote><h3 id="路由"><a href="#路由" class="headerlink" title="路由"></a>路由</h3><h4 id="urlpatterns"><a href="#urlpatterns" class="headerlink" title="urlpatterns"></a>urlpatterns</h4><blockquote>
+<p>urlpatterns是路由文件中的一个全局变量，用来存放路由及视图函数的映射关系</p>
+<p>用户发起的请求<code>URL</code>都会首先进入主控制目录下的这个<code>urls.py</code>文件中进行查找匹配</p>
+</blockquote>
+          <!--noindex-->
+          
+            <div class="post-button">
+              <a class="btn" href="/Django-Urls-路由层/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+  <div>
+  
+</div>
+
+    
+    
+    
+      <footer class="post-footer">
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+    
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://cy-blogs.cn/Django-Models-模型层/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="哼着自己旳小调调">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/author.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="哼着自己旳小调调">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/Django-Models-模型层/" class="post-title-link" itemprop="url">Django-Models-模型层</a>
+          
+        </h1>
+
+        <div class="post-meta">
+         
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <!-- <span title="本文字数">55k</span> -->
+			        <span title="本文字数">
+                  6.1k字
+                </span>
+              
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        
+          <h2 id="模型层"><a href="#模型层" class="headerlink" title="模型层"></a>模型层</h2><blockquote>
+<p>该层开发的首要任务就是定义模型类以及属性</p>
+<p>每个模型都可以被映射为数据库中的一个数据表，而类属性被映射为为数据字段</p>
+</blockquote><h3 id="配置Mysql数据库"><a href="#配置Mysql数据库" class="headerlink" title="配置Mysql数据库"></a>配置Mysql数据库</h3><blockquote>
+<p>在确保<code>mysql</code>数据库可以连接使用的情况下；</p>
+<p>首先在数据库中创建专为<code>django</code>使用的库<code>django_data</code></p>
+</blockquote><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create database django_data;</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          
+            <div class="post-button">
+              <a class="btn" href="/Django-Models-模型层/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+  <div>
+  
+</div>
+
+    
+    
+    
+      <footer class="post-footer">
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+    
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://cy-blogs.cn/Cookie和Session/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -567,7 +961,7 @@
         
           <a href="/archives">
         
-          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-count">27</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -593,7 +987,7 @@
             <a href="/tags/">
           
         
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
@@ -662,8 +1056,8 @@
       <span class="post-meta-item-text">站点总字数：</span>
     
     <span title="post.totalcount">
-     63k字 </span>
-    <span title="站点总字数">182k</span>
+     69.9k字 </span>
+    <span title="站点总字数">198k</span>
 </div>
 
         

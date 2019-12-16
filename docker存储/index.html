@@ -56,13 +56,13 @@
   };
 </script>
 
-  <meta name="description" content="#Docker 存储镜像层的镜像分层结构docker的镜像分层结构，如下所示： docker镜像中引入层layer概念，镜像的制作过程中的每一步都会生产一个新的镜像层  容器读写层的工作原理  我们刚刚在说镜像的分层特性的时候说到镜像是只读的。而事实上当我们使用镜像启动一个容器的时候，我们其实是可以在容器里随意读写的，从结果上看，似乎与镜像的只读特性相悖。 我们继续看上面的图，其实可以看到在镜像的">
+  <meta name="description" content="#Docker 存储Docker 镜像层的镜像分层结构 docker的镜像分层结构，如下所示：  docker镜像中引入层layer概念，镜像的制作过程中的每一步都会生产一个新的镜像层  容器读写层的工作原理  我们刚刚在说镜像的分层特性的时候说到镜像是只读的。而事实上当我们使用镜像启动一个容器的时候，我们其实是可以在容器里随意读写的，从结果上看，似乎与镜像的只读特性相悖。 我们继续看上面的图，其">
 <meta name="keywords" content="Docker">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Docker 存储">
 <meta property="og:url" content="https://cy-blogs.cn/docker存储/index.html">
 <meta property="og:site_name" content="哼着自己旳小调调">
-<meta property="og:description" content="#Docker 存储镜像层的镜像分层结构docker的镜像分层结构，如下所示： docker镜像中引入层layer概念，镜像的制作过程中的每一步都会生产一个新的镜像层  容器读写层的工作原理  我们刚刚在说镜像的分层特性的时候说到镜像是只读的。而事实上当我们使用镜像启动一个容器的时候，我们其实是可以在容器里随意读写的，从结果上看，似乎与镜像的只读特性相悖。 我们继续看上面的图，其实可以看到在镜像的">
+<meta property="og:description" content="#Docker 存储Docker 镜像层的镜像分层结构 docker的镜像分层结构，如下所示：  docker镜像中引入层layer概念，镜像的制作过程中的每一步都会生产一个新的镜像层  容器读写层的工作原理  我们刚刚在说镜像的分层特性的时候说到镜像是只读的。而事实上当我们使用镜像启动一个容器的时候，我们其实是可以在容器里随意读写的，从结果上看，似乎与镜像的只读特性相悖。 我们继续看上面的图，其">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/13690429-8c66ee3f4b08a970.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1056/format/webp">
 <meta property="og:image" content="https://img2018.cnblogs.com/blog/1369145/201904/1369145-20190403211618700-1608880157.png">
@@ -79,10 +79,13 @@
 <meta property="og:image" content="http://dockone.io/uploads/article/20190702/fb9fe60305c941fbfbc564cb2351e588.jpg">
 <meta property="og:image" content="http://dockone.io/uploads/article/20190702/ef273f23ee51927344a224ef3798e75a.jpg">
 <meta property="og:image" content="http://dockone.io/uploads/article/20190702/3a07e8a8a9b4de99602d02dc849b771b.jpg">
-<meta property="og:updated_time" content="2019-12-16T03:28:54.946Z">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190617160156293.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM3NTQ2ODkx,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190617160937555.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM3NTQ2ODkx,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190617161045446.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM3NTQ2ODkx,size_16,color_FFFFFF,t_70">
+<meta property="og:updated_time" content="2019-12-16T12:58:59.926Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Docker 存储">
-<meta name="twitter:description" content="#Docker 存储镜像层的镜像分层结构docker的镜像分层结构，如下所示： docker镜像中引入层layer概念，镜像的制作过程中的每一步都会生产一个新的镜像层  容器读写层的工作原理  我们刚刚在说镜像的分层特性的时候说到镜像是只读的。而事实上当我们使用镜像启动一个容器的时候，我们其实是可以在容器里随意读写的，从结果上看，似乎与镜像的只读特性相悖。 我们继续看上面的图，其实可以看到在镜像的">
+<meta name="twitter:description" content="#Docker 存储Docker 镜像层的镜像分层结构 docker的镜像分层结构，如下所示：  docker镜像中引入层layer概念，镜像的制作过程中的每一步都会生产一个新的镜像层  容器读写层的工作原理  我们刚刚在说镜像的分层特性的时候说到镜像是只读的。而事实上当我们使用镜像启动一个容器的时候，我们其实是可以在容器里随意读写的，从结果上看，似乎与镜像的只读特性相悖。 我们继续看上面的图，其">
 <meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/13690429-8c66ee3f4b08a970.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1056/format/webp">
   <link rel="canonical" href="https://cy-blogs.cn/docker存储/">
 
@@ -293,9 +296,9 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <!-- <span title="本文字数">31k</span> -->
+                <!-- <span title="本文字数">67k</span> -->
 			        <span title="本文字数">
-                  10.2k字
+                  13.7k字
                 </span>
               
 
@@ -313,7 +316,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>#Docker 存储</p><h3 id="镜像层的镜像分层结构"><a href="#镜像层的镜像分层结构" class="headerlink" title="镜像层的镜像分层结构"></a>镜像层的镜像分层结构</h3><h5 id="docker的镜像分层结构，如下所示："><a href="#docker的镜像分层结构，如下所示：" class="headerlink" title="docker的镜像分层结构，如下所示："></a>docker的镜像分层结构，如下所示：</h5><p><img src="https://upload-images.jianshu.io/upload_images/13690429-8c66ee3f4b08a970.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1056/format/webp" alt="img"></p><ul>
+        <p>#Docker 存储</p><h3 id="Docker-镜像层的镜像分层结构"><a href="#Docker-镜像层的镜像分层结构" class="headerlink" title="Docker 镜像层的镜像分层结构"></a>Docker 镜像层的镜像分层结构</h3><ul>
+<li>docker的镜像分层结构，如下所示：</li>
+</ul><p><img src="https://upload-images.jianshu.io/upload_images/13690429-8c66ee3f4b08a970.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1056/format/webp" alt="img"></p><ul>
 <li><p>docker镜像中引入层layer概念，镜像的制作过程中的每一步都会生产一个新的镜像层</p>
 </li>
 <li><p>容器读写层的工作原理</p>
@@ -329,7 +334,9 @@
 </ul><a id="more"></a>
 
 
-<h4 id="overlay2镜像存储结构"><a href="#overlay2镜像存储结构" class="headerlink" title="overlay2镜像存储结构"></a>overlay2镜像存储结构</h4><h3 id="容器"><a href="#容器" class="headerlink" title="容器"></a>容器</h3><ul>
+
+<hr>
+<h3 id="容器"><a href="#容器" class="headerlink" title="容器"></a>容器</h3><ul>
 <li><p>容器由最上面一个可写的容器层和若干个只读的镜像层组成，容器的数据就存在这些层中。这种分层结构最大的特点是Copy-on-Write。</p>
 <ol>
 <li><p>新数据会直接存放在最上面的容器层</p>
@@ -692,9 +699,51 @@
 <figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 如一些工具箱，启动是为了执行命令，不需要保存数据供以后使用，使用完直接退出，容器删除时存在容器层的工作数据也一起删除，这没问题，下次启动新容器即可。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 但对于另一类应用这种方式就不合适了，它们有持久化数据的需求，容器启动时需要加载已有的数据，容器销毁时希望保留产生的新数据，也就是说，这类容器是有状态的，例如数据库。</span></span><br><span class="line">这就要用到docker 的另一个存储机制：data <span class="keyword">volume</span><span class="bash"></span></span><br></pre></td></tr></table></figure>
 
 <h3 id="Data-Volume（数据卷）"><a href="#Data-Volume（数据卷）" class="headerlink" title="Data Volume（数据卷）"></a>Data Volume（数据卷）</h3><hr>
+<blockquote>
+<p>对于有些容器，我们可能会持久化数据的需求，也就是容器启动时需要加载已有的数据，容器销毁时希望保留产生的数据，也就是说这类容器是有状态的。</p>
+<p>这就需要用到 <code>Docker</code> 的 <code>Data Volume</code> 存储机制。<code>Data Volume</code>本质上是 <code>Docker host</code>文件系统中的目录或文件，能够直接被 <code>mount</code> 到容器的文件系统。</p>
+<p>在具体的使用上，<code>Docekr</code> 提供了两种类型的Volume：bind mount 和docker managed volume。</p>
+</blockquote>
+<h5 id="附：bind-mount-与-docker-managed-volume-的区别"><a href="#附：bind-mount-与-docker-managed-volume-的区别" class="headerlink" title="附：bind mount 与 docker managed volume 的区别"></a>附：bind mount 与 docker managed volume 的区别</h5><ul>
+<li>这两种 <strong>data volume</strong> 实际上都是使用 <strong>host</strong> 文件系统的中的某个路径作为 <strong>mount</strong> 源。它们不同之处在于：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><strong>不同点</strong></th>
+<th><strong>bind mount</strong></th>
+<th><strong>docker managed volume</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>volume 位置</strong></td>
+<td>可任意指定</td>
+<td><strong>/var/lib/docker/volumes/…</strong></td>
+</tr>
+<tr>
+<td><strong>对已有mount point 影响</strong></td>
+<td>隐藏并替换为 <strong>volume</strong></td>
+<td>原有数据复制到 <strong>volume</strong></td>
+</tr>
+<tr>
+<td><strong>是否支持单个文件</strong></td>
+<td>支持</td>
+<td>不支持，只能是目录</td>
+</tr>
+<tr>
+<td><strong>权限控制</strong></td>
+<td>可设置为只读，默认为读写权限</td>
+<td>无控制，均为读写权限</td>
+</tr>
+<tr>
+<td><strong>移植性</strong></td>
+<td>移植性弱，与 <strong>host path</strong> 绑定</td>
+<td>移植性强，无需指定 <strong>host</strong> 目录</td>
+</tr>
+</tbody></table>
 <h5 id="什么是数据卷"><a href="#什么是数据卷" class="headerlink" title="什么是数据卷"></a>什么是数据卷</h5><ul>
 <li><p>Data Volume 数据卷 ：是可以存放在一个或多个容器内的 <strong>特定的目录</strong>，提供独立于容器之外的<strong>持久化存储</strong>；是经过<strong>特殊设计的目录</strong>，可以绕过联合文件系统（UFS），为一个或多个容器提供访问；</p>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">Docker</span> Contrainer</span><br><span class="line">面向对象中的对象</span><br><span class="line"></span><br><span class="line">对象一旦被销毁，数据就不存在了</span><br><span class="line"></span><br><span class="line">容器一旦被销毁，则容器内的数据将一并被删除</span><br><span class="line"></span><br><span class="line">服务器中的推按也会一并销毁</span><br><span class="line"></span><br><span class="line">容器中的数据不是持久化状态的</span><br></pre></td></tr></table></figure>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">Docker</span> Contrainer</span><br><span class="line">面向对象中的对象</span><br><span class="line"></span><br><span class="line">对象一旦被销毁，数据就不存在了</span><br><span class="line"></span><br><span class="line">容器一旦被销毁，则容器内的数据将一并被删除</span><br><span class="line"></span><br><span class="line">服务器中的图案也会一并销毁</span><br><span class="line"></span><br><span class="line">容器中的数据不是持久化状态的</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>不使用 <code>volume</code>的时候，对容器进行的改动是不会被保存的，使用 <code>volume</code>可以实现持久化存储；比如运行一个数据的操作，数据库的一个容器，数据库的数据应该被持久化存储的，<code>volume</code>就可以实现这个，并且 <code>volume</code>可以提供容器与容器之间的共享数据；</p>
@@ -720,8 +769,156 @@
 <li><code>数据卷的更新不会影响镜像</code>；因为文件不会写到镜像中去，数据卷是独立于联合文件系统的，而镜像本身基于联合文件系统，so镜像与数据卷之间不会有相互影响的情况；</li>
 <li><code>数据卷会一直存在，即使挂载数据卷的容器已经删除</code>因为数据均本质上是宿主机上的一个目录，同时为了提供数据的永久化，它的生存周期与容器是完全隔离的；</li>
 </ol>
+<p><img src="https://img-blog.csdnimg.cn/20190617160156293.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM3NTQ2ODkx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 </li>
 </ul>
+<blockquote>
+<p>Docker 容器中的数据操作经过了UFS 的，UFS 会在宿主机中写一次文件，这个文件在宿主机上是临时的，这时候就出现了重复写的情况，会影响系统的性能；此外，删除容器的时候，就没有人能够通过UFS 在访问到宿主机中的文件了；</p>
+</blockquote>
+<p><img src="https://img-blog.csdnimg.cn/20190617160937555.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM3NTQ2ODkx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<blockquote>
+<p>容器卷可以绕过 UFS 直接操作主机上的文件，当容器删除的时候，宿主机上的文件还在，就在指定的目录下，在重新创建容器的时候们可以指定容器继续读取宿主机上的文件；</p>
+</blockquote>
+<p><img src="https://img-blog.csdnimg.cn/20190617161045446.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM3NTQ2ODkx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h5 id="创建一个数据卷"><a href="#创建一个数据卷" class="headerlink" title="创建一个数据卷"></a>创建一个数据卷</h5><blockquote>
+<p>包含数据卷挂载的容器在容器关闭时，如果修改了宿主机下的数据卷会，容器里面会产生改变吗？ </p>
+</blockquote>
+<ul>
+<li><strong>bind mount 数据卷</strong></li>
+</ul>
+<blockquote>
+<p>使用docker run –name nginx-test -p 8080:80 -d -v ~/myvolume:/usr/share/nginx/html nginx  创建一个bind mount 数据卷 是宿主机的存储位置必须是绝对路径。目录不存在则会生成</p>
+</blockquote>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 以下两种情况创建的数据卷如果浏览器访问宿主机的ip:8080 会出现报错，因为这是创建的时候清空了容器数据卷下index.html</span></span><br><span class="line"><span class="comment"># 创建的宿主机和容器的数据卷都有读写的权限</span></span><br><span class="line">$ docker run <span class="params">--name</span> nginx-test -p 8080<span class="function">:80</span> -d -v ~<span class="string">/myvolume</span>:<span class="string">/usr/share/nginx/html</span> nginx</span><br><span class="line"><span class="comment"># 这样执行后的文件宿主机的~/myvolume 文件如果不存在直接创建，容器的文件路径不存在也会直接创建，如果/usr/share/nginx/html文件存在里面内容会清空</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 给容器里面的数据卷加权限</span></span><br><span class="line">$ docker run <span class="params">--name</span> nginx-test -p 8080<span class="function">:80</span> -d -v ~<span class="string">/myvolume</span>:<span class="string">/usr/share/nginx/html</span><span class="function">:ro</span> nginx</span><br><span class="line"><span class="comment"># 如果执行这个 :/usr/share/nginx/html:ro这个地方加的是 :ro 是设置的只有读取权限</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 运行dockers inspect 容器名称或容器（ID） 是将容器的配置文件已json字符串的形式返回</span></span><br><span class="line"><span class="string">"Binds"</span>: [</span><br><span class="line">                <span class="string">"/root/myvolume:/usr/share/nginx/html"</span>   <span class="comment"># 宿主机数据卷位置: 容器的目录位置</span></span><br><span class="line">            ],</span><br><span class="line"></span><br><span class="line"><span class="string">"Mounts"</span>: [</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="string">"Type"</span>: <span class="string">"bind"</span>,</span><br><span class="line">                <span class="string">"Source"</span>: <span class="string">"/root/myvolume"</span>,   <span class="comment"># 是宿主机数据卷的存储位置</span></span><br><span class="line">                <span class="string">"Destination"</span>: <span class="string">"/usr/share/nginx/html"</span>,</span><br><span class="line">                <span class="string">"Mode"</span>: <span class="string">""</span>,</span><br><span class="line">                <span class="string">"RW"</span>: <span class="literal">true</span>,   <span class="comment"># 权限 true是可以读写 fales 是只读</span></span><br><span class="line">                <span class="string">"Propagation"</span>: <span class="string">"rprivate"</span></span><br><span class="line">            &#125;</span><br><span class="line">        ],</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># 在宿主机的数据卷下执行:</span></span><br><span class="line">vim index.html </span><br><span class="line"><span class="meta"># 在文件里写入hello ， 你在访问的时候就可以在页面上看到你写入得数据了</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>执行 docker exec -it 容器名称（容器ID） bahs进入到容器里面，每个容器都会包含一个迷你版的linux系统</p>
+<p>执行 cd /usr/share/nginx/html  </p>
+<p>执行 ls</p>
+<p>你会看到容器目录里会有我们刚才创建好的文件</p>
+<p>index.html</p>
+<p>执行 cat index.html  可以看到里面我们加入的数据</p>
+<p>如果是挂载数据卷的时候加 <code>:ro</code> 容器内修改文件，发现会提示该文件是只读的  </p>
+</blockquote>
+<hr>
+<ul>
+<li><strong>docker managed volume 数据卷</strong><ul>
+<li>创建出来的两个都是有读写权限的</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>使用docker run –name nginx-test2 -p 8080:80 -d -v /usr/share/nginx/html nginx 创建一个<strong>docker managed volume 数据卷</strong> </p>
+<p>这种命令创建是不用指定宿主机数据卷存储位置的默认在 /var/lib/docker/volumes/ 下的文件名是经过<code>sha256</code> 摘要过的</p>
+</blockquote>
+<ul>
+<li>查看宿主机创建出来的数据卷</li>
+</ul>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ cd  /var/<span class="class"><span class="keyword">lib</span>/<span class="title">docker</span>/<span class="title">volumes</span>/</span></span><br><span class="line">$ ls </span><br><span class="line"><span class="number">8</span>d668720aaeccee44b5fb554571912a6a257eb3a28cecf334203805a0c9b6fd3  <span class="comment">#这是自己创建出来的数据卷</span></span><br><span class="line"><span class="comment"># 执行 cd _data 进入这这个文件夹里面</span></span><br><span class="line">$ ls</span><br><span class="line"><span class="number">50</span>x.html  index.html   <span class="comment"># 这两个文件是把容器里文件给拷贝了出来</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>可以在宿主机或者容器里面都可以对文件进行读写操作</p>
+</blockquote>
+<h5 id="挂载多个目录"><a href="#挂载多个目录" class="headerlink" title="挂载多个目录"></a>挂载多个目录</h5><ul>
+<li>就是执行多个 <code>-v</code> 就可以</li>
+</ul>
+<h5 id="容器间挂载"><a href="#容器间挂载" class="headerlink" title="容器间挂载"></a>容器间挂载</h5><blockquote>
+<p>创建数据卷，只要在<code>docker run</code>命令后面跟上<code>-v</code>参数即可创建一个数据卷，当然也可以跟多个<code>-v</code>参数来创建多个数据卷，当创建好带有数据卷的容器后，就可以在其他容器中通过<code>--volumes-from</code>参数来挂载该数据卷了，而不管该容器是否运行。</p>
+</blockquote>
+<figure class="highlight brainfuck"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">docker</span> <span class="comment">run</span> <span class="literal">-</span><span class="comment">tid</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">rm</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">volumes</span><span class="literal">-</span><span class="comment">from</span> <span class="comment">nginx</span><span class="literal">-</span><span class="comment">test</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">name</span> <span class="comment">nginx</span><span class="literal">-</span><span class="comment">test3</span> <span class="comment">nginx</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>-i  : 以交互模式运行容器，通常与 -t 同时使用；</p>
+<p>-t  : 为容器重新分配一个伪输入终端，通常与 -i 同时使用；</p>
+<p>-d : 后台运行容器，并返回容器ID；</p>
+</blockquote>
+<ul>
+<li>再创建一个nginx-test4，挂载nginx-test3中从nginx-test挂载的数据卷，当然也可以直接挂载初识的nginx-test容器的数据卷</li>
+</ul>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">* </span>即使删除了初始的数据卷容器 nginx-test，或者是删除了其他容器，但只要是有容器在使用该数据卷，那么它里面的数据就不会丢失</span><br><span class="line"><span class="bullet">* </span>命令中的rm表示当容器退出即停止的时候，会自动删除该容器</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h5 id="备份数据卷"><a href="#备份数据卷" class="headerlink" title="备份数据卷"></a>备份数据卷</h5><ul>
+<li>创建一个容器container1，包含两个数据卷/usr/share/nginx/html1和/usr/share/nginx/html2（这两个目录是在容器里的数据卷路径）</li>
+</ul>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ docker run -tid -v /usr/share/nginx/html1 -v /usr/share/nginx/html2 --name container1</span><br><span class="line">nginx   <span class="comment"># 创建容器container1</span></span><br><span class="line"></span><br><span class="line">$ docker exec -it container1 bash   <span class="comment">#进入创建好的容器里面</span></span><br><span class="line"></span><br><span class="line">$ cd html1/  <span class="comment"># 进入到html1数据卷中</span></span><br><span class="line">$ echo html1 <span class="meta">&gt;&gt; </span><span class="number">1</span>.text <span class="comment"># 向 1.text 文件中追加数据，文件不存在则会创建文件</span></span><br><span class="line"></span><br><span class="line">$ cd html2/  <span class="comment"># 进入到html2数据卷中</span></span><br><span class="line">$ echo html2 <span class="meta">&gt;&gt; </span><span class="number">2</span>.text <span class="comment"># 向 2.text 文件中追加数据，文件不存在则会创建文件</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>接下来进行数据卷的备份操作</li>
+</ul>
+<blockquote>
+<p>使用  - -volumes-from 来创建一个加载 container1 容器卷的容器，并从宿主机挂载当前所在目录到容器的 /backup 目录，容器内会 tar 压缩 /var/colume1 目录下的文件到 /backup/backup1.tar，因为宿主机当前目录已经映射到 /backup 目录了，因此会在宿主机当前目录也存在该压缩包。备份完毕后 -rm 自动删除该创建的容器。</p>
+</blockquote>
+<ul>
+<li>备份container1容器中的/usr/share/nginx/html1数据卷数据</li>
+</ul>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 备份container1容器中的/usr/share/nginx/html1数据卷数据</span></span><br><span class="line"><span class="comment"># -tid 这个参数加不加都可以</span></span><br><span class="line"><span class="comment"># --rm 加上，备份后就会自动删除这个容器，如果不加这个 --rm 参数，name备份后的容器就会保留，docker ps -a就会查看到）</span></span><br><span class="line"><span class="comment"># $(pwd) </span></span><br><span class="line">[root@iz2zefaujekcdpmfw1qs4az ~]<span class="comment"># pwd</span></span><br><span class="line">/root</span><br><span class="line"></span><br><span class="line">[root@iz2zefaujekcdpmfw1qs4az ~]<span class="comment"># docker run -tid --rm --volumes-from container1 -v $(pwd):/backup nginx tar cvf /backup/backup1.tar /usr/share/nginx/html1</span></span><br><span class="line">b3663a3bdd302a38036d6a156471cd448c8e5b9333a20f9480b3c61cbd9270df</span><br><span class="line"></span><br><span class="line">[root@iz2zefaujekcdpmfw1qs4az ~]<span class="comment"># ls</span></span><br><span class="line">backup1.tar</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<ul>
+<li>–volumes-from [containerName]：这个命令来指定需要备份的容器的名字；（数据卷容器的名字）</li>
+<li>-v $(pwd):/backup:权限：使用-v命令来指定希望备份文件存放的位置；本地存放目录：容器存放目录：读写权限；（默认权限是读写）</li>
+<li>tar cvf /backup/backup.tar [container data volume]：tar表示执行备份的操作是：压缩文件的命令；</li>
+<li>/backup/backup.tar是文件存放的地址， [container data volume]指定需要备份的目录；</li>
+<li>tar cvf 压缩；tar xvf解压缩；</li>
+</ul>
+</blockquote>
+<ul>
+<li>备份container1容器中的/usr/share/nginx/html2数据卷数据</li>
+</ul>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># 备份container1容器中的/usr/share/nginx/html2数据卷数据</span><br><span class="line">[<span class="symbol">root@</span>iz2zefaujekcdpmfw1qs4az ~]# pwd</span><br><span class="line">/root</span><br><span class="line"></span><br><span class="line">[<span class="symbol">root@</span>iz2zefaujekcdpmfw1qs4az ~]# docker run -tid --rm --volumes-<span class="keyword">from</span> container1 -v $(pwd):/backup nginx tar cvf /backup/backup2.tar /usr/share/nginx/html2</span><br><span class="line"><span class="number">001129</span>bc393d5d0ed4665d053d4ca7972584cf2bd56980064be182ec758138cd</span><br><span class="line"></span><br><span class="line">[<span class="symbol">root@</span>iz2zefaujekcdpmfw1qs4az ~]# ll</span><br><span class="line">total <span class="number">22464</span></span><br><span class="line">-rw-r--r-- <span class="number">1</span> root root    <span class="number">10240</span> Dec <span class="number">16</span> <span class="number">18</span>:<span class="number">52</span> backup1.tar  # 文件<span class="number">1</span></span><br><span class="line">-rw-r--r-- <span class="number">1</span> root root    <span class="number">10240</span> Dec <span class="number">16</span> <span class="number">19</span>:<span class="number">05</span> backup2.tar  # 文件<span class="number">2</span></span><br><span class="line">drwxr-xr-x <span class="number">2</span> root root     <span class="number">4096</span> Dec <span class="number">16</span> <span class="number">16</span>:<span class="number">45</span> myvolume</span><br><span class="line">-rw-r--r-- <span class="number">1</span> root root <span class="number">22973527</span> Mar <span class="number">26</span>  <span class="number">2019</span> Python<span class="number">-3.7</span><span class="number">.3</span>.tgz</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>备份container1 容器中的 /usr/share/nginx/html1 和 /usr/share/nginx/html2 数据卷数据</li>
+</ul>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#  备份container1 容器中的 /usr/share/nginx/html2 和 /usr/share/nginx/html2 数据卷数据</span><br><span class="line">[<span class="symbol">root@</span>iz2zefaujekcdpmfw1qs4az ~]# pwd</span><br><span class="line">/root</span><br><span class="line"></span><br><span class="line">[<span class="symbol">root@</span>iz2zefaujekcdpmfw1qs4az ~]# docker run -tid --rm --volumes-<span class="keyword">from</span> container1 -v $(pwd):/backup nginx tar cvf /backup/backup.tar /usr/share/nginx/html1 /usr/share/nginx/html2</span><br><span class="line"><span class="number">441</span>df929e123cbe51564ca3d6bf3f06a5ea415298a34bb9871f1ed2b68a60102</span><br><span class="line"></span><br><span class="line">[<span class="symbol">root@</span>iz2zefaujekcdpmfw1qs4az ~]# ll</span><br><span class="line">total <span class="number">22476</span></span><br><span class="line">-rw-r--r-- <span class="number">1</span> root root    <span class="number">10240</span> Dec <span class="number">16</span> <span class="number">18</span>:<span class="number">52</span> backup1.tar</span><br><span class="line">-rw-r--r-- <span class="number">1</span> root root    <span class="number">10240</span> Dec <span class="number">16</span> <span class="number">19</span>:<span class="number">05</span> backup2.tar</span><br><span class="line">-rw-r--r-- <span class="number">1</span> root root    <span class="number">10240</span> Dec <span class="number">16</span> <span class="number">19</span>:<span class="number">09</span> backup.tar</span><br><span class="line">drwxr-xr-x <span class="number">2</span> root root     <span class="number">4096</span> Dec <span class="number">16</span> <span class="number">16</span>:<span class="number">45</span> myvolume</span><br><span class="line">-rw-r--r-- <span class="number">1</span> root root <span class="number">22973527</span> Mar <span class="number">26</span>  <span class="number">2019</span> Python<span class="number">-3.7</span><span class="number">.3</span>.tgz</span><br></pre></td></tr></table></figure>
+
+<h5 id="恢复数据给同一个容器"><a href="#恢复数据给同一个容器" class="headerlink" title="恢复数据给同一个容器"></a>恢复数据给同一个容器</h5><blockquote>
+<p>之前的数据卷是从 container1 中备份的，现在模拟 container1 数据卷丢失，然后直接用之前备份的 backup.tar 进行恢复</p>
+</blockquote>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 为了测试恢复，先删除容器里原先的数据（注意：数据卷目录不能删除，只能删除其中的数据）</span></span><br><span class="line">[root<span class="variable">@iz2zefaujekcdpmfw1qs4az</span> ~]<span class="comment"># docker exec -it container1 bash </span></span><br><span class="line"><span class="comment">#进入到创建的容器里</span></span><br><span class="line">root<span class="variable">@6869560e6ff5</span><span class="symbol">:/</span><span class="comment"># ls</span></span><br><span class="line">bin  boot  dev	etc  home  lib	lib64  media  mnt  opt	proc  root  run  sbin  srv  sys  tmp  usr  var</span><br><span class="line">root<span class="variable">@6869560e6ff5</span><span class="symbol">:/</span><span class="comment"># cd /usr/share/nginx  </span></span><br><span class="line"><span class="comment">#进入到容器里面的数据卷所在的目录</span></span><br><span class="line">root<span class="variable">@6869560e6ff5</span><span class="symbol">:/usr/share/nginx</span><span class="comment"># ls</span></span><br><span class="line">html  html1  html2  </span><br><span class="line"></span><br><span class="line">root<span class="variable">@6869560e6ff5</span><span class="symbol">:/usr/share/nginx</span><span class="comment"># cd html1</span></span><br><span class="line"><span class="comment"># 进入到 html1 数据卷目录</span></span><br><span class="line">root<span class="variable">@6869560e6ff5</span><span class="symbol">:/usr/share/nginx/html1</span><span class="comment"># ls</span></span><br><span class="line"><span class="number">1</span>.text</span><br><span class="line"></span><br><span class="line">root<span class="variable">@6869560e6ff5</span><span class="symbol">:/usr/share/nginx/html1</span><span class="comment"># rm -rf 1.text </span></span><br><span class="line"><span class="comment"># 删除 1.text 文件</span></span><br><span class="line">root<span class="variable">@6869560e6ff5</span><span class="symbol">:/usr/share/nginx/html1</span><span class="comment"># ls</span></span><br><span class="line"></span><br><span class="line">root<span class="variable">@6869560e6ff5</span><span class="symbol">:/usr/share/nginx</span><span class="comment"># cd html2</span></span><br><span class="line"><span class="comment"># 进入到 html2 的数据卷目录</span></span><br><span class="line">root<span class="variable">@6869560e6ff5</span><span class="symbol">:/usr/share/nginx/html2</span><span class="comment"># ls</span></span><br><span class="line"><span class="number">2</span>.text</span><br><span class="line"></span><br><span class="line">root<span class="variable">@6869560e6ff5</span><span class="symbol">:/usr/share/nginx/html2</span><span class="comment"># rm -rf 2.text </span></span><br><span class="line"><span class="comment"># 删除 2.text 文件</span></span><br><span class="line">root<span class="variable">@6869560e6ff5</span><span class="symbol">:/usr/share/nginx/html2</span><span class="comment"># ls</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 进行数据卷恢复，恢复数据卷中的所有数据</span></span><br><span class="line">注意-C后面的路径，表示将数据恢复到容器里的路径直接使用压缩包中文件的各个路径。比如压缩包中的结果如下：</span><br><span class="line">tar -xvf backup.tar   <span class="comment">#解压压缩文件</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 数据1</span></span><br><span class="line">usr/share/nginx/html1/<span class="number">1</span>.text</span><br><span class="line">--usr</span><br><span class="line">	--share</span><br><span class="line">		--nginx</span><br><span class="line">			--html1</span><br><span class="line">				--<span class="number">1</span>.text</span><br><span class="line"><span class="comment"># 数据2		</span></span><br><span class="line">usr/share/nginx/html2/<span class="number">2</span>.text</span><br><span class="line">--usr</span><br><span class="line">	--share</span><br><span class="line">		--nginx</span><br><span class="line">			--html2</span><br><span class="line">				--<span class="number">2</span>.text</span><br><span class="line"><span class="comment"># 直接将文件解压到 /usr/share/nginx/html1 和 /usr/share/nginx/html2 目录</span></span><br><span class="line">[root<span class="variable">@iz2zefaujekcdpmfw1qs4az</span> ~]<span class="comment"># docker run --rm --volumes-from container1 -v $(pwd):/backup nginx tar xvf /backup/backup.tar -C /</span></span><br><span class="line">usr/share/nginx/html1/</span><br><span class="line">usr/share/nginx/html1/<span class="number">1</span>.text</span><br><span class="line">usr/share/nginx/html2/</span><br><span class="line">usr/share/nginx/html2/<span class="number">2</span>.text</span><br><span class="line"></span><br><span class="line"><span class="comment"># 直接进入容器查看</span></span><br><span class="line">[root<span class="variable">@iz2zefaujekcdpmfw1qs4az</span> ~]<span class="comment"># docker exec -it container1 bash</span></span><br><span class="line">root<span class="variable">@6869560e6ff5</span><span class="symbol">:/</span><span class="comment"># cd /usr/share/nginx/ </span></span><br><span class="line">root<span class="variable">@6869560e6ff5</span><span class="symbol">:/usr/share/nginx</span><span class="comment"># ls</span></span><br><span class="line">html  html1  html2</span><br><span class="line"><span class="comment"># 查看数据是否存在</span></span><br><span class="line">root<span class="variable">@6869560e6ff5</span><span class="symbol">:/usr/share/nginx</span><span class="comment"># ls html1</span></span><br><span class="line"><span class="number">1</span>.text</span><br><span class="line">root<span class="variable">@6869560e6ff5</span><span class="symbol">:/usr/share/nginx</span><span class="comment"># ls html2</span></span><br><span class="line"><span class="number">2</span>.text</span><br><span class="line">root<span class="variable">@6869560e6ff5</span><span class="symbol">:/usr/share/nginx</span><span class="comment"># cat html1/1.text </span></span><br><span class="line">html1</span><br><span class="line">root<span class="variable">@6869560e6ff5</span><span class="symbol">:/usr/share/nginx</span><span class="comment"># cat html2/2.text </span></span><br><span class="line">html2</span><br></pre></td></tr></table></figure>
+
+<h5 id="恢复数据给新的容器"><a href="#恢复数据给新的容器" class="headerlink" title="恢复数据给新的容器"></a>恢复数据给新的容器</h5><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"># 新建一个容器container2</span><br><span class="line">[<span class="symbol">root@</span>iz2zefaujekcdpmfw1qs4az ~]# docker run -tid -v /usr/share/nginx/html1 -v /usr/share/nginx/html2 --name container2 nginx</span><br><span class="line"><span class="number">89</span>abb55858fb1e3dddc07c2066d05614349aaf78ba446a1ea12f1241b98e4896</span><br><span class="line">[<span class="symbol">root@</span>iz2zefaujekcdpmfw1qs4az ~]# docker ps</span><br><span class="line">CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES</span><br><span class="line"><span class="number">89</span>abb55858fb        nginx               <span class="string">"/bin/bash"</span>         <span class="number">9</span> seconds ago       Up <span class="number">8</span> seconds        <span class="number">80</span>/tcp              container2</span><br><span class="line"><span class="number">6869560e6f</span>f5        nginx               <span class="string">"/bin/bash"</span>         <span class="number">2</span> hours ago         Up <span class="number">2</span> hours          <span class="number">80</span>/tcp              container1</span><br><span class="line"></span><br><span class="line"># 开始恢复数据</span><br><span class="line">[<span class="symbol">root@</span>iz2zefaujekcdpmfw1qs4az ~]# pwd</span><br><span class="line">/root</span><br><span class="line">[<span class="symbol">root@</span>iz2zefaujekcdpmfw1qs4az ~]# ll</span><br><span class="line">total <span class="number">22476</span></span><br><span class="line">-rw-r--r-- <span class="number">1</span> root root    <span class="number">10240</span> Dec <span class="number">16</span> <span class="number">18</span>:<span class="number">52</span> backup1.tar</span><br><span class="line">-rw-r--r-- <span class="number">1</span> root root    <span class="number">10240</span> Dec <span class="number">16</span> <span class="number">19</span>:<span class="number">05</span> backup2.tar</span><br><span class="line">-rw-r--r-- <span class="number">1</span> root root    <span class="number">10240</span> Dec <span class="number">16</span> <span class="number">19</span>:<span class="number">09</span> backup.tar</span><br><span class="line">drwxr-xr-x <span class="number">2</span> root root     <span class="number">4096</span> Dec <span class="number">16</span> <span class="number">16</span>:<span class="number">45</span> myvolume</span><br><span class="line">-rw-r--r-- <span class="number">1</span> root root <span class="number">22973527</span> Mar <span class="number">26</span>  <span class="number">2019</span> Python<span class="number">-3.7</span><span class="number">.3</span>.tgz</span><br><span class="line"></span><br><span class="line"># 恢复数据</span><br><span class="line">[<span class="symbol">root@</span>iz2zefaujekcdpmfw1qs4az ~]# docker run --rm --volumes-<span class="keyword">from</span> container2 -v $(pwd):/backup nginx tar xvf /backup/backup.tar -C /</span><br><span class="line">usr/share/nginx/html1/</span><br><span class="line">usr/share/nginx/html1/<span class="number">1.</span>text</span><br><span class="line">usr/share/nginx/html2/</span><br><span class="line">usr/share/nginx/html2/<span class="number">2.</span>text</span><br><span class="line"></span><br><span class="line"># 查看确实已经恢复了</span><br><span class="line">[<span class="symbol">root@</span>iz2zefaujekcdpmfw1qs4az ~]# docker exec -it container2 bash</span><br><span class="line"><span class="symbol">root@</span><span class="number">89</span>abb55858fb:/# ls /usr/share/nginx/</span><br><span class="line">html  html1  html2</span><br><span class="line"><span class="symbol">root@</span><span class="number">89</span>abb55858fb:/# ls /usr/share/nginx/html1</span><br><span class="line"><span class="number">1.</span>text</span><br><span class="line"><span class="symbol">root@</span><span class="number">89</span>abb55858fb:/# ls /usr/share/nginx/html2</span><br><span class="line"><span class="number">2.</span>text</span><br><span class="line"><span class="symbol">root@</span><span class="number">89</span>abb55858fb:/# cat /usr/share/nginx/html1/<span class="number">1.</span>text </span><br><span class="line">html1</span><br><span class="line"><span class="symbol">root@</span><span class="number">89</span>abb55858fb:/# cat /usr/share/nginx/html2/<span class="number">2.</span>text </span><br><span class="line">html2</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意：</p>
+<ul>
+<li><p>–volumes-from [containerName]：这个命令来指定需要备份的容器的名字；（数据卷容器的名字）</p>
+</li>
+<li><p>-v $(pwd):/backup:权限：使用-v命令来指定希望备份文件存放的位置；本地存放目录：容器存放目录：读写权限；（默认权限是读写）</p>
+</li>
+<li><p>tar cvf /backup/backup.tar [container data volume]：tar表示执行备份的操作是：压缩文件的命令；</p>
+</li>
+<li><p>/backup/backup.tar是文件存放的地址， [container data volume]指定需要备份的目录；</p>
+</li>
+<li><p>tar cvf 压缩；tar xvf解压缩；</p>
+</li>
+<li><p>新容器创建时挂载的数据卷路径最好和之前备份的数据卷路径一致</p>
+</li>
+<li><p>新容器创建时，如果挂载的数据卷只是备份卷的一部分，那么恢复的时候也只是恢复一部分数据。</p>
+</li>
+<li><p>比如新建容器挂载数据卷为 <code>-v /usr/share/nginx/html1</code> ,那么使用 <code>backup.tar</code> 恢复时，只会恢复 <code>/usr/share/nginx/html1</code> 的数据， <code>/usr/share/nginx/html2</code> 的数据是不会恢复的</p>
+</li>
+<li><p>比如新容器创建时挂载的数据卷目录和备份的数据卷目录不一致，那么数据恢复不了，除非修改 - C 后面的路径，比如新建容器时指定数据卷目录为 <code>/usr/share/nginx/html</code> ，恢复时也是用 <code>-C /usr/share/nginx/html</code>，则是可以成功恢复的</p>
+</li>
+</ul>
+</blockquote>
+<h5 id="删除数据卷"><a href="#删除数据卷" class="headerlink" title="删除数据卷"></a>删除数据卷</h5><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="keyword">volume</span><span class="bash"> ls     列出所有的数据卷</span></span><br><span class="line">docker <span class="keyword">volume</span><span class="bash"> ls --filter dangling=<span class="literal">true</span>     过滤不在使用的数据卷</span></span><br><span class="line">docker <span class="keyword">volume</span><span class="bash"> rm [volume name]     删除一个数据卷，容器正在使用的数据卷不能删除，绑定挂载的数据卷无法删除</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker volume rm <span class="keyword">my</span>-volio  删除数据卷 <span class="keyword">my</span>-volio</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>数据卷 是被设计用来持久化数据的，它的生命周期独立于容器，Docker 不会在容器被删除后自动删除 数据卷，并且也不存在垃圾回收这样的机制来处理没有任何容器引用的 数据卷。如果需要在删除容器的同时移除数据卷。可以在删除容器的时候使用 docker rm -v 这个命令。</p>
+</blockquote>
+<ul>
+<li>无主的数据卷可能会占据很多空间，要清理请使用以下命令</li>
+</ul>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker <span class="keyword">volume</span><span class="bash"> prune</span></span><br></pre></td></tr></table></figure>
+
 
       
     </div>
@@ -862,7 +1059,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#镜像层的镜像分层结构"><span class="nav-text">镜像层的镜像分层结构</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#docker的镜像分层结构，如下所示："><span class="nav-text">docker的镜像分层结构，如下所示：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#overlay2镜像存储结构"><span class="nav-text">overlay2镜像存储结构</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#容器"><span class="nav-text">容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker-为容器提供了两种存放数据的资源："><span class="nav-text">Docker 为容器提供了两种存放数据的资源：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#关于docker镜像的三问"><span class="nav-text">关于docker镜像的三问</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#写时复制（CoW）"><span class="nav-text">写时复制（CoW）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#用时分配（allocate-on-demand）"><span class="nav-text">用时分配（allocate-on-demand）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Docker存储驱动的作用"><span class="nav-text">Docker存储驱动的作用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Docker五种存储驱动原理及应用场景和性能测试对比"><span class="nav-text">Docker五种存储驱动原理及应用场景和性能测试对比</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#AUFS"><span class="nav-text">AUFS</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Overlay"><span class="nav-text">Overlay</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Overlay2"><span class="nav-text">Overlay2</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Device-mapper"><span class="nav-text">Device mapper</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Btrfs"><span class="nav-text">Btrfs</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ZFS"><span class="nav-text">ZFS</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#存储驱动的对比及适应场景"><span class="nav-text">存储驱动的对比及适应场景</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#AUFS-VS-Overlay"><span class="nav-text">AUFS VS  Overlay</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Overlay-VS-Device-mapper"><span class="nav-text">Overlay VS Device mapper</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Device-mapper-VS-Btrfs-Driver-VS-ZFS"><span class="nav-text">Device mapper VS Btrfs Driver VS ZFS</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IO性能对比"><span class="nav-text">IO性能对比</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#测试项的定义和解释"><span class="nav-text">测试项的定义和解释</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#测试数据对比"><span class="nav-text">测试数据对比</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#设置存储驱动程序"><span class="nav-text">设置存储驱动程序</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Data-Volume（数据卷）"><span class="nav-text">Data Volume（数据卷）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#什么是数据卷"><span class="nav-text">什么是数据卷</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Docker-的理念之一："><span class="nav-text">Docker 的理念之一：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#数据卷的设计的目的："><span class="nav-text">数据卷的设计的目的：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#数据卷特点："><span class="nav-text">数据卷特点：</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker-镜像层的镜像分层结构"><span class="nav-text">Docker 镜像层的镜像分层结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#容器"><span class="nav-text">容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker-为容器提供了两种存放数据的资源："><span class="nav-text">Docker 为容器提供了两种存放数据的资源：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#关于docker镜像的三问"><span class="nav-text">关于docker镜像的三问</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#写时复制（CoW）"><span class="nav-text">写时复制（CoW）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#用时分配（allocate-on-demand）"><span class="nav-text">用时分配（allocate-on-demand）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Docker存储驱动的作用"><span class="nav-text">Docker存储驱动的作用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Docker五种存储驱动原理及应用场景和性能测试对比"><span class="nav-text">Docker五种存储驱动原理及应用场景和性能测试对比</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#AUFS"><span class="nav-text">AUFS</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Overlay"><span class="nav-text">Overlay</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Overlay2"><span class="nav-text">Overlay2</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Device-mapper"><span class="nav-text">Device mapper</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Btrfs"><span class="nav-text">Btrfs</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ZFS"><span class="nav-text">ZFS</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#存储驱动的对比及适应场景"><span class="nav-text">存储驱动的对比及适应场景</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#AUFS-VS-Overlay"><span class="nav-text">AUFS VS  Overlay</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Overlay-VS-Device-mapper"><span class="nav-text">Overlay VS Device mapper</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Device-mapper-VS-Btrfs-Driver-VS-ZFS"><span class="nav-text">Device mapper VS Btrfs Driver VS ZFS</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IO性能对比"><span class="nav-text">IO性能对比</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#测试项的定义和解释"><span class="nav-text">测试项的定义和解释</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#测试数据对比"><span class="nav-text">测试数据对比</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#设置存储驱动程序"><span class="nav-text">设置存储驱动程序</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Data-Volume（数据卷）"><span class="nav-text">Data Volume（数据卷）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#附：bind-mount-与-docker-managed-volume-的区别"><span class="nav-text">附：bind mount 与 docker managed volume 的区别</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#什么是数据卷"><span class="nav-text">什么是数据卷</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Docker-的理念之一："><span class="nav-text">Docker 的理念之一：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#数据卷的设计的目的："><span class="nav-text">数据卷的设计的目的：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#数据卷特点："><span class="nav-text">数据卷特点：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#创建一个数据卷"><span class="nav-text">创建一个数据卷</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#挂载多个目录"><span class="nav-text">挂载多个目录</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#容器间挂载"><span class="nav-text">容器间挂载</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#备份数据卷"><span class="nav-text">备份数据卷</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#恢复数据给同一个容器"><span class="nav-text">恢复数据给同一个容器</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#恢复数据给新的容器"><span class="nav-text">恢复数据给新的容器</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#删除数据卷"><span class="nav-text">删除数据卷</span></a></li></ol></li></ol></li></ol></div>
         
       </div>
       <!--/noindex-->
@@ -1012,8 +1209,8 @@
       <span class="post-meta-item-text">站点总字数：</span>
     
     <span title="post.totalcount">
-     80k字 </span>
-    <span title="站点总字数">213k</span>
+     83.6k字 </span>
+    <span title="站点总字数">224k</span>
   
 </div>
 

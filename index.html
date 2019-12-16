@@ -330,6 +330,111 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://cy-blogs.cn/docker存储/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="哼着自己旳小调调">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/author.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="哼着自己旳小调调">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/docker存储/" class="post-title-link" itemprop="url">Docker 存储</a>
+          
+        </h1>
+
+        <div class="post-meta">
+         
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <!-- <span title="本文字数">28k</span> -->
+			        <span title="本文字数">
+                  9.4k字
+                </span>
+              
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        
+          <p>#Docker 存储</p><h3 id="镜像层的镜像分层结构"><a href="#镜像层的镜像分层结构" class="headerlink" title="镜像层的镜像分层结构"></a>镜像层的镜像分层结构</h3><p>######docker的镜像分层结构，如下所示：</p><p><img src="https://upload-images.jianshu.io/upload_images/13690429-8c66ee3f4b08a970.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1056/format/webp" alt="img"></p><ul>
+<li><p>docker镜像中引入层layer概念，镜像的制作过程中的每一步都会生产一个新的镜像层</p>
+</li>
+<li><p>容器读写层的工作原理</p>
+<blockquote>
+<p>我们刚刚在说镜像的分层特性的时候说到镜像是只读的。而事实上当我们使用镜像启动一个容器的时候，我们其实是可以在容器里随意读写的，从结果上看，似乎与镜像的只读特性相悖。</p>
+<p>我们继续看上面的图，其实可以看到在镜像的最上层，还有一个读写层。而这个读写层，即在容器启动时为当前容器单独挂载。每一个容器在运行时，都会基于当前镜像在其最上层挂载一个读写层。而用户针对容器的所有操作都在读写层中完成。一旦容器销毁，这个读写层也随之销毁。</p>
+<blockquote>
+<p>知识点： 容器=镜像+读写层</p>
+</blockquote>
+<p>而我们针对这个读写层的操作，主要基于两种方式：写时复制和用时分配。</p>
+</blockquote>
+</li>
+</ul>
+          <!--noindex-->
+          
+            <div class="post-button">
+              <a class="btn" href="/docker存储/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+  <div>
+  
+</div>
+
+    
+    
+    
+      <footer class="post-footer">
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+    
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://cy-blogs.cn/Linux用户组及权限管理/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1106,102 +1211,6 @@
   
 
     
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://cy-blogs.cn/Vue-路由组件/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="哼着自己旳小调调">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/author.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="哼着自己旳小调调">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-            
-            <a href="/Vue-路由组件/" class="post-title-link" itemprop="url">Vue-路由组件</a>
-          
-        </h1>
-
-        <div class="post-meta">
-         
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">本文字数：</span>
-                
-                <!-- <span title="本文字数">17k</span> -->
-			        <span title="本文字数">
-                  2.2k字
-                </span>
-              
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-        
-          <h2 id="Vue-Router"><a href="#Vue-Router" class="headerlink" title="Vue-Router"></a>Vue-Router</h2><blockquote>
-<p><code>Vue-router</code>做路径匹配时支持动态片段、全匹配片段以及查询参数（片段指的是<code>URL</code>中的一部分）</p>
-<p>对于解析过的路由，这些信息都可以通过路由上下文对象（从现在起，我们会称其为路由对象）访问。</p>
-<p>在使用了<code>vue-router</code>的应用中，路由对象会被注入每个组件中，赋值为<code>this.$route</code>，并且当路由切换时，路由对象会被更新</p>
-</blockquote>
-          <!--noindex-->
-          
-            <div class="post-button">
-              <a class="btn" href="/Vue-路由组件/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-  <div>
-  
-</div>
-
-    
-    
-    
-      <footer class="post-footer">
-        
-        
-          <div class="post-eof"></div>
-        
-      </footer>
-    
-  </article>
-  
-  
-  
-
-    
   </div>
 
   
@@ -1254,7 +1263,7 @@
         
           <a href="/archives">
         
-          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-count">28</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1267,7 +1276,7 @@
             <a href="/categories/">
           
         
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
@@ -1280,7 +1289,7 @@
             <a href="/tags/">
           
         
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
@@ -1385,8 +1394,8 @@
       <span class="post-meta-item-text">站点总字数：</span>
     
     <span title="post.totalcount">
-     69.9k字 </span>
-    <span title="站点总字数">198k</span>
+     79.3k字 </span>
+    <span title="站点总字数">213k</span>
   
 </div>
 

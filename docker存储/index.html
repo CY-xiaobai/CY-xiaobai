@@ -65,6 +65,7 @@
 <meta property="og:description" content="#Docker 存储Docker 镜像层的镜像分层结构 docker的镜像分层结构，如下所示：  docker镜像中引入层layer概念，镜像的制作过程中的每一步都会生产一个新的镜像层  容器读写层的工作原理  我们刚刚在说镜像的分层特性的时候说到镜像是只读的。而事实上当我们使用镜像启动一个容器的时候，我们其实是可以在容器里随意读写的，从结果上看，似乎与镜像的只读特性相悖。 我们继续看上面的图，其">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://docs.docker.com/storage/storagedriver/images/container-layers.jpg">
+<meta property="og:image" content="https://docs.docker.com/storage/storagedriver/images/sharing-layers.jpg">
 <meta property="og:image" content="https://img2018.cnblogs.com/blog/1369145/201904/1369145-20190403211618700-1608880157.png">
 <meta property="og:image" content="http://dockone.io/uploads/article/20190702/87af417e9f80a3eb8ae9716ae07b3dc1.jpg">
 <meta property="og:image" content="http://dockone.io/uploads/article/20190702/c12e244abea02f7ed1eb42f0ccdbcf1d.jpg">
@@ -82,7 +83,7 @@
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20190617160156293.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM3NTQ2ODkx,size_16,color_FFFFFF,t_70">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20190617160937555.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM3NTQ2ODkx,size_16,color_FFFFFF,t_70">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20190617161045446.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM3NTQ2ODkx,size_16,color_FFFFFF,t_70">
-<meta property="og:updated_time" content="2019-12-17T03:49:07.575Z">
+<meta property="og:updated_time" content="2019-12-17T03:51:42.030Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Docker 存储">
 <meta name="twitter:description" content="#Docker 存储Docker 镜像层的镜像分层结构 docker的镜像分层结构，如下所示：  docker镜像中引入层layer概念，镜像的制作过程中的每一步都会生产一个新的镜像层  容器读写层的工作原理  我们刚刚在说镜像的分层特性的时候说到镜像是只读的。而事实上当我们使用镜像启动一个容器的时候，我们其实是可以在容器里随意读写的，从结果上看，似乎与镜像的只读特性相悖。 我们继续看上面的图，其">
@@ -336,7 +337,8 @@
 
 
 <hr>
-<h3 id="容器"><a href="#容器" class="headerlink" title="容器"></a>容器</h3><ul>
+<h3 id="容器"><a href="#容器" class="headerlink" title="容器"></a>容器</h3><p><img src="https://docs.docker.com/storage/storagedriver/images/sharing-layers.jpg" alt="容器共享相同的图像"></p>
+<ul>
 <li><p>容器由最上面一个可写的容器层和若干个只读的镜像层组成，容器的数据就存在这些层中。这种分层结构最大的特点是Copy-on-Write。</p>
 <ol>
 <li><p>新数据会直接存放在最上面的容器层</p>

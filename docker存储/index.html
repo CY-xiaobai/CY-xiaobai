@@ -56,16 +56,16 @@
   };
 </script>
 
-  <meta name="description" content="#Docker 存储Docker 镜像层的镜像分层结构 docker的镜像分层结构，如下所示：  docker镜像中引入层layer概念，镜像的制作过程中的每一步都会生产一个新的镜像层  容器读写层的工作原理  我们刚刚在说镜像的分层特性的时候说到镜像是只读的。而事实上当我们使用镜像启动一个容器的时候，我们其实是可以在容器里随意读写的，从结果上看，似乎与镜像的只读特性相悖。 我们继续看上面的图，其">
+  <meta name="description" content="#Docker 存储Docek 镜像层的镜像分层结构 docker的镜像分层结构，如下所示：  docker镜像中引入层layer概念，镜像的制作过程中的每一步都会生产一个新的镜像层  容器读写层的工作原理  我们刚刚在说镜像的分层特性的时候说到镜像是只读的。而事实上当我们使用镜像启动一个容器的时候，我们其实是可以在容器里随意读写的，从结果上看，似乎与镜像的只读特性相悖。 我们继续看上面的图，其实">
 <meta name="keywords" content="Docker">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Docker 存储">
 <meta property="og:url" content="https://cy-blogs.cn/docker存储/index.html">
 <meta property="og:site_name" content="哼着自己旳小调调">
-<meta property="og:description" content="#Docker 存储Docker 镜像层的镜像分层结构 docker的镜像分层结构，如下所示：  docker镜像中引入层layer概念，镜像的制作过程中的每一步都会生产一个新的镜像层  容器读写层的工作原理  我们刚刚在说镜像的分层特性的时候说到镜像是只读的。而事实上当我们使用镜像启动一个容器的时候，我们其实是可以在容器里随意读写的，从结果上看，似乎与镜像的只读特性相悖。 我们继续看上面的图，其">
+<meta property="og:description" content="#Docker 存储Docek 镜像层的镜像分层结构 docker的镜像分层结构，如下所示：  docker镜像中引入层layer概念，镜像的制作过程中的每一步都会生产一个新的镜像层  容器读写层的工作原理  我们刚刚在说镜像的分层特性的时候说到镜像是只读的。而事实上当我们使用镜像启动一个容器的时候，我们其实是可以在容器里随意读写的，从结果上看，似乎与镜像的只读特性相悖。 我们继续看上面的图，其实">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/13690429-8c66ee3f4b08a970.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1056/format/webp">
-<meta property="og:image" content="https://img2018.cnblogs.com/blog/1369145/201904/1369145-20190403211618700-1608880157.png">
+<meta property="og:image" content="https://segmentfault.com/img/remote/1460000021225617">
+<meta property="og:image" content="https://s1.51cto.com/images/blog/201909/14/d4205151b2cd1474851cf336d0db69a1.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=">
 <meta property="og:image" content="http://dockone.io/uploads/article/20190702/87af417e9f80a3eb8ae9716ae07b3dc1.jpg">
 <meta property="og:image" content="http://dockone.io/uploads/article/20190702/c12e244abea02f7ed1eb42f0ccdbcf1d.jpg">
 <meta property="og:image" content="http://dockone.io/uploads/article/20190702/0ef920a30190955999076f524229f321.jpg">
@@ -82,11 +82,12 @@
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20190617160156293.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM3NTQ2ODkx,size_16,color_FFFFFF,t_70">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20190617160937555.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM3NTQ2ODkx,size_16,color_FFFFFF,t_70">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20190617161045446.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM3NTQ2ODkx,size_16,color_FFFFFF,t_70">
-<meta property="og:updated_time" content="2019-12-16T12:58:59.926Z">
+<meta property="og:image" content="https://img-blog.csdn.net/20180524134945342?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM3NTQ2ODkx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="og:updated_time" content="2019-12-17T03:30:56.691Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Docker 存储">
-<meta name="twitter:description" content="#Docker 存储Docker 镜像层的镜像分层结构 docker的镜像分层结构，如下所示：  docker镜像中引入层layer概念，镜像的制作过程中的每一步都会生产一个新的镜像层  容器读写层的工作原理  我们刚刚在说镜像的分层特性的时候说到镜像是只读的。而事实上当我们使用镜像启动一个容器的时候，我们其实是可以在容器里随意读写的，从结果上看，似乎与镜像的只读特性相悖。 我们继续看上面的图，其">
-<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/13690429-8c66ee3f4b08a970.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1056/format/webp">
+<meta name="twitter:description" content="#Docker 存储Docek 镜像层的镜像分层结构 docker的镜像分层结构，如下所示：  docker镜像中引入层layer概念，镜像的制作过程中的每一步都会生产一个新的镜像层  容器读写层的工作原理  我们刚刚在说镜像的分层特性的时候说到镜像是只读的。而事实上当我们使用镜像启动一个容器的时候，我们其实是可以在容器里随意读写的，从结果上看，似乎与镜像的只读特性相悖。 我们继续看上面的图，其实">
+<meta name="twitter:image" content="https://segmentfault.com/img/remote/1460000021225617">
   <link rel="canonical" href="https://cy-blogs.cn/docker存储/">
 
 
@@ -298,7 +299,7 @@
                 
                 <!-- <span title="本文字数">67k</span> -->
 			        <span title="本文字数">
-                  13.7k字
+                  13.8k字
                 </span>
               
 
@@ -316,9 +317,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>#Docker 存储</p><h3 id="Docker-镜像层的镜像分层结构"><a href="#Docker-镜像层的镜像分层结构" class="headerlink" title="Docker 镜像层的镜像分层结构"></a>Docker 镜像层的镜像分层结构</h3><ul>
+        <p>#Docker 存储</p><h3 id="Docek-镜像层的镜像分层结构"><a href="#Docek-镜像层的镜像分层结构" class="headerlink" title="Docek 镜像层的镜像分层结构"></a>Docek 镜像层的镜像分层结构</h3><ul>
 <li>docker的镜像分层结构，如下所示：</li>
-</ul><p><img src="https://upload-images.jianshu.io/upload_images/13690429-8c66ee3f4b08a970.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1056/format/webp" alt="img"></p><ul>
+</ul><p><img src="https://segmentfault.com/img/remote/1460000021225617" alt="img"></p><ul>
 <li><p>docker镜像中引入层layer概念，镜像的制作过程中的每一步都会生产一个新的镜像层</p>
 </li>
 <li><p>容器读写层的工作原理</p>
@@ -397,7 +398,7 @@
 </blockquote>
 <blockquote>
 <p>运行<code>docker info</code>可以查看可查看当前系统使用的<code>Storage driver</code>。</p>
-<p><img src="https://img2018.cnblogs.com/blog/1369145/201904/1369145-20190403211618700-1608880157.png" alt="img"></p>
+<p><img src="https://s1.51cto.com/images/blog/201909/14/d4205151b2cd1474851cf336d0db69a1.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="Docker学习-Docker存储"></p>
 </blockquote>
 <hr>
 <blockquote>
@@ -823,9 +824,13 @@
 <blockquote>
 <p>可以在宿主机或者容器里面都可以对文件进行读写操作</p>
 </blockquote>
-<h5 id="挂载多个目录"><a href="#挂载多个目录" class="headerlink" title="挂载多个目录"></a>挂载多个目录</h5><ul>
+<h5 id="挂载多个目录实现数据卷的"><a href="#挂载多个目录实现数据卷的" class="headerlink" title="挂载多个目录实现数据卷的"></a>挂载多个目录实现数据卷的</h5><ul>
 <li>就是执行多个 <code>-v</code> 就可以</li>
 </ul>
+<h5 id="容器间的数据共享"><a href="#容器间的数据共享" class="headerlink" title="容器间的数据共享"></a>容器间的数据共享</h5><ul>
+<li>数据卷容器挂载了一个本地文件系统的目录，其它容器通过挂载这个数据卷容器来实现容器间的数据的共享；</li>
+</ul>
+<p><img src="https://img-blog.csdn.net/20180524134945342?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM3NTQ2ODkx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
 <h5 id="容器间挂载"><a href="#容器间挂载" class="headerlink" title="容器间挂载"></a>容器间挂载</h5><blockquote>
 <p>创建数据卷，只要在<code>docker run</code>命令后面跟上<code>-v</code>参数即可创建一个数据卷，当然也可以跟多个<code>-v</code>参数来创建多个数据卷，当创建好带有数据卷的容器后，就可以在其他容器中通过<code>--volumes-from</code>参数来挂载该数据卷了，而不管该容器是否运行。</p>
 </blockquote>
@@ -1059,7 +1064,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker-镜像层的镜像分层结构"><span class="nav-text">Docker 镜像层的镜像分层结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#容器"><span class="nav-text">容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker-为容器提供了两种存放数据的资源："><span class="nav-text">Docker 为容器提供了两种存放数据的资源：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#关于docker镜像的三问"><span class="nav-text">关于docker镜像的三问</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#写时复制（CoW）"><span class="nav-text">写时复制（CoW）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#用时分配（allocate-on-demand）"><span class="nav-text">用时分配（allocate-on-demand）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Docker存储驱动的作用"><span class="nav-text">Docker存储驱动的作用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Docker五种存储驱动原理及应用场景和性能测试对比"><span class="nav-text">Docker五种存储驱动原理及应用场景和性能测试对比</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#AUFS"><span class="nav-text">AUFS</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Overlay"><span class="nav-text">Overlay</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Overlay2"><span class="nav-text">Overlay2</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Device-mapper"><span class="nav-text">Device mapper</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Btrfs"><span class="nav-text">Btrfs</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ZFS"><span class="nav-text">ZFS</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#存储驱动的对比及适应场景"><span class="nav-text">存储驱动的对比及适应场景</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#AUFS-VS-Overlay"><span class="nav-text">AUFS VS  Overlay</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Overlay-VS-Device-mapper"><span class="nav-text">Overlay VS Device mapper</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Device-mapper-VS-Btrfs-Driver-VS-ZFS"><span class="nav-text">Device mapper VS Btrfs Driver VS ZFS</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IO性能对比"><span class="nav-text">IO性能对比</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#测试项的定义和解释"><span class="nav-text">测试项的定义和解释</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#测试数据对比"><span class="nav-text">测试数据对比</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#设置存储驱动程序"><span class="nav-text">设置存储驱动程序</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Data-Volume（数据卷）"><span class="nav-text">Data Volume（数据卷）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#附：bind-mount-与-docker-managed-volume-的区别"><span class="nav-text">附：bind mount 与 docker managed volume 的区别</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#什么是数据卷"><span class="nav-text">什么是数据卷</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Docker-的理念之一："><span class="nav-text">Docker 的理念之一：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#数据卷的设计的目的："><span class="nav-text">数据卷的设计的目的：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#数据卷特点："><span class="nav-text">数据卷特点：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#创建一个数据卷"><span class="nav-text">创建一个数据卷</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#挂载多个目录"><span class="nav-text">挂载多个目录</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#容器间挂载"><span class="nav-text">容器间挂载</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#备份数据卷"><span class="nav-text">备份数据卷</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#恢复数据给同一个容器"><span class="nav-text">恢复数据给同一个容器</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#恢复数据给新的容器"><span class="nav-text">恢复数据给新的容器</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#删除数据卷"><span class="nav-text">删除数据卷</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Docek-镜像层的镜像分层结构"><span class="nav-text">Docek 镜像层的镜像分层结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#容器"><span class="nav-text">容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker-为容器提供了两种存放数据的资源："><span class="nav-text">Docker 为容器提供了两种存放数据的资源：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#关于docker镜像的三问"><span class="nav-text">关于docker镜像的三问</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#写时复制（CoW）"><span class="nav-text">写时复制（CoW）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#用时分配（allocate-on-demand）"><span class="nav-text">用时分配（allocate-on-demand）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Docker存储驱动的作用"><span class="nav-text">Docker存储驱动的作用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Docker五种存储驱动原理及应用场景和性能测试对比"><span class="nav-text">Docker五种存储驱动原理及应用场景和性能测试对比</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#AUFS"><span class="nav-text">AUFS</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Overlay"><span class="nav-text">Overlay</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Overlay2"><span class="nav-text">Overlay2</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Device-mapper"><span class="nav-text">Device mapper</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Btrfs"><span class="nav-text">Btrfs</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ZFS"><span class="nav-text">ZFS</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#存储驱动的对比及适应场景"><span class="nav-text">存储驱动的对比及适应场景</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#AUFS-VS-Overlay"><span class="nav-text">AUFS VS  Overlay</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Overlay-VS-Device-mapper"><span class="nav-text">Overlay VS Device mapper</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Device-mapper-VS-Btrfs-Driver-VS-ZFS"><span class="nav-text">Device mapper VS Btrfs Driver VS ZFS</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IO性能对比"><span class="nav-text">IO性能对比</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#测试项的定义和解释"><span class="nav-text">测试项的定义和解释</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#测试数据对比"><span class="nav-text">测试数据对比</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#设置存储驱动程序"><span class="nav-text">设置存储驱动程序</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Data-Volume（数据卷）"><span class="nav-text">Data Volume（数据卷）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#附：bind-mount-与-docker-managed-volume-的区别"><span class="nav-text">附：bind mount 与 docker managed volume 的区别</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#什么是数据卷"><span class="nav-text">什么是数据卷</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Docker-的理念之一："><span class="nav-text">Docker 的理念之一：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#数据卷的设计的目的："><span class="nav-text">数据卷的设计的目的：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#数据卷特点："><span class="nav-text">数据卷特点：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#创建一个数据卷"><span class="nav-text">创建一个数据卷</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#挂载多个目录实现数据卷的"><span class="nav-text">挂载多个目录实现数据卷的</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#容器间的数据共享"><span class="nav-text">容器间的数据共享</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#容器间挂载"><span class="nav-text">容器间挂载</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#备份数据卷"><span class="nav-text">备份数据卷</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#恢复数据给同一个容器"><span class="nav-text">恢复数据给同一个容器</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#恢复数据给新的容器"><span class="nav-text">恢复数据给新的容器</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#删除数据卷"><span class="nav-text">删除数据卷</span></a></li></ol></li></ol></li></ol></div>
         
       </div>
       <!--/noindex-->
@@ -1209,7 +1214,7 @@
       <span class="post-meta-item-text">站点总字数：</span>
     
     <span title="post.totalcount">
-     83.6k字 </span>
+     83.7k字 </span>
     <span title="站点总字数">224k</span>
   
 </div>

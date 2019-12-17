@@ -66,7 +66,6 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://docs.docker.com/storage/storagedriver/images/container-layers.jpg">
 <meta property="og:image" content="https://docs.docker.com/storage/storagedriver/images/sharing-layers.jpg">
-<meta property="og:image" content="https://img2018.cnblogs.com/blog/1369145/201904/1369145-20190403211618700-1608880157.png">
 <meta property="og:image" content="http://dockone.io/uploads/article/20190702/87af417e9f80a3eb8ae9716ae07b3dc1.jpg">
 <meta property="og:image" content="http://dockone.io/uploads/article/20190702/c12e244abea02f7ed1eb42f0ccdbcf1d.jpg">
 <meta property="og:image" content="http://dockone.io/uploads/article/20190702/0ef920a30190955999076f524229f321.jpg">
@@ -83,7 +82,7 @@
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20190617160156293.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM3NTQ2ODkx,size_16,color_FFFFFF,t_70">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20190617160937555.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM3NTQ2ODkx,size_16,color_FFFFFF,t_70">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20190617161045446.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM3NTQ2ODkx,size_16,color_FFFFFF,t_70">
-<meta property="og:updated_time" content="2019-12-17T03:51:42.030Z">
+<meta property="og:updated_time" content="2019-12-17T03:55:41.979Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Docker 存储">
 <meta name="twitter:description" content="#Docker 存储Docker 镜像层的镜像分层结构 docker的镜像分层结构，如下所示：  docker镜像中引入层layer概念，镜像的制作过程中的每一步都会生产一个新的镜像层  容器读写层的工作原理  我们刚刚在说镜像的分层特性的时候说到镜像是只读的。而事实上当我们使用镜像启动一个容器的时候，我们其实是可以在容器里随意读写的，从结果上看，似乎与镜像的只读特性相悖。 我们继续看上面的图，其">
@@ -297,9 +296,9 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <!-- <span title="本文字数">67k</span> -->
+                <!-- <span title="本文字数">69k</span> -->
 			        <span title="本文字数">
-                  13.7k字
+                  13.8k字
                 </span>
               
 
@@ -399,7 +398,7 @@
 </blockquote>
 <blockquote>
 <p>运行<code>docker info</code>可以查看可查看当前系统使用的<code>Storage driver</code>。</p>
-<p><img src="https://img2018.cnblogs.com/blog/1369145/201904/1369145-20190403211618700-1608880157.png" alt="img"></p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&gt; [root@izbp1dg6m4eebtcm77n0smz ~]# docker info</span><br><span class="line">&gt; Client:</span><br><span class="line">&gt;  <span class="builtin-name">Debug</span> Mode: <span class="literal">false</span></span><br><span class="line">&gt; </span><br><span class="line">&gt; Server:</span><br><span class="line">&gt;  Containers: 6</span><br><span class="line">&gt;   Running: 4</span><br><span class="line">&gt;   Paused: 0</span><br><span class="line">&gt;   Stopped: 2</span><br><span class="line">&gt;  Images: 4</span><br><span class="line">&gt; <span class="built_in"> Server </span>Version: 19.03.5</span><br><span class="line">&gt;  Storage Driver: overlay2</span><br><span class="line">&gt;   Backing Filesystem: extfs</span><br><span class="line">&gt;   Supports d_type: <span class="literal">true</span></span><br><span class="line">&gt;   Native Overlay Diff: <span class="literal">false</span></span><br><span class="line">&gt; <span class="built_in"> Logging </span>Driver: json-file</span><br><span class="line">&gt;  Cgroup Driver: cgroupfs</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
 </blockquote>
 <hr>
 <blockquote>
@@ -1211,7 +1210,7 @@
       <span class="post-meta-item-text">站点总字数：</span>
     
     <span title="post.totalcount">
-     83.6k字 </span>
+     83.7k字 </span>
     <span title="站点总字数">224k</span>
   
 </div>

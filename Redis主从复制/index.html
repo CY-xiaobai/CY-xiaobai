@@ -56,25 +56,25 @@
   };
 </script>
 
-  <meta name="description" content="Redis 主从复制 参考链接：  Redis主从复制和哨兵 参考1 Redis主从复制和哨兵 参考2 Redis主从架构和主从从架构集群搭建详细步骤 Redis主从复制原理 Redis复制官方文档翻译     Redis 的定位是一个高可用的数据服务器，可是实际生产环境下，单机的 `redis` 服务器是无法满足真正意义上的高可用性的，​        第一，单机的 redis 服务器很容易发生">
+  <meta name="description" content="Redis 主从复制 参考链接：  Redis主从复制和哨兵 参考1 Redis主从复制和哨兵 参考2 Redis主从架构和主从从架构集群搭建详细步骤 Redis主从复制原理 Redis复制官方文档翻译      ​        Redis 的定位是一个高可用的数据服务器，可是实际生产环境下，单机的 redis 服务器是无法满足真正意义上的高可用性的， ​        第一，单机的 redis">
 <meta name="keywords" content="Redis 主从复制">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Redis 主从复制">
 <meta property="og:url" content="https://cy-blogs.cn/Redis主从复制/index.html">
 <meta property="og:site_name" content="哼着自己旳小调调">
-<meta property="og:description" content="Redis 主从复制 参考链接：  Redis主从复制和哨兵 参考1 Redis主从复制和哨兵 参考2 Redis主从架构和主从从架构集群搭建详细步骤 Redis主从复制原理 Redis复制官方文档翻译     Redis 的定位是一个高可用的数据服务器，可是实际生产环境下，单机的 `redis` 服务器是无法满足真正意义上的高可用性的，​        第一，单机的 redis 服务器很容易发生">
+<meta property="og:description" content="Redis 主从复制 参考链接：  Redis主从复制和哨兵 参考1 Redis主从复制和哨兵 参考2 Redis主从架构和主从从架构集群搭建详细步骤 Redis主从复制原理 Redis复制官方文档翻译      ​        Redis 的定位是一个高可用的数据服务器，可是实际生产环境下，单机的 redis 服务器是无法满足真正意义上的高可用性的， ​        第一，单机的 redis">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://segmentfault.com/img/bVboOBE?w=378&h=176">
+<meta property="og:image" content="https://image-static.segmentfault.com/169/623/16962389-5c72b52170799_articlex">
 <meta property="og:image" content="https://images2017.cnblogs.com/blog/1227483/201802/1227483-20180201102310015-486760227.png">
 <meta property="og:image" content="https://images2017.cnblogs.com/blog/1227483/201802/1227483-20180201103217750-831662244.png">
 <meta property="og:image" content="https://images2017.cnblogs.com/blog/1227483/201802/1227483-20180201103511703-1604168118.png">
-<meta property="og:image" content="https://segmentfault.com/img/bVboOB0?w=676&h=815">
+<meta property="og:image" content="https://image-static.segmentfault.com/129/061/1290613498-5c72b64944189_articlex">
 <meta property="og:image" content="c:%5CUsers%5Casus%5CDesktop%5C990532-20180913134017449-1623896661.png">
-<meta property="og:updated_time" content="2019-12-20T00:52:14.368Z">
+<meta property="og:updated_time" content="2019-12-20T01:24:55.979Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Redis 主从复制">
-<meta name="twitter:description" content="Redis 主从复制 参考链接：  Redis主从复制和哨兵 参考1 Redis主从复制和哨兵 参考2 Redis主从架构和主从从架构集群搭建详细步骤 Redis主从复制原理 Redis复制官方文档翻译     Redis 的定位是一个高可用的数据服务器，可是实际生产环境下，单机的 `redis` 服务器是无法满足真正意义上的高可用性的，​        第一，单机的 redis 服务器很容易发生">
-<meta name="twitter:image" content="https://segmentfault.com/img/bVboOBE?w=378&h=176">
+<meta name="twitter:description" content="Redis 主从复制 参考链接：  Redis主从复制和哨兵 参考1 Redis主从复制和哨兵 参考2 Redis主从架构和主从从架构集群搭建详细步骤 Redis主从复制原理 Redis复制官方文档翻译      ​        Redis 的定位是一个高可用的数据服务器，可是实际生产环境下，单机的 redis 服务器是无法满足真正意义上的高可用性的， ​        第一，单机的 redis">
+<meta name="twitter:image" content="https://image-static.segmentfault.com/169/623/16962389-5c72b52170799_articlex">
   <link rel="canonical" href="https://cy-blogs.cn/Redis主从复制/">
 
 
@@ -316,18 +316,20 @@
 </ul>
 </li>
 </ul><blockquote>
-<pre><code>Redis 的定位是一个高可用的数据服务器，可是实际生产环境下，单机的 `redis` 服务器是无法满足真正意义上的高可用性的，</code></pre><p>​        第一，单机的 <code>redis</code> 服务器很容易发生单点故障，即使 <code>redis</code> 提供了各种持久化的方法来避免数据的丢失，但是物理机上的故障（硬板损坏等）还是无法完全避免的。</p>
+<p> ​        Redis 的定位是一个高可用的数据服务器，可是实际生产环境下，单机的 <code>redis</code> 服务器是无法满足真正意义上的高可用性的，</p>
+<p>​        第一，单机的 <code>redis</code> 服务器很容易发生单点故障，即使 <code>redis</code> 提供了各种持久化的方法来避免数据的丢失，但是物理机上的故障（硬板损坏等）还是无法完全避免的。</p>
 <p>​        第二，如果单台机器的性能进行纵向扩展，无论是<code>CPU</code>，内存还是磁盘容量都很容易达到瓶颈，无法满足实际需求。</p>
 <p>​        针对这些问题，Redis提供了<strong>复制（replication）</strong>的功能，通过 “主从（一主多从）” 和 （集群（多住多从））的方式对 redis的服务进行水平扩展，用多台 redis 服务器共同构建一个高可用的 redis 服务系统。</p>
 </blockquote><a id="more"></a>
 
 <hr>
-<p><img src="https://segmentfault.com/img/bVboOBE?w=378&h=176" alt="图片描述">        </p>
+<p><img src="https://image-static.segmentfault.com/169/623/16962389-5c72b52170799_articlex" alt="图片描述">            </p>
 <blockquote>
 <p>​        主从复制，是指将一台<code>Redis</code>服务器的数据，复制到其它的 <code>Redis</code>服务器。前者称为主节点（master/leader），后者称为从节点（slave/follower）；数据的复制是单向的，只能由主节点到从节点。</p>
 </blockquote>
 <blockquote>
-<pre><code>默认情况下，每台 `Redis`服务器都是主节点；且一个主节点可以有多个从节点（或没有从节点），但一个从节点只能有一个主节点。</code></pre></blockquote>
+<p> ​            默认情况下，每台 <code>Redis</code>服务器都是主节点；且一个主节点可以有多个从节点（或没有从节点），但一个从节点只能有一个主节点。</p>
+</blockquote>
 <h3 id="主从复制的作用"><a href="#主从复制的作用" class="headerlink" title="主从复制的作用"></a>主从复制的作用</h3><hr>
 <ul>
 <li><strong>数据冗余</strong>：主从复制实现了数据的热备份，是持久化之外的一种数据冗余方式。</li>
@@ -376,7 +378,7 @@
 <p>主从复制过程大体可以分为3个阶段：<strong>连接建立阶段（即准备阶段）</strong>、<strong>数据同步阶段</strong>、<strong>命令传播阶段</strong>：</p>
 <p>在从节点执行 slaveof 命令后，复制过程便开始运作，下图大概可以看到,</p>
 <p>从图中可以看出复制过程大致分为 6 个过程</p>
-<p><img src="https://segmentfault.com/img/bVboOB0?w=676&h=815" alt="图片描述"></p>
+<p><img src="https://image-static.segmentfault.com/129/061/1290613498-5c72b64944189_articlex" alt="图片描述"></p>
 <h4 id="从服务器故障后处理"><a href="#从服务器故障后处理" class="headerlink" title="从服务器故障后处理"></a><strong>从服务器故障后处理</strong></h4><blockquote>
 <pre><code>当从服务器崩溃之后，重启之后进行初始化，会自动的同步主服务器的数据。在 redis的2.8版本之后，redis 采用了 **增量复制** 的方式优化了从服务器的初始化同步数据的过程。</code></pre></blockquote>
 <h4 id="主服务器故障后处"><a href="#主服务器故障后处" class="headerlink" title="主服务器故障后处"></a><strong>主服务器故障后处</strong></h4><blockquote>

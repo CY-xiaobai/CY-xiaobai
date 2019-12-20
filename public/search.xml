@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>asd</title>
+    <url>/asd/</url>
+    <content><![CDATA[<p><img src="/.cn//20171004163652928.png" alt></p>
+]]></content>
+  </entry>
+  <entry>
     <title>Redis 心跳检测</title>
     <url>/redis%E7%9A%84%E5%BF%83%E8%B7%B3%E6%A3%80%E6%B5%8B/</url>
     <content><![CDATA[<h1 id="Redis-心跳检测"><a href="#Redis-心跳检测" class="headerlink" title="Redis 心跳检测"></a>Redis 心跳检测</h1><blockquote>

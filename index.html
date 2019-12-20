@@ -1,1 +1,1518 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=2"><meta name="theme-color" content="#222"><meta name="generator" content="Hexo 3.9.0"><link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.1"><link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.1"><link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.1"><link rel="mask-icon" href="/images/logo.svg?v=7.4.1" color="#222"><link rel="alternate" href="/atom.xml" title="哼着自己旳小调调" type="application/atom+xml"><link rel="stylesheet" href="/css/main.css?v=7.4.1"><link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0"><script id="hexo-configurations">var NexT=window.NexT||{},CONFIG={root:"/",scheme:"Gemini",version:"7.4.1",exturl:!1,sidebar:{position:"left",display:"post",offset:12,onmobile:!1},copycode:{enable:!0,show_result:!0,style:null},back2top:{enable:!0,b2t:!0,sidebar:!1,scrollpercent:!0},bookmark:{enable:!1,color:"#222",save:"auto"},fancybox:!1,mediumzoom:!1,lazyload:!1,pangu:!1,algolia:{appID:"",apiKey:"",indexName:"",hits:{per_page:10},labels:{input_placeholder:"Search for Posts",hits_empty:"我们没有找到任何搜索结果: ${query}",hits_stats:"找到约${hits}条结果（用时${time}ms）"}},localsearch:{enable:!0,trigger:"auto",top_n_per_article:1,unescape:!1,preload:!1},path:"./public/search.xml",motion:{enable:!0,async:!1,transition:{post_block:"fadeIn",post_header:"slideDownIn",post_body:"slideDownIn",coll_header:"slideLeftIn",sidebar:"slideUpIn"}},translation:{copy_button:"复制",copy_success:"复制成功",copy_failure:"复制失败"},sidebarPadding:40}</script><meta property="og:type" content="website"><meta property="og:title" content="哼着自己旳小调调"><meta property="og:url" content="https://cy-blogs.cn/index.html"><meta property="og:site_name" content="哼着自己旳小调调"><meta property="og:locale" content="zh-CN"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="哼着自己旳小调调"><link rel="canonical" href="https://cy-blogs.cn/"><script id="page-configurations">CONFIG.page={sidebar:"",isHome:!0,isPost:!1,isPage:!1,isArchive:!1}</script><title>哼着自己旳小调调</title><noscript><style>.sidebar-inner,.use-motion .brand,.use-motion .collection-header,.use-motion .comments,.use-motion .menu-item,.use-motion .pagination,.use-motion .post-block,.use-motion .post-body,.use-motion .post-header{opacity:initial}.use-motion .logo,.use-motion .site-subtitle,.use-motion .site-title{opacity:initial;top:initial}.use-motion .logo-line-before i{left:initial}.use-motion .logo-line-after i{right:initial}</style></noscript></head><body itemscope itemtype="http://schema.org/WebPage"><div class="container use-motion"><div class="headband"></div><header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="header-inner"><div class="site-brand-container"><div class="site-meta"><div><a href="/" class="brand" rel="start"><span class="logo-line-before"><i></i></span> <span class="site-title">哼着自己旳小调调</span><span class="logo-line-after"><i></i></span></a></div><p class="site-subtitle">Happy hum their own small tune</p></div><div class="site-nav-toggle"><div class="toggle" aria-label="切换导航栏"><span class="toggle-line toggle-line-first"></span><span class="toggle-line toggle-line-middle"></span><span class="toggle-line toggle-line-last"></span></div></div></div><nav class="site-nav"><ul id="menu" class="menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-fw fa-home"></i> 首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i> 标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i> 分类</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i> 关于</a></li><li class="menu-item menu-item-commonweal"><a href="/404.html/" rel="section"><i class="fa fa-fw fa-heartbeat"></i> 公益 404</a></li><li class="menu-item menu-item-search"><a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i> 搜索</a></li></ul></nav><div class="site-search"><div class="popup search-popup"><div class="search-header"><span class="search-icon"><i class="fa fa-search"></i></span><div class="search-input-container"> <input autocomplete="off" autocorrect="off" autocapitalize="none" placeholder="搜索..." spellcheck="false" type="text" id="search-input"></div><span class="popup-btn-close"><i class="fa fa-times-circle"></i></span></div><div id="search-result"></div></div><div class="search-pop-overlay"></div></div></div></header><div class="back-to-top"><i class="fa fa-arrow-up"></i> <span>0%</span></div><main id="main" class="main"><div class="main-inner"><div class="content-wrap"><div id="content" class="content"><div class="posts-expand"><article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN"><link itemprop="mainEntityOfPage" href="https://cy-blogs.cn/redis的心跳检测/"><span hidden itemprop="author" itemscope itemtype="http://schema.org/Person"><meta itemprop="name" content="哼着自己旳小调调"><meta itemprop="description" content=""><meta itemprop="image" content="/images/author.jpg"></span><span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization"><meta itemprop="name" content="哼着自己旳小调调"></span><header class="post-header"><h1 class="post-title" itemprop="name headline"> <a href="/redis的心跳检测/" class="post-title-link" itemprop="url">Redis 心跳检测</a></h1><div class="post-meta"><div class="post-symbolscount"><span class="post-meta-item-icon"><i class="fa fa-file-word-o"></i></span> <span class="post-meta-item-text">本文字数：</span> <span title="本文字数">518字</span></div></div></header><div class="post-body" itemprop="articleBody"><h1 id="Redis-心跳检测"><a href="#Redis-心跳检测" class="headerlink" title="Redis 心跳检测"></a>Redis 心跳检测</h1><blockquote><p>在命令传播阶段，<strong>从服务器默认以每秒一次的频率</strong>，向主服务器发送命令：</p><p>*<em>REPLCONF ACK *</em> //replication_offset是从服务器当前的复制偏移量。</p><p>心跳检测的作用：检测主服务器的网络连接状态；辅助实现min-slaves选项；检测命令丢失。</p><p>检测主从服务器的网络连接状态</p><p>通过向主服务器发送INFO replication命令，可以列出从服务器列表，可以看出从最后一次向主发送命令距离现在过了多少秒。</p><p><img src="https://img-blog.csdn.net/20170829110005938?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvemxmcHJvZ3JhbQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt></p><p>lag的值应该在0或1之间跳动，如果超过1则说明主从之间的连接有故障。</p><p>辅助实现min-slaves选项</p><p>Redis可以通过配置<strong>防止主服务器在不安全的情况下执行写命令</strong>；</p><p>min-slaves-to-write 3</p><p>min-slaves-max-lag 10</p><p>上面的配置表示：从服务器的数量少于3个，或者三个从服务器的延迟（lag）值都大于或等于10秒时，主服务器将拒绝执行写命令。这里的延迟值就是上面INFOreplication命令的lag值。</p><p>检测命令丢失</p><p>如果因为网络故障，主服务器传播给从服务器的<strong>写命令在半路丢失</strong>，那么当从服务器向主服务器发送REPLCONF ACK命令时，主服务器将发觉从服务器当前的<strong>复制偏移量</strong>少于自己的复制偏移量，然后主服务器就会根据从服务器提交的复制偏移量，在复制积压缓冲区里面找到从服务器缺少的数据，并将这些数据重新发送给从服务器。</p><p>主服务器向从服务器<strong>补发缺失数据</strong>这一操作的原理和部分重同步操作的原理非常相似，它们的区别在于：补发缺失数据操作在主从服务器没有断线的情况下执行，而部分重同步操作则在主从服务器断线并重连之后执行。</p></blockquote></div><div></div><footer class="post-footer"><div class="post-eof"></div></footer></article><article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN"><link itemprop="mainEntityOfPage" href="https://cy-blogs.cn/Redis的哨兵机制/"><span hidden itemprop="author" itemscope itemtype="http://schema.org/Person"><meta itemprop="name" content="哼着自己旳小调调"><meta itemprop="description" content=""><meta itemprop="image" content="/images/author.jpg"></span><span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization"><meta itemprop="name" content="哼着自己旳小调调"></span><header class="post-header"><h1 class="post-title" itemprop="name headline"> <a href="/Redis的哨兵机制/" class="post-title-link" itemprop="url">Redis 哨兵机制</a></h1><div class="post-meta"><div class="post-symbolscount"><span class="post-meta-item-icon"><i class="fa fa-file-word-o"></i></span> <span class="post-meta-item-text">本文字数：</span> <span title="本文字数">2.1k字</span></div></div></header><div class="post-body" itemprop="articleBody"><h1 id="Redis-哨兵机制"><a href="#Redis-哨兵机制" class="headerlink" title="Redis 哨兵机制"></a>Redis 哨兵机制</h1><h3 id="什么是哨兵机制？"><a href="#什么是哨兵机制？" class="headerlink" title="什么是哨兵机制？"></a>什么是哨兵机制？</h3><ul><li><p>Redis 的哨兵（sentinel）系统用于管理多个 Redis 服务器，<strong>哨兵是redis集群架构中非常重要的一个组件</strong>，该系统执行以下三个任务：</p><ul><li><strong>监控（Monitoring）</strong>：哨兵（sentinel）会不断地检查你的 Master 和Slave 是否运作正常。</li><li><strong>提醒（Notification）</strong>：当别监控的某个 Redis 出现问题时，哨兵（sentinel）可以通过 API 向管理员或者其他应用程序发送通知。</li><li><strong>自动故障迁移（Automatic failover）</strong>：当一个Master 不能正常工作时，哨兵（sentinel）会开始一次自动故障迁移操作，它会将失效 Master 的其中一个 Slave 升级为新的 Master，并让失效 Master 的其他 Slave 改为复制新的 Master；当客户端视图连接失败的 Master时，集群也会向客户端返回新 Master 的地址，使得集群可以使用 Master 代替失效 Master。</li></ul></li><li><p><strong>哨兵（sentinel）是一个分布式系统，作为一个哨兵集群去运行的，相互协同工作，你可以在一个架构中运行多个哨兵（sentinel）进程</strong></p><blockquote><p>​ (1)故障转移时，判断一个master node宕机了，需要大部分哨兵都同意才行，涉及到分布式选举问题。<br>​ (2)及时部分哨兵节点挂掉了，哨兵集群还是能正常工作的，因为如果一个作为高可用机制重要组成部分的故障转移系统本身就是单点，那么就不靠谱。</p><p>​ 这些进程使用留言协议（gossipprotocols）来接收关于Master 是否下线的信息，并使用投票协议 （agreementprotocols）来决定是否执行自动故障迁移，以及选择哪个 Slave 作为新的 Master。</p><p>​ 每个哨兵（sentinel）会向其它哨兵（sentinel）、master、slave<strong>定时</strong>发送消息，以确认对方是否 <strong>“活“ **着，如果发现对方在指定时间（可配置）内未响应，则暂时认为对方已挂（所谓的</strong>”主观认为冗机“**Subjective Down,简称sdown)）</p><p>​ 若<strong>“哨兵群”</strong>中的多数据sentinel，都报告某一 master 没响应，系统才认为该 master <strong>“彻底死亡”</strong>(即:客观上的真正down机,Objective Down,简称odown),通过一定的vote算法,从剩下的slave节点中,选一台提升为master,然后自动修改相关配置。</p><p>​ 虽然<strong>哨兵(sentinel) *<em>释出为一个单独的可执行文件 *</em>redis-sentinel **,但实际上它只是一个运行在特殊模式下的 Redis 服务器，你可以在启动一个普通 Redis 服务器时通过给定</strong> –sentinel** 选项来启动<strong>哨兵(sentinel)</strong>。</p></blockquote><p>​ 哨兵(sentinel) 的一些设计思路和zookeeper非常类似</p><p><img src="/.cn//20171004163652928.png" alt="哨兵"></p></li></ul><div class="post-button"> <a class="btn" href="/Redis的哨兵机制/#more" rel="contents">阅读全文 &raquo;</a></div></div><div></div><footer class="post-footer"><div class="post-eof"></div></footer></article><article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN"><link itemprop="mainEntityOfPage" href="https://cy-blogs.cn/Redis主从复制/"><span hidden itemprop="author" itemscope itemtype="http://schema.org/Person"><meta itemprop="name" content="哼着自己旳小调调"><meta itemprop="description" content=""><meta itemprop="image" content="/images/author.jpg"></span><span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization"><meta itemprop="name" content="哼着自己旳小调调"></span><header class="post-header"><h1 class="post-title" itemprop="name headline"> <a href="/Redis主从复制/" class="post-title-link" itemprop="url">Redis 主从复制</a></h1><div class="post-meta"><div class="post-symbolscount"><span class="post-meta-item-icon"><i class="fa fa-file-word-o"></i></span> <span class="post-meta-item-text">本文字数：</span> <span title="本文字数">7.3k字</span></div></div></header><div class="post-body" itemprop="articleBody"><h1 id="Redis-主从复制"><a href="#Redis-主从复制" class="headerlink" title="Redis 主从复制"></a>Redis 主从复制</h1><ul><li><p>参考链接：</p><ul><li><p><a href="https://www.cnblogs.com/leeSmall/p/8398401.html" target="_blank" rel="noopener">Redis主从复制和哨兵 参考1</a></p><p><a href="https://www.cnblogs.com/chenhuabin/p/10048854.html" target="_blank" rel="noopener">Redis主从复制和哨兵 参考2</a></p><p><a href="https://www.cnblogs.com/lxx666/articles/10693844.html" target="_blank" rel="noopener">Redis主从架构和主从从架构集群搭建详细步骤</a></p><p><a href="https://www.cnblogs.com/wade-luffy/p/9639986.html" target="_blank" rel="noopener">Redis主从复制原理</a></p><p><a href="http://doc.redisfans.com/topic/replication.html" target="_blank" rel="noopener">Redis复制官方文档翻译</a></p></li></ul></li></ul><div class="post-button"> <a class="btn" href="/Redis主从复制/#more" rel="contents">阅读全文 &raquo;</a></div></div><div></div><footer class="post-footer"><div class="post-eof"></div></footer></article><article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN"><link itemprop="mainEntityOfPage" href="https://cy-blogs.cn/docker存储/"><span hidden itemprop="author" itemscope itemtype="http://schema.org/Person"><meta itemprop="name" content="哼着自己旳小调调"><meta itemprop="description" content=""><meta itemprop="image" content="/images/author.jpg"></span><span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization"><meta itemprop="name" content="哼着自己旳小调调"></span><header class="post-header"><h1 class="post-title" itemprop="name headline"> <a href="/docker存储/" class="post-title-link" itemprop="url">Docker 存储</a></h1><div class="post-meta"><div class="post-symbolscount"><span class="post-meta-item-icon"><i class="fa fa-file-word-o"></i></span> <span class="post-meta-item-text">本文字数：</span> <span title="本文字数">14k字</span></div></div></header><div class="post-body" itemprop="articleBody"><p>#Docker 存储</p><h3 id="Docek-镜像层的镜像分层结构"><a href="#Docek-镜像层的镜像分层结构" class="headerlink" title="Docek 镜像层的镜像分层结构"></a>Docek 镜像层的镜像分层结构</h3><ul><li>docker的镜像分层结构，如下所示：</li></ul><p><img src="https://docs.docker.com/storage/storagedriver/images/container-layers.jpg" alt="基于Ubuntu映像的容器层"></p><ul><li><p>docker镜像中引入层layer概念，镜像的制作过程中的每一步都会生产一个新的镜像层</p></li><li><p>容器读写层的工作原理</p><blockquote><p>我们刚刚在说镜像的分层特性的时候说到镜像是只读的。而事实上当我们使用镜像启动一个容器的时候，我们其实是可以在容器里随意读写的，从结果上看，似乎与镜像的只读特性相悖。</p><p>我们继续看上面的图，其实可以看到在镜像的最上层，还有一个读写层。而这个读写层，即在容器启动时为当前容器单独挂载。每一个容器在运行时，都会基于当前镜像在其最上层挂载一个读写层。而用户针对容器的所有操作都在读写层中完成。一旦容器销毁，这个读写层也随之销毁。</p><blockquote><p>知识点： 容器=镜像+读写层</p></blockquote><p>而我们针对这个读写层的操作，主要基于两种方式：写时复制和用时分配。</p></blockquote></li></ul><div class="post-button"> <a class="btn" href="/docker存储/#more" rel="contents">阅读全文 &raquo;</a></div></div><div></div><footer class="post-footer"><div class="post-eof"></div></footer></article><article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN"><link itemprop="mainEntityOfPage" href="https://cy-blogs.cn/Linux用户组及权限管理/"><span hidden itemprop="author" itemscope itemtype="http://schema.org/Person"><meta itemprop="name" content="哼着自己旳小调调"><meta itemprop="description" content=""><meta itemprop="image" content="/images/author.jpg"></span><span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization"><meta itemprop="name" content="哼着自己旳小调调"></span><header class="post-header"><h1 class="post-title" itemprop="name headline"> <a href="/Linux用户组及权限管理/" class="post-title-link" itemprop="url">Linux用户组及权限管理</a></h1><div class="post-meta"><div class="post-symbolscount"><span class="post-meta-item-icon"><i class="fa fa-file-word-o"></i></span> <span class="post-meta-item-text">本文字数：</span> <span title="本文字数">2k字</span></div></div></header><div class="post-body" itemprop="articleBody"><h3 id="用户和组"><a href="#用户和组" class="headerlink" title="用户和组"></a>用户和组</h3><hr><blockquote><p><code>Linux</code> 是哟个多用户的操作系统，引入用户，可以更加方便管理 <code>Linux</code> 服务器</p><p>系统默认需要以一个用户的身份登入，而且在系统上启动进程也需要以一个用户身份器运行，用户可以限制某些进程对特定资源的权限控制</p></blockquote><div class="post-button"> <a class="btn" href="/Linux用户组及权限管理/#more" rel="contents">阅读全文 &raquo;</a></div></div><div></div><footer class="post-footer"><div class="post-eof"></div></footer></article><article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN"><link itemprop="mainEntityOfPage" href="https://cy-blogs.cn/linux常用命令/"><span hidden itemprop="author" itemscope itemtype="http://schema.org/Person"><meta itemprop="name" content="哼着自己旳小调调"><meta itemprop="description" content=""><meta itemprop="image" content="/images/author.jpg"></span><span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization"><meta itemprop="name" content="哼着自己旳小调调"></span><header class="post-header"><h1 class="post-title" itemprop="name headline"> <a href="/linux常用命令/" class="post-title-link" itemprop="url">Linux常用命令</a></h1><div class="post-meta"><div class="post-symbolscount"><span class="post-meta-item-icon"><i class="fa fa-file-word-o"></i></span> <span class="post-meta-item-text">本文字数：</span> <span title="本文字数">1.4k字</span></div></div></header><div class="post-body" itemprop="articleBody"><h3 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h3><hr><blockquote><p>随着IT产业的不断发展，<code>linux</code> 操作系统应用领域越来越广泛，尤其是近年来 <code>linux</code>在服务器领域飞速的发展，主要得益于 <code>linux</code>操作系统具备的如下优点</p></blockquote><div class="post-button"> <a class="btn" href="/linux常用命令/#more" rel="contents">阅读全文 &raquo;</a></div></div><div></div><footer class="post-footer"><div class="post-eof"></div></footer></article><article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN"><link itemprop="mainEntityOfPage" href="https://cy-blogs.cn/Ansible-PlayBook/"><span hidden itemprop="author" itemscope itemtype="http://schema.org/Person"><meta itemprop="name" content="哼着自己旳小调调"><meta itemprop="description" content=""><meta itemprop="image" content="/images/author.jpg"></span><span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization"><meta itemprop="name" content="哼着自己旳小调调"></span><header class="post-header"><h1 class="post-title" itemprop="name headline"> <a href="/Ansible-PlayBook/" class="post-title-link" itemprop="url">Ansible-PlayBook</a></h1><div class="post-meta"><div class="post-symbolscount"><span class="post-meta-item-icon"><i class="fa fa-file-word-o"></i></span> <span class="post-meta-item-text">本文字数：</span> <span title="本文字数">1.7k字</span></div></div></header><div class="post-body" itemprop="articleBody"><h2 id="ansible-playbook"><a href="#ansible-playbook" class="headerlink" title="ansible-playbook"></a>ansible-playbook</h2><blockquote><p>在之前的<code>ansible</code>使用中，我们都是通过命令行的形式实现对应远程主机的响应管理</p><p>但这样的工作方式功能上来说还是有一定的局限性，并且维护并不方便，引入<code>playbook</code>可以更加方便我们对于功能的编写维护，并且具有良好的灵活性</p><p><code>playbook</code>也可以理解为命令行功能的一个合集脚本，用来编写更加复杂的业务</p></blockquote><div class="post-button"> <a class="btn" href="/Ansible-PlayBook/#more" rel="contents">阅读全文 &raquo;</a></div></div><div></div><footer class="post-footer"><div class="post-eof"></div></footer></article><article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN"><link itemprop="mainEntityOfPage" href="https://cy-blogs.cn/Paramiko/"><span hidden itemprop="author" itemscope itemtype="http://schema.org/Person"><meta itemprop="name" content="哼着自己旳小调调"><meta itemprop="description" content=""><meta itemprop="image" content="/images/author.jpg"></span><span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization"><meta itemprop="name" content="哼着自己旳小调调"></span><header class="post-header"><h1 class="post-title" itemprop="name headline"> <a href="/Paramiko/" class="post-title-link" itemprop="url">Paramiko</a></h1><div class="post-meta"><div class="post-symbolscount"><span class="post-meta-item-icon"><i class="fa fa-file-word-o"></i></span> <span class="post-meta-item-text">本文字数：</span> <span title="本文字数">1.6k字</span></div></div></header><div class="post-body" itemprop="articleBody"><h2 id="Paramiko"><a href="#Paramiko" class="headerlink" title="Paramiko"></a>Paramiko</h2><blockquote><p><code>Paramiko</code>是<code>SSHv2</code>协议的<code>Python</code>实现，提供客户端和服务器功能</p><p><code>Paramiko</code>本身是一个围绕<code>SSH</code>网络概念的纯<code>Python</code>接口</p><p>利用<code>paramiko</code>我们可以通过<code>Python</code>方便的进行<code>ssh</code>操作</p></blockquote><div class="post-button"> <a class="btn" href="/Paramiko/#more" rel="contents">阅读全文 &raquo;</a></div></div><div></div><footer class="post-footer"><div class="post-eof"></div></footer></article><article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN"><link itemprop="mainEntityOfPage" href="https://cy-blogs.cn/Ansible/"><span hidden itemprop="author" itemscope itemtype="http://schema.org/Person"><meta itemprop="name" content="哼着自己旳小调调"><meta itemprop="description" content=""><meta itemprop="image" content="/images/author.jpg"></span><span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization"><meta itemprop="name" content="哼着自己旳小调调"></span><header class="post-header"><h1 class="post-title" itemprop="name headline"> <a href="/Ansible/" class="post-title-link" itemprop="url">Ansible</a></h1><div class="post-meta"><div class="post-symbolscount"><span class="post-meta-item-icon"><i class="fa fa-file-word-o"></i></span> <span class="post-meta-item-text">本文字数：</span> <span title="本文字数">3.6k字</span></div></div></header><div class="post-body" itemprop="articleBody"><h2 id="Ansible"><a href="#Ansible" class="headerlink" title="Ansible"></a>Ansible</h2><blockquote><p><code>ansible</code>基于Python开发，集合了众多运维工具（<code>puppet</code>、<code>cfengine</code>、<code>chef</code>、<code>func</code>、<code>fabric</code>）的优点，实现了批量系统配置、批量程序部署、批量运行命令等功能<br>在使用时，<code>ansible</code>不需要在被控制安装客户端，<code>ansible</code>工作基于<code>ssh</code>，只要被控制端服务器有<code>ssh</code>服务，加上一个<code>Python</code>环境，就可以使用<code>ansible</code><br>另外，<code>ansible</code>在15年的时候，以1.5亿美元被<code>RedHat</code>公司收购，新版的<code>RedHat</code>操作系统内置<code>ansible</code>软件，很厉害的</p></blockquote><div class="post-button"> <a class="btn" href="/Ansible/#more" rel="contents">阅读全文 &raquo;</a></div></div><div></div><footer class="post-footer"><div class="post-eof"></div></footer></article><article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN"><link itemprop="mainEntityOfPage" href="https://cy-blogs.cn/Git/"><span hidden itemprop="author" itemscope itemtype="http://schema.org/Person"><meta itemprop="name" content="哼着自己旳小调调"><meta itemprop="description" content=""><meta itemprop="image" content="/images/author.jpg"></span><span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization"><meta itemprop="name" content="哼着自己旳小调调"></span><header class="post-header"><h1 class="post-title" itemprop="name headline"> <a href="/Git/" class="post-title-link" itemprop="url">GitHub操作</a></h1><div class="post-meta"><div class="post-symbolscount"><span class="post-meta-item-icon"><i class="fa fa-file-word-o"></i></span> <span class="post-meta-item-text">本文字数：</span> <span title="本文字数">2k字</span></div></div></header><div class="post-body" itemprop="articleBody"><h1 id="GitHub操作起来真的是太简单啦！"><a href="#GitHub操作起来真的是太简单啦！" class="headerlink" title="GitHub操作起来真的是太简单啦！"></a>GitHub操作起来真的是太简单啦！</h1><h2 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h2><blockquote><p>Git是一个<strong>免费的开源</strong>分布式版本控制系统，旨在快速高效地处理从小型到大型项目的所有事务。</p><p>Git易于学习， 占地面积小，具有闪电般快速的性能。它超越了Subversion，CVS，Perforce和ClearCase等SCM工具，具有廉价本地分支，便捷的<strong>临时区域</strong>和<strong>多个工作流程</strong>等功能</p></blockquote><div class="post-button"> <a class="btn" href="/Git/#more" rel="contents">阅读全文 &raquo;</a></div></div><div></div><footer class="post-footer"><div class="post-eof"></div></footer></article></div><nav class="pagination"> <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a></nav></div></div><div class="toggle sidebar-toggle"><span class="toggle-line toggle-line-first"></span><span class="toggle-line toggle-line-middle"></span><span class="toggle-line toggle-line-last"></span></div><aside class="sidebar"><div class="sidebar-inner"><ul class="sidebar-nav motion-element"><li class="sidebar-nav-toc"> 文章目录</li><li class="sidebar-nav-overview"> 站点概览</li></ul><div class="post-toc-wrap sidebar-panel"></div><div class="site-overview-wrap sidebar-panel"><div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person"> <img class="site-author-image" itemprop="image" src="/images/author.jpg" alt="哼着自己旳小调调"><p class="site-author-name" itemprop="name">哼着自己旳小调调</p><div class="site-description" itemprop="description"></div></div><div class="site-state-wrap motion-element"><nav class="site-state"><div class="site-state-item site-state-posts"> <a href="/archives"><span class="site-state-item-count">31</span> <span class="site-state-item-name">日志</span></a></div><div class="site-state-item site-state-categories"> <a href="/categories/"><span class="site-state-item-count">6</span> <span class="site-state-item-name">分类</span></a></div><div class="site-state-item site-state-tags"> <a href="/tags/"><span class="site-state-item-count">12</span> <span class="site-state-item-name">标签</span></a></div></nav></div><div class="feed-link motion-element"><a href="/atom.xml" rel="alternate"><i class="fa fa-rss"></i> RSS</a></div><div class="links-of-author motion-element"><span class="links-of-author-item"><a href="https://github.com/CY-xiaobai/" title="GitHub &rarr; https://github.com/CY-xiaobai/" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i> GitHub</a></span><span class="links-of-author-item"><a href="/347947872@qq.com" title="E-Mail &rarr; 347947872@qq.com"><i class="fa fa-fw fa-envelope"></i> E-Mail</a></span><span class="links-of-author-item"><a href="https://weibo.com" title="Weibo &rarr; https://weibo.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i> Weibo</a></span></div><div class="cc-license motion-element" itemprop="license"> <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a></div><div class="links-of-blogroll motion-element"><div class="links-of-blogroll-title"><i class="fa fa-fw fa-link"></i> 大神个人博客</div><ul class="links-of-blogroll-list"><li class="links-of-blogroll-item"> <a href="https://lienze.tech/blog/mysql/c813917a.html" title="https://lienze.tech/blog/mysql/c813917a.html" rel="noopener" target="_blank">老渔夫吃虾米</a></li><li class="links-of-blogroll-item"> <a href="https://v3u.cn/l_id_4_p_2" title="https://v3u.cn/l_id_4_p_2" rel="noopener" target="_blank">悦哥</a></li><li class="links-of-blogroll-item"> <a href="https://xiuxiu.tech/" title="https://xiuxiu.tech/" rel="noopener" target="_blank">阳</a></li><li class="links-of-blogroll-item"> <a href="https://www.angle-dream.top/" title="https://www.angle-dream.top/" rel="noopener" target="_blank">梦</a></li><li class="links-of-blogroll-item"> <a href="https://xiaozhuang.tech/" title="https://xiaozhuang.tech/" rel="noopener" target="_blank">壮</a></li><li class="links-of-blogroll-item"> <a href="https://qzloo.cn" title="https://qzloo.cn" rel="noopener" target="_blank">龙</a></li></ul></div></div></div></aside><div id="sidebar-dimmer"></div></div></main><footer id="footer" class="footer"><div class="footer-inner"><div class="copyright">&copy; 豫ICP备19041663号<span itemprop="copyrightYear"></span><span class="with-love" id="animate"><i class="fa fa-heart"></i></span> <span class="author" itemprop="copyrightHolder">哼着自己旳小调调</span><script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> <span class="post-meta-divider">|</span><span class="post-meta-item-icon"><i class="fa fa-area-chart"></i></span> <span class="post-meta-item-text">站点总字数：</span> <span title="post.totalcount">93.8k字</span> <span title="站点总字数">241k</span></div><div class="busuanzi-count"><script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span class="post-meta-item" id="busuanzi_container_site_uv" style="display:none"><span class="post-meta-item-icon"><i class="fa fa-user"></i></span><span class="site-uv" title="总访客量"><span id="busuanzi_value_site_uv"></span></span></span> <span class="post-meta-divider">|</span><span class="post-meta-item" id="busuanzi_container_site_pv" style="display:none"><span class="post-meta-item-icon"><i class="fa fa-eye"></i></span><span class="site-pv" title="总访问量"><span id="busuanzi_value_site_pv"></span></span></span></div></div></footer></div><script color="0,0,255" opacity="0.5" zindex="-1" count="99" src="true"></script><script src="/lib/anime.min.js?v=3.1.0"></script><script src="/lib/velocity/velocity.min.js?v=1.2.1"></script><script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script><script src="/js/utils.js?v=7.4.1"></script><script src="/js/motion.js?v=7.4.1"></script><script src="/js/schemes/pisces.js?v=7.4.1"></script><script src="/js/next-boot.js?v=7.4.1"></script><script src="/js/local-search.js?v=7.4.1"></script><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({log:!1,pluginJsPath:"lib/",pluginModelPath:"assets/",pluginRootPath:"live2dw/",tagMode:!1})</script></body><script type="text/javascript" src="/js/clicklove.js"></script></html>
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.1">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.4.1" color="#222">
+  <link rel="alternate" href="/atom.xml" title="哼着自己旳小调调" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.1">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.4.1',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":null},
+    back2top: {"enable":true,"b2t":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"我们没有找到任何搜索结果: ${query}","hits_stats":"找到约${hits}条结果（用时${time}ms）"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: './public/search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta property="og:type" content="website">
+<meta property="og:title" content="哼着自己旳小调调">
+<meta property="og:url" content="https://cy-blogs.cn/index.html">
+<meta property="og:site_name" content="哼着自己旳小调调">
+<meta property="og:locale" content="zh-CN">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="哼着自己旳小调调">
+  <link rel="canonical" href="https://cy-blogs.cn/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: true,
+    isPost: false,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>哼着自己旳小调调</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">哼着自己旳小调调</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Happy hum their own small tune</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-commonweal">
+      
+    
+
+    <a href="/404.html/" rel="section"><i class="fa fa-fw fa-heartbeat"></i>公益 404</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger">
+        
+          <i class="fa fa-search fa-fw"></i>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://cy-blogs.cn/asd/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="哼着自己旳小调调">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/author.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="哼着自己旳小调调">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/asd/" class="post-title-link" itemprop="url">asd</a>
+          
+        </h1>
+
+        <div class="post-meta">
+         
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <!-- <span title="本文字数">51</span> -->
+			        <span title="本文字数">
+                  0字
+                </span>
+              
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        
+          <p><img src="/.cn//20171004163652928.png" alt></p>
+
+        
+      
+    </div>
+  <div>
+  
+</div>
+
+    
+    
+    
+      <footer class="post-footer">
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+    
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://cy-blogs.cn/redis的心跳检测/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="哼着自己旳小调调">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/author.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="哼着自己旳小调调">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/redis的心跳检测/" class="post-title-link" itemprop="url">Redis 心跳检测</a>
+          
+        </h1>
+
+        <div class="post-meta">
+         
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <!-- <span title="本文字数">1.2k</span> -->
+			        <span title="本文字数">
+                  518字
+                </span>
+              
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        
+          <h1 id="Redis-心跳检测"><a href="#Redis-心跳检测" class="headerlink" title="Redis 心跳检测"></a>Redis 心跳检测</h1><blockquote>
+<p>在命令传播阶段，<strong>从服务器默认以每秒一次的频率</strong>，向主服务器发送命令：</p>
+<p>*<em>REPLCONF ACK *</em> //replication_offset是从服务器当前的复制偏移量。</p>
+<p>心跳检测的作用：检测主服务器的网络连接状态；辅助实现min-slaves选项；检测命令丢失。</p>
+<p>检测主从服务器的网络连接状态</p>
+<p>通过向主服务器发送INFO replication命令，可以列出从服务器列表，可以看出从最后一次向主发送命令距离现在过了多少秒。</p>
+<p><img src="https://img-blog.csdn.net/20170829110005938?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvemxmcHJvZ3JhbQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt></p>
+<p>lag的值应该在0或1之间跳动，如果超过1则说明主从之间的连接有故障。</p>
+<p>辅助实现min-slaves选项</p>
+<p>Redis可以通过配置<strong>防止主服务器在不安全的情况下执行写命令</strong>；</p>
+<p>min-slaves-to-write 3</p>
+<p>min-slaves-max-lag 10</p>
+<p>上面的配置表示：从服务器的数量少于3个，或者三个从服务器的延迟（lag）值都大于或等于10秒时，主服务器将拒绝执行写命令。这里的延迟值就是上面INFOreplication命令的lag值。</p>
+<p>检测命令丢失</p>
+<p>如果因为网络故障，主服务器传播给从服务器的<strong>写命令在半路丢失</strong>，那么当从服务器向主服务器发送REPLCONF ACK命令时，主服务器将发觉从服务器当前的<strong>复制偏移量</strong>少于自己的复制偏移量，然后主服务器就会根据从服务器提交的复制偏移量，在复制积压缓冲区里面找到从服务器缺少的数据，并将这些数据重新发送给从服务器。</p>
+<p>主服务器向从服务器<strong>补发缺失数据</strong>这一操作的原理和部分重同步操作的原理非常相似，它们的区别在于：补发缺失数据操作在主从服务器没有断线的情况下执行，而部分重同步操作则在主从服务器断线并重连之后执行。</p>
+</blockquote>
+
+        
+      
+    </div>
+  <div>
+  
+</div>
+
+    
+    
+    
+      <footer class="post-footer">
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+    
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://cy-blogs.cn/Redis的哨兵机制/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="哼着自己旳小调调">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/author.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="哼着自己旳小调调">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/Redis的哨兵机制/" class="post-title-link" itemprop="url">Redis 哨兵机制</a>
+          
+        </h1>
+
+        <div class="post-meta">
+         
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <!-- <span title="本文字数">6.9k</span> -->
+			        <span title="本文字数">
+                  2.1k字
+                </span>
+              
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        
+          <h1 id="Redis-哨兵机制"><a href="#Redis-哨兵机制" class="headerlink" title="Redis 哨兵机制"></a>Redis 哨兵机制</h1><h3 id="什么是哨兵机制？"><a href="#什么是哨兵机制？" class="headerlink" title="什么是哨兵机制？"></a>什么是哨兵机制？</h3><ul>
+<li><p>Redis 的哨兵（sentinel）系统用于管理多个 Redis 服务器，<strong>哨兵是redis集群架构中非常重要的一个组件</strong>，该系统执行以下三个任务：</p>
+<ul>
+<li><strong>监控（Monitoring）</strong>：哨兵（sentinel）会不断地检查你的 Master 和Slave 是否运作正常。</li>
+<li><strong>提醒（Notification）</strong>：当别监控的某个 Redis 出现问题时，哨兵（sentinel）可以通过 API 向管理员或者其他应用程序发送通知。</li>
+<li><strong>自动故障迁移（Automatic failover）</strong>：当一个Master 不能正常工作时，哨兵（sentinel）会开始一次自动故障迁移操作，它会将失效 Master 的其中一个 Slave 升级为新的 Master，并让失效 Master 的其他 Slave 改为复制新的 Master；当客户端视图连接失败的 Master时，集群也会向客户端返回新 Master 的地址，使得集群可以使用 Master 代替失效 Master。</li>
+</ul>
+</li>
+<li><p><strong>哨兵（sentinel）是一个分布式系统，作为一个哨兵集群去运行的，相互协同工作，你可以在一个架构中运行多个哨兵（sentinel）进程</strong></p>
+<blockquote>
+<p>​        (1)故障转移时，判断一个master node宕机了，需要大部分哨兵都同意才行，涉及到分布式选举问题。<br>​         (2)及时部分哨兵节点挂掉了，哨兵集群还是能正常工作的，因为如果一个作为高可用机制重要组成部分的故障转移系统本身就是单点，那么就不靠谱。        </p>
+<p>​        这些进程使用留言协议（gossipprotocols）来接收关于Master 是否下线的信息，并使用投票协议 （agreementprotocols）来决定是否执行自动故障迁移，以及选择哪个 Slave 作为新的 Master。</p>
+<p>​        每个哨兵（sentinel）会向其它哨兵（sentinel）、master、slave<strong>定时</strong>发送消息，以确认对方是否 <strong>“活“ **着，如果发现对方在指定时间（可配置）内未响应，则暂时认为对方已挂（所谓的</strong>”主观认为冗机“**Subjective Down,简称sdown)）</p>
+<p>​        若<strong>“哨兵群”</strong>中的多数据sentinel，都报告某一 master 没响应，系统才认为该 master <strong>“彻底死亡”</strong>(即:客观上的真正down机,Objective Down,简称odown),通过一定的vote算法,从剩下的slave节点中,选一台提升为master,然后自动修改相关配置。</p>
+<p>​         虽然<strong>哨兵(sentinel) *<em>释出为一个单独的可执行文件 *</em>redis-sentinel **,但实际上它只是一个运行在特殊模式下的 Redis 服务器，你可以在启动一个普通 Redis 服务器时通过给定</strong> –sentinel** 选项来启动<strong>哨兵(sentinel)</strong>。</p>
+</blockquote>
+<p>​         哨兵(sentinel) 的一些设计思路和zookeeper非常类似</p>
+<p><img src="/.cn//20171004163652928.png" alt="哨兵"></p>
+</li>
+</ul>
+          <!--noindex-->
+          
+            <div class="post-button">
+              <a class="btn" href="/Redis的哨兵机制/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+  <div>
+  
+</div>
+
+    
+    
+    
+      <footer class="post-footer">
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+    
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://cy-blogs.cn/Redis主从复制/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="哼着自己旳小调调">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/author.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="哼着自己旳小调调">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/Redis主从复制/" class="post-title-link" itemprop="url">Redis 主从复制</a>
+          
+        </h1>
+
+        <div class="post-meta">
+         
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <!-- <span title="本文字数">25k</span> -->
+			        <span title="本文字数">
+                  7.3k字
+                </span>
+              
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        
+          <h1 id="Redis-主从复制"><a href="#Redis-主从复制" class="headerlink" title="Redis 主从复制"></a>Redis 主从复制</h1><ul>
+<li><p>参考链接：</p>
+<ul>
+<li><p><a href="https://www.cnblogs.com/leeSmall/p/8398401.html" target="_blank" rel="noopener">Redis主从复制和哨兵 参考1</a></p>
+<p><a href="https://www.cnblogs.com/chenhuabin/p/10048854.html" target="_blank" rel="noopener">Redis主从复制和哨兵 参考2</a></p>
+<p><a href="https://www.cnblogs.com/lxx666/articles/10693844.html" target="_blank" rel="noopener">Redis主从架构和主从从架构集群搭建详细步骤</a></p>
+<p><a href="https://www.cnblogs.com/wade-luffy/p/9639986.html" target="_blank" rel="noopener">Redis主从复制原理</a></p>
+<p><a href="http://doc.redisfans.com/topic/replication.html" target="_blank" rel="noopener">Redis复制官方文档翻译</a></p>
+</li>
+</ul>
+</li>
+</ul>
+          <!--noindex-->
+          
+            <div class="post-button">
+              <a class="btn" href="/Redis主从复制/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+  <div>
+  
+</div>
+
+    
+    
+    
+      <footer class="post-footer">
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+    
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://cy-blogs.cn/docker存储/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="哼着自己旳小调调">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/author.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="哼着自己旳小调调">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/docker存储/" class="post-title-link" itemprop="url">Docker 存储</a>
+          
+        </h1>
+
+        <div class="post-meta">
+         
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <!-- <span title="本文字数">70k</span> -->
+			        <span title="本文字数">
+                  14k字
+                </span>
+              
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        
+          <p>#Docker 存储</p><h3 id="Docek-镜像层的镜像分层结构"><a href="#Docek-镜像层的镜像分层结构" class="headerlink" title="Docek 镜像层的镜像分层结构"></a>Docek 镜像层的镜像分层结构</h3><ul>
+<li>docker的镜像分层结构，如下所示：</li>
+</ul><p><img src="https://docs.docker.com/storage/storagedriver/images/container-layers.jpg" alt="基于Ubuntu映像的容器层"></p><ul>
+<li><p>docker镜像中引入层layer概念，镜像的制作过程中的每一步都会生产一个新的镜像层</p>
+</li>
+<li><p>容器读写层的工作原理</p>
+<blockquote>
+<p>我们刚刚在说镜像的分层特性的时候说到镜像是只读的。而事实上当我们使用镜像启动一个容器的时候，我们其实是可以在容器里随意读写的，从结果上看，似乎与镜像的只读特性相悖。</p>
+<p>我们继续看上面的图，其实可以看到在镜像的最上层，还有一个读写层。而这个读写层，即在容器启动时为当前容器单独挂载。每一个容器在运行时，都会基于当前镜像在其最上层挂载一个读写层。而用户针对容器的所有操作都在读写层中完成。一旦容器销毁，这个读写层也随之销毁。</p>
+<blockquote>
+<p>知识点： 容器=镜像+读写层</p>
+</blockquote>
+<p>而我们针对这个读写层的操作，主要基于两种方式：写时复制和用时分配。</p>
+</blockquote>
+</li>
+</ul>
+          <!--noindex-->
+          
+            <div class="post-button">
+              <a class="btn" href="/docker存储/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+  <div>
+  
+</div>
+
+    
+    
+    
+      <footer class="post-footer">
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+    
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://cy-blogs.cn/Linux用户组及权限管理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="哼着自己旳小调调">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/author.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="哼着自己旳小调调">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/Linux用户组及权限管理/" class="post-title-link" itemprop="url">Linux用户组及权限管理</a>
+          
+        </h1>
+
+        <div class="post-meta">
+         
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <!-- <span title="本文字数">13k</span> -->
+			        <span title="本文字数">
+                  2k字
+                </span>
+              
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        
+          <h3 id="用户和组"><a href="#用户和组" class="headerlink" title="用户和组"></a>用户和组</h3><hr><blockquote>
+<p><code>Linux</code> 是哟个多用户的操作系统，引入用户，可以更加方便管理 <code>Linux</code> 服务器</p>
+<p>系统默认需要以一个用户的身份登入，而且在系统上启动进程也需要以一个用户身份器运行，用户可以限制某些进程对特定资源的权限控制</p>
+</blockquote>
+          <!--noindex-->
+          
+            <div class="post-button">
+              <a class="btn" href="/Linux用户组及权限管理/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+  <div>
+  
+</div>
+
+    
+    
+    
+      <footer class="post-footer">
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+    
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://cy-blogs.cn/linux常用命令/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="哼着自己旳小调调">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/author.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="哼着自己旳小调调">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/linux常用命令/" class="post-title-link" itemprop="url">Linux常用命令</a>
+          
+        </h1>
+
+        <div class="post-meta">
+         
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <!-- <span title="本文字数">12k</span> -->
+			        <span title="本文字数">
+                  1.4k字
+                </span>
+              
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        
+          <h3 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h3><hr><blockquote>
+<p>随着IT产业的不断发展，<code>linux</code> 操作系统应用领域越来越广泛，尤其是近年来 <code>linux</code>在服务器领域飞速的发展，主要得益于 <code>linux</code>操作系统具备的如下优点</p>
+</blockquote>
+          <!--noindex-->
+          
+            <div class="post-button">
+              <a class="btn" href="/linux常用命令/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+  <div>
+  
+</div>
+
+    
+    
+    
+      <footer class="post-footer">
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+    
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://cy-blogs.cn/Ansible-PlayBook/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="哼着自己旳小调调">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/author.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="哼着自己旳小调调">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/Ansible-PlayBook/" class="post-title-link" itemprop="url">Ansible-PlayBook</a>
+          
+        </h1>
+
+        <div class="post-meta">
+         
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <!-- <span title="本文字数">21k</span> -->
+			        <span title="本文字数">
+                  1.7k字
+                </span>
+              
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        
+          <h2 id="ansible-playbook"><a href="#ansible-playbook" class="headerlink" title="ansible-playbook"></a>ansible-playbook</h2><blockquote>
+<p>在之前的<code>ansible</code>使用中，我们都是通过命令行的形式实现对应远程主机的响应管理</p>
+<p>但这样的工作方式功能上来说还是有一定的局限性，并且维护并不方便，引入<code>playbook</code>可以更加方便我们对于功能的编写维护，并且具有良好的灵活性</p>
+<p><code>playbook</code>也可以理解为命令行功能的一个合集脚本，用来编写更加复杂的业务</p>
+</blockquote>
+          <!--noindex-->
+          
+            <div class="post-button">
+              <a class="btn" href="/Ansible-PlayBook/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+  <div>
+  
+</div>
+
+    
+    
+    
+      <footer class="post-footer">
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+    
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://cy-blogs.cn/Paramiko/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="哼着自己旳小调调">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/author.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="哼着自己旳小调调">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/Paramiko/" class="post-title-link" itemprop="url">Paramiko</a>
+          
+        </h1>
+
+        <div class="post-meta">
+         
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <!-- <span title="本文字数">21k</span> -->
+			        <span title="本文字数">
+                  1.6k字
+                </span>
+              
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        
+          <h2 id="Paramiko"><a href="#Paramiko" class="headerlink" title="Paramiko"></a>Paramiko</h2><blockquote>
+<p><code>Paramiko</code>是<code>SSHv2</code>协议的<code>Python</code>实现，提供客户端和服务器功能</p>
+<p><code>Paramiko</code>本身是一个围绕<code>SSH</code>网络概念的纯<code>Python</code>接口</p>
+<p>利用<code>paramiko</code>我们可以通过<code>Python</code>方便的进行<code>ssh</code>操作</p>
+</blockquote>
+          <!--noindex-->
+          
+            <div class="post-button">
+              <a class="btn" href="/Paramiko/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+  <div>
+  
+</div>
+
+    
+    
+    
+      <footer class="post-footer">
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+    
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://cy-blogs.cn/Ansible/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="哼着自己旳小调调">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/author.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="哼着自己旳小调调">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/Ansible/" class="post-title-link" itemprop="url">Ansible</a>
+          
+        </h1>
+
+        <div class="post-meta">
+         
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <!-- <span title="本文字数">25k</span> -->
+			        <span title="本文字数">
+                  3.6k字
+                </span>
+              
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        
+          <h2 id="Ansible"><a href="#Ansible" class="headerlink" title="Ansible"></a>Ansible</h2><blockquote>
+<p><code>ansible</code>基于Python开发，集合了众多运维工具（<code>puppet</code>、<code>cfengine</code>、<code>chef</code>、<code>func</code>、<code>fabric</code>）的优点，实现了批量系统配置、批量程序部署、批量运行命令等功能<br>在使用时，<code>ansible</code>不需要在被控制安装客户端，<code>ansible</code>工作基于<code>ssh</code>，只要被控制端服务器有<code>ssh</code>服务，加上一个<code>Python</code>环境，就可以使用<code>ansible</code><br>另外，<code>ansible</code>在15年的时候，以1.5亿美元被<code>RedHat</code>公司收购，新版的<code>RedHat</code>操作系统内置<code>ansible</code>软件，很厉害的</p>
+</blockquote>
+          <!--noindex-->
+          
+            <div class="post-button">
+              <a class="btn" href="/Ansible/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+  <div>
+  
+</div>
+
+    
+    
+    
+      <footer class="post-footer">
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+    
+  </div>
+
+  
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/author.jpg"
+      alt="哼着自己旳小调调">
+  <p class="site-author-name" itemprop="name">哼着自己旳小调调</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives">
+        
+          <span class="site-state-item-count">32</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/CY-xiaobai/" title="GitHub &rarr; https://github.com/CY-xiaobai/" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="/347947872@qq.com" title="E-Mail &rarr; 347947872@qq.com"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://weibo.com" title="Weibo &rarr; https://weibo.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+      </span>
+    
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    
+  
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      大神个人博客
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://lienze.tech/blog/mysql/c813917a.html" title="https://lienze.tech/blog/mysql/c813917a.html" rel="noopener" target="_blank">老渔夫吃虾米</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="https://v3u.cn/l_id_4_p_2" title="https://v3u.cn/l_id_4_p_2" rel="noopener" target="_blank">悦哥</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="https://xiuxiu.tech/" title="https://xiuxiu.tech/" rel="noopener" target="_blank">阳</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="https://www.angle-dream.top/" title="https://www.angle-dream.top/" rel="noopener" target="_blank">梦</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="https://xiaozhuang.tech/" title="https://xiaozhuang.tech/" rel="noopener" target="_blank">壮</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="https://qzloo.cn" title="https://qzloo.cn" rel="noopener" target="_blank">龙</a>
+        </li>
+      
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 豫ICP备19041663号<span itemprop="copyrightYear"></span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">哼着自己旳小调调</span>
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点总字数：</span>
+    
+    <span title="post.totalcount">
+     93.8k字 </span>
+    <span title="站点总字数">241k</span>
+  
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+  
+    <span class="post-meta-divider">|</span>
+  
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+    
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="true"></script>
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.4.1"></script><script src="/js/motion.js?v=7.4.1"></script>
+<script src="/js/schemes/pisces.js?v=7.4.1"></script>
+
+<script src="/js/next-boot.js?v=7.4.1"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.4.1"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/clicklove.js"></script>
+</html>
+

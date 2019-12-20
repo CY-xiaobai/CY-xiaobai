@@ -64,17 +64,17 @@
 <meta property="og:site_name" content="哼着自己旳小调调">
 <meta property="og:description" content="Redis 哨兵机制什么是哨兵机制？ Redis 的哨兵（sentinel）系统用于管理多个 Redis 服务器，哨兵是redis集群架构中非常重要的一个组件，该系统执行以下三个任务：  监控（Monitoring）：哨兵（sentinel）会不断地检查你的 Master 和Slave 是否运作正常。 提醒（Notification）：当别监控的某个 Redis 出现问题时，哨兵（sentinel">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://cy-blogs.cn/.cn//20171004163652928.png">
-<meta property="og:image" content="https://cy-blogs.cn/.cn//16098303-42c2105c21bdce39.webp">
+<meta property="og:image" content="https://cy-blogs.cn/Redis的哨兵机制/20171004163652928.jpg">
+<meta property="og:image" content="https://cy-blogs.cn/Redis的哨兵机制/16098303-42c2105c21bdce39.webp">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/16098303-8536b356a0b50aa1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/16098303-a9e5b4bd87a20f7e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/16098303-d31754d7d5f73a8d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp">
 <meta property="og:image" content="https://img-blog.csdn.net/20171004170405127?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQveXN3S25pZ2h0/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center">
-<meta property="og:updated_time" content="2019-12-20T07:40:24.981Z">
+<meta property="og:updated_time" content="2019-12-20T08:06:08.520Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Redis哨兵机制">
 <meta name="twitter:description" content="Redis 哨兵机制什么是哨兵机制？ Redis 的哨兵（sentinel）系统用于管理多个 Redis 服务器，哨兵是redis集群架构中非常重要的一个组件，该系统执行以下三个任务：  监控（Monitoring）：哨兵（sentinel）会不断地检查你的 Master 和Slave 是否运作正常。 提醒（Notification）：当别监控的某个 Redis 出现问题时，哨兵（sentinel">
-<meta name="twitter:image" content="https://cy-blogs.cn/.cn//20171004163652928.png">
+<meta name="twitter:image" content="https://cy-blogs.cn/Redis的哨兵机制/20171004163652928.jpg">
   <link rel="canonical" href="https://cy-blogs.cn/Redis的哨兵机制/">
 
 
@@ -343,7 +343,7 @@
 <p>​         虽然<strong>哨兵(sentinel) *<em>释出为一个单独的可执行文件 *</em>redis-sentinel **,但实际上它只是一个运行在特殊模式下的 Redis 服务器，你可以在启动一个普通 Redis 服务器时通过给定</strong> –sentinel** 选项来启动<strong>哨兵(sentinel)</strong>。</p>
 </blockquote>
 <p>​         哨兵(sentinel) 的一些设计思路和zookeeper非常类似</p>
-<p><img src="/.cn//20171004163652928.png" alt="哨兵"></p>
+<p><img src="/Redis的哨兵机制/20171004163652928.jpg" alt="哨兵"></p>
 </li>
 </ul><a id="more"></a>
 <h3 id="哨兵的核心知识"><a href="#哨兵的核心知识" class="headerlink" title="哨兵的核心知识"></a>哨兵的核心知识</h3><hr>
@@ -371,7 +371,7 @@
 </ul>
 <h3 id="解决异步复制和脑裂导致的数据丢失"><a href="#解决异步复制和脑裂导致的数据丢失" class="headerlink" title="解决异步复制和脑裂导致的数据丢失"></a>解决异步复制和脑裂导致的数据丢失</h3><hr>
 <p>min-slaves-to-write 1<br> min-slaves-max-lag 10<br> 要求至少有1个slave，数据复制和同步的延迟不能超过10秒<br> 如果说一旦所有slave，数据复制和同步的延迟都超过了10秒钟，那么这个时候，master就不会再接收任何请求了。<br> （1）减少异步复制的数据丢失<br> 有了min-slaves-max-lag这个配置，就可以确保说，一旦slave复制数据和ack延时太长，就认为可能master宕机后损失的数据太多了，那么就拒绝写请求，这样可以把master宕机时由于部分数据未同步到slave导致的数据丢失降低的可控范围内<br> （2）减少脑裂的数据丢失<br> 如果一个master出现了脑裂，跟其他slave丢了连接，那么上面两个配置可以确保说，如果不能继续给指定数量的slave发送数据，而且slave超过10秒没有给自己ack消息，那么就直接拒绝客户端的写请求<br> 这样脑裂后的旧master就不会接受client的新数据，也就避免了数据丢失<br> 上面的配置就确保了，如果跟任何一个slave丢了连接，在10秒后发现没有slave给自己ack，那么就拒绝新的写请求<br> 因此在脑裂场景下，最多就丢失10秒的数据</p>
-<p><img src="/.cn//16098303-42c2105c21bdce39.webp" alt="img"></p>
+<p><img src="/Redis的哨兵机制/16098303-42c2105c21bdce39.webp" alt="img"></p>
 <p>集群脑裂导致的数据丢失问题.png</p>
 <p><img src="https://upload-images.jianshu.io/upload_images/16098303-8536b356a0b50aa1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="img"></p>
 <p>脑裂导致数据丢失的问题如何降低损失.png</p>

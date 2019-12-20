@@ -69,7 +69,7 @@
 <meta property="og:image" content="https://images2017.cnblogs.com/blog/1227483/201802/1227483-20180201103217750-831662244.png">
 <meta property="og:image" content="https://images2017.cnblogs.com/blog/1227483/201802/1227483-20180201103511703-1604168118.png">
 <meta property="og:image" content="https://image-static.segmentfault.com/129/061/1290613498-5c72b64944189_articlex">
-<meta property="og:image" content="https://cy-blogs.cn/.cn//C:%5CUsers%5Casus%5CDesktop%5C990532-20180913134017449-1623896661.png">
+<meta property="og:image" content="https://cy-blogs.cn/Redis主从复制/C:%5CUsers%5Casus%5CDesktop%5C990532-20180913134017449-1623896661.png">
 <meta property="og:updated_time" content="2019-12-20T01:59:27.187Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Redis 主从复制">
@@ -493,7 +493,7 @@
 <h4 id="PSYNC命令格式"><a href="#PSYNC命令格式" class="headerlink" title="PSYNC命令格式"></a>PSYNC命令格式</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">PSYNC &lt;runid&gt; &lt;offset&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash"> runid:主服务器ID</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> offset:从服务器最后接收命令的偏移量</span></span><br></pre></td></tr></table></figure>
 
 <p>  <strong>PSYNC执行过程中比较重要的概念有3个：runid、offset（复制偏移量）以及复制积压缓冲区。</strong></p>
-<h4 id="psync命令的执行"><a href="#psync命令的执行" class="headerlink" title="psync命令的执行"></a>psync命令的执行</h4><p><img src="/.cn//C:%5CUsers%5Casus%5CDesktop%5C990532-20180913134017449-1623896661.png" alt="990532-20180913134017449-1623896661"></p>
+<h4 id="psync命令的执行"><a href="#psync命令的执行" class="headerlink" title="psync命令的执行"></a>psync命令的执行</h4><p><img src="/Redis主从复制/C:%5CUsers%5Casus%5CDesktop%5C990532-20180913134017449-1623896661.png" alt="990532-20180913134017449-1623896661"></p>
 <ol>
 <li><p>首先从节点根据当前状态，决定如何调用psync命令：</p>
 <ul>

@@ -231,104 +231,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://cy-blogs.cn/Django缓存系统/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="哼着自己旳小调调">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/author.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="哼着自己旳小调调">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-            
-            <a href="/Django缓存系统/" class="post-title-link" itemprop="url">Django缓存系统</a>
-          
-        </h1>
-
-        <div class="post-meta">
-         
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">本文字数：</span>
-                
-                <!-- <span title="本文字数">16k</span> -->
-			        <span title="本文字数">
-                  1.4k字
-                </span>
-              
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-        
-          <h2 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h2><blockquote>
-<p><code>Django</code> 是动态<code>Web</code>后台框架，需要实时生成用户访问的页面，进行多次的数据库操作，但是多次的数据库访问操作对于整个<code>Web</code>系统来说，会影响效率，尤其是当访问量增大时，数据库的压力也会越来越大。</p>
-<p>相对于磁盘及内存操作，数据库的访问操作付出的成本要大的多</p>
-</blockquote><blockquote>
-<p>浏览器第一次请求时，<code>cache</code>会缓存单个变量或整个网页等内容到硬盘或者内存中，同时设置<code>response</code>头部</p>
-<p>当浏览器再次发起请求时，会与缓存中的过期时间相比较，如果缓存时间比较新，则会重新请求数据，并缓存起来然后返回<code>response</code>给客户端，如果缓存没有过期，则直接从缓存中提取数据，返回给<code>response</code>给客户端</p>
-</blockquote>
-          <!--noindex-->
-          
-            <div class="post-button">
-              <a class="btn" href="/Django缓存系统/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-  <div>
-  
-</div>
-
-    
-    
-    
-      <footer class="post-footer">
-        
-        
-          <div class="post-eof"></div>
-        
-      </footer>
-    
-  </article>
-  
-  
-  
-
-    
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://cy-blogs.cn/Django的消息框架(message)与Django分页组件(paginator)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -490,6 +392,101 @@
           
             <div class="post-button">
               <a class="btn" href="/Django的CBV类视图/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+  <div>
+  
+</div>
+
+    
+    
+    
+      <footer class="post-footer">
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+    
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://cy-blogs.cn/Django初识/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="哼着自己旳小调调">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/author.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="哼着自己旳小调调">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/Django初识/" class="post-title-link" itemprop="url">Django初识</a>
+          
+        </h1>
+
+        <div class="post-meta">
+         
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <!-- <span title="本文字数">40k</span> -->
+			        <span title="本文字数">
+                  5k字
+                </span>
+              
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        
+          <h2 id="开始玩耍Django"><a href="#开始玩耍Django" class="headerlink" title="开始玩耍Django"></a>开始玩耍Django</h2><blockquote>
+<p><em>Django</em>是一个开放源代码的<code>Web</code>应用框架，由<code>Python</code>写成。采用了<code>MVT</code>的框架模式；最初是被开发来用于管理劳伦斯出版集团旗下的一些以新闻内容为主的网站的，即是<code>CMS</code>（内容管理系统）软件</p>
+<p>框架是以比利时的吉普赛爵士吉他手<code>Django Reinhardt</code>来命名的</p>
+</blockquote><h3 id="django安装"><a href="#django安装" class="headerlink" title="django安装"></a>django安装</h3>
+          <!--noindex-->
+          
+            <div class="post-button">
+              <a class="btn" href="/Django初识/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>

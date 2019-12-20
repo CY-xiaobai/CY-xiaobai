@@ -330,6 +330,113 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://cy-blogs.cn/Redis主从复制/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="哼着自己旳小调调">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/author.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="哼着自己旳小调调">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/Redis主从复制/" class="post-title-link" itemprop="url">Redis 主从复制</a>
+          
+        </h1>
+
+        <div class="post-meta">
+         
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <!-- <span title="本文字数">25k</span> -->
+			        <span title="本文字数">
+                  7.3k字
+                </span>
+              
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        
+          <h1 id="Redis-主从复制"><a href="#Redis-主从复制" class="headerlink" title="Redis 主从复制"></a>Redis 主从复制</h1><ul>
+<li><p>参考链接：</p>
+<ul>
+<li><p><a href="https://www.cnblogs.com/leeSmall/p/8398401.html" target="_blank" rel="noopener">Redis主从复制和哨兵 参考1</a></p>
+<p><a href="https://www.cnblogs.com/chenhuabin/p/10048854.html" target="_blank" rel="noopener">Redis主从复制和哨兵 参考2</a></p>
+<p><a href="https://www.cnblogs.com/lxx666/articles/10693844.html" target="_blank" rel="noopener">Redis主从架构和主从从架构集群搭建详细步骤</a></p>
+<p><a href="https://www.cnblogs.com/wade-luffy/p/9639986.html" target="_blank" rel="noopener">Redis主从复制原理</a></p>
+<p><a href="http://doc.redisfans.com/topic/replication.html" target="_blank" rel="noopener">Redis复制官方文档翻译</a></p>
+</li>
+</ul>
+</li>
+</ul><blockquote>
+<pre><code>Redis 的定位是一个高可用的数据服务器，可是实际生产环境下，单机的 `redis` 服务器是无法满足真正意义上的高可用性的，</code></pre><p>​        第一，单机的 <code>redis</code> 服务器很容易发生单点故障，即使 <code>redis</code> 提供了各种持久化的方法来避免数据的丢失，但是物理机上的故障（硬板损坏等）还是无法完全避免的。</p>
+<p>​        第二，如果单台机器的性能进行纵向扩展，无论是<code>CPU</code>，内存还是磁盘容量都很容易达到瓶颈，无法满足实际需求。</p>
+<p>​        针对这些问题，Redis提供了<strong>复制（replication）</strong>的功能，通过 “主从（一主多从）” 和 （集群（多住多从））的方式对 redis的服务进行水平扩展，用多台 redis 服务器共同构建一个高可用的 redis 服务系统。</p>
+</blockquote>
+          <!--noindex-->
+          
+            <div class="post-button">
+              <a class="btn" href="/Redis主从复制/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+  <div>
+  
+</div>
+
+    
+    
+    
+      <footer class="post-footer">
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+    
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://cy-blogs.cn/docker存储/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1117,102 +1224,6 @@
   
 
     
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://cy-blogs.cn/Vue/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="哼着自己旳小调调">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/author.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="哼着自己旳小调调">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-            
-            <a href="/Vue/" class="post-title-link" itemprop="url">Vue</a>
-          
-        </h1>
-
-        <div class="post-meta">
-         
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">本文字数：</span>
-                
-                <!-- <span title="本文字数">109k</span> -->
-			        <span title="本文字数">
-                  9k字
-                </span>
-              
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-        
-          <h2 id="VUE"><a href="#VUE" class="headerlink" title="VUE"></a>VUE</h2><blockquote>
-<p><code>Vue.js</code>是前端三大新框架：<code>Angular.js</code>、<code>React.js</code>、<code>Vue.js</code>之一，<code>Vue.js</code>目前的使用和关注程度在三大框架中稍微胜出，并且它的热度还在递增</p>
-<p><code>Vue</code>的核心库只关注视图层，<code>Vue</code>的目标是通过尽可能简单的<code>API</code>实现响应的数据绑定，在这一点上<code>Vue.js</code>类似于后台的模板语言</p>
-<p><code>Vue</code>也可以将界面拆分成一个个的组件，通过组件来构建界面，然后用自动化工具来生成单页面(<code>SPA - single page application</code>)系统</p>
-</blockquote>
-          <!--noindex-->
-          
-            <div class="post-button">
-              <a class="btn" href="/Vue/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-  <div>
-  
-</div>
-
-    
-    
-    
-      <footer class="post-footer">
-        
-        
-          <div class="post-eof"></div>
-        
-      </footer>
-    
-  </article>
-  
-  
-  
-
-    
   </div>
 
   
@@ -1265,7 +1276,7 @@
         
           <a href="/archives">
         
-          <span class="site-state-item-count">28</span>
+          <span class="site-state-item-count">29</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1278,7 +1289,7 @@
             <a href="/categories/">
           
         
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
@@ -1291,7 +1302,7 @@
             <a href="/tags/">
           
         
-        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
@@ -1396,8 +1407,8 @@
       <span class="post-meta-item-text">站点总字数：</span>
     
     <span title="post.totalcount">
-     83.8k字 </span>
-    <span title="站点总字数">225k</span>
+     91.1k字 </span>
+    <span title="站点总字数">236k</span>
   
 </div>
 

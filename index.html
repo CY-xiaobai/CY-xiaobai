@@ -231,6 +231,217 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://cy-blogs.cn/redis的心跳检测/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="哼着自己旳小调调">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/author.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="哼着自己旳小调调">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/redis的心跳检测/" class="post-title-link" itemprop="url">Redis 心跳检测</a>
+          
+        </h1>
+
+        <div class="post-meta">
+         
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <!-- <span title="本文字数">1.2k</span> -->
+			        <span title="本文字数">
+                  518字
+                </span>
+              
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        
+          <h1 id="Redis-心跳检测"><a href="#Redis-心跳检测" class="headerlink" title="Redis 心跳检测"></a>Redis 心跳检测</h1><blockquote>
+<p>在命令传播阶段，<strong>从服务器默认以每秒一次的频率</strong>，向主服务器发送命令：</p>
+<p>*<em>REPLCONF ACK *</em> //replication_offset是从服务器当前的复制偏移量。</p>
+<p>心跳检测的作用：检测主服务器的网络连接状态；辅助实现min-slaves选项；检测命令丢失。</p>
+<p>检测主从服务器的网络连接状态</p>
+<p>通过向主服务器发送INFO replication命令，可以列出从服务器列表，可以看出从最后一次向主发送命令距离现在过了多少秒。</p>
+<p><img src="https://img-blog.csdn.net/20170829110005938?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvemxmcHJvZ3JhbQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt></p>
+<p>lag的值应该在0或1之间跳动，如果超过1则说明主从之间的连接有故障。</p>
+<p>辅助实现min-slaves选项</p>
+<p>Redis可以通过配置<strong>防止主服务器在不安全的情况下执行写命令</strong>；</p>
+<p>min-slaves-to-write 3</p>
+<p>min-slaves-max-lag 10</p>
+<p>上面的配置表示：从服务器的数量少于3个，或者三个从服务器的延迟（lag）值都大于或等于10秒时，主服务器将拒绝执行写命令。这里的延迟值就是上面INFOreplication命令的lag值。</p>
+<p>检测命令丢失</p>
+<p>如果因为网络故障，主服务器传播给从服务器的<strong>写命令在半路丢失</strong>，那么当从服务器向主服务器发送REPLCONF ACK命令时，主服务器将发觉从服务器当前的<strong>复制偏移量</strong>少于自己的复制偏移量，然后主服务器就会根据从服务器提交的复制偏移量，在复制积压缓冲区里面找到从服务器缺少的数据，并将这些数据重新发送给从服务器。</p>
+<p>主服务器向从服务器<strong>补发缺失数据</strong>这一操作的原理和部分重同步操作的原理非常相似，它们的区别在于：补发缺失数据操作在主从服务器没有断线的情况下执行，而部分重同步操作则在主从服务器断线并重连之后执行。</p>
+</blockquote>
+
+        
+      
+    </div>
+  <div>
+  
+</div>
+
+    
+    
+    
+      <footer class="post-footer">
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+    
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://cy-blogs.cn/Redis的哨兵机制/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="哼着自己旳小调调">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/author.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="哼着自己旳小调调">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/Redis的哨兵机制/" class="post-title-link" itemprop="url">Redis 哨兵机制</a>
+          
+        </h1>
+
+        <div class="post-meta">
+         
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <!-- <span title="本文字数">7.1k</span> -->
+			        <span title="本文字数">
+                  2.1k字
+                </span>
+              
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        
+          <h1 id="Redis-哨兵机制"><a href="#Redis-哨兵机制" class="headerlink" title="Redis 哨兵机制"></a>Redis 哨兵机制</h1><h3 id="什么是哨兵机制？"><a href="#什么是哨兵机制？" class="headerlink" title="什么是哨兵机制？"></a>什么是哨兵机制？</h3><ul>
+<li><p>Redis 的哨兵（sentinel）系统用于管理多个 Redis 服务器，<strong>哨兵是redis集群架构中非常重要的一个组件</strong>，该系统执行以下三个任务：</p>
+<ul>
+<li><strong>监控（Monitoring）</strong>：哨兵（sentinel）会不断地检查你的 Master 和Slave 是否运作正常。</li>
+<li><strong>提醒（Notification）</strong>：当别监控的某个 Redis 出现问题时，哨兵（sentinel）可以通过 API 向管理员或者其他应用程序发送通知。</li>
+<li><strong>自动故障迁移（Automatic failover）</strong>：当一个Master 不能正常工作时，哨兵（sentinel）会开始一次自动故障迁移操作，它会将失效 Master 的其中一个 Slave 升级为新的 Master，并让失效 Master 的其他 Slave 改为复制新的 Master；当客户端视图连接失败的 Master时，集群也会向客户端返回新 Master 的地址，使得集群可以使用 Master 代替失效 Master。</li>
+</ul>
+</li>
+<li><p><strong>哨兵（sentinel）是一个分布式系统，作为一个哨兵集群去运行的，相互协同工作，你可以在一个架构中运行多个哨兵（sentinel）进程</strong></p>
+<blockquote>
+<p>​        (1)故障转移时，判断一个master node宕机了，需要大部分哨兵都同意才行，涉及到分布式选举问题。<br>​         (2)及时部分哨兵节点挂掉了，哨兵集群还是能正常工作的，因为如果一个作为高可用机制重要组成部分的故障转移系统本身就是单点，那么就不靠谱。        </p>
+<p>​        这些进程使用留言协议（gossipprotocols）来接收关于Master 是否下线的信息，并使用投票协议 （agreementprotocols）来决定是否执行自动故障迁移，以及选择哪个 Slave 作为新的 Master。</p>
+<p>​        每个哨兵（sentinel）会向其它哨兵（sentinel）、master、slave<strong>定时</strong>发送消息，以确认对方是否 <strong>“活“ **着，如果发现对方在指定时间（可配置）内未响应，则暂时认为对方已挂（所谓的</strong>”主观认为冗机“**Subjective Down,简称sdown)）</p>
+<p>​        若<strong>“哨兵群”</strong>中的多数据sentinel，都报告某一 master 没响应，系统才认为该 master <strong>“彻底死亡”</strong>(即:客观上的真正down机,Objective Down,简称odown),通过一定的vote算法,从剩下的slave节点中,选一台提升为master,然后自动修改相关配置。</p>
+<p>​         虽然<strong>哨兵(sentinel) *<em>释出为一个单独的可执行文件 *</em>redis-sentinel **,但实际上它只是一个运行在特殊模式下的 Redis 服务器，你可以在启动一个普通 Redis 服务器时通过给定</strong> –sentinel** 选项来启动<strong>哨兵(sentinel)</strong>。</p>
+</blockquote>
+<p>​         哨兵(sentinel) 的一些设计思路和zookeeper非常类似</p>
+<p><img src="https://img-blog.csdn.net/20171004163652928?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQveXN3S25pZ2h0/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="哨兵"></p>
+</li>
+</ul>
+          <!--noindex-->
+          
+            <div class="post-button">
+              <a class="btn" href="/Redis的哨兵机制/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+  <div>
+  
+</div>
+
+    
+    
+    
+      <footer class="post-footer">
+        
+        
+          <div class="post-eof"></div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+    
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://cy-blogs.cn/Redis主从复制/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1027,206 +1238,11 @@
   
 
     
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://cy-blogs.cn/Vue-Cli/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="哼着自己旳小调调">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/author.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="哼着自己旳小调调">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-            
-            <a href="/Vue-Cli/" class="post-title-link" itemprop="url">Vue-Cli</a>
-          
-        </h1>
-
-        <div class="post-meta">
-         
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">本文字数：</span>
-                
-                <!-- <span title="本文字数">15k</span> -->
-			        <span title="本文字数">
-                  1.6k字
-                </span>
-              
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-        
-          <h2 id="组件开发自动化工具"><a href="#组件开发自动化工具" class="headerlink" title="组件开发自动化工具"></a>组件开发自动化工具</h2><blockquote>
-<p><code>Node.js</code>是一个新的后端(后台)语言，它的语法和<code>JavaScript</code>类似，所以可以说它是属于前端的后端语言</p>
-</blockquote><blockquote>
-<p><strong>运行环境：后端语言一般运行在服务器端，前端语言运行在客户端的浏览器上</strong></p>
-<p><strong>功能：后端语言可以操作文件，可以读写数据库，前端语言不能操作文件，不能读写数据库。</strong></p>
-</blockquote><ul>
-<li><code>Node.js</code>如果安装成功，可以查看<code>Node.js</code>的版本,在终端输入如下命令</li>
-</ul>
-          <!--noindex-->
-          
-            <div class="post-button">
-              <a class="btn" href="/Vue-Cli/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-  <div>
-  
-</div>
-
-    
-    
-    
-      <footer class="post-footer">
-        
-        
-          <div class="post-eof"></div>
-        
-      </footer>
-    
-  </article>
-  
-  
-  
-
-    
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://cy-blogs.cn/Vue/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="哼着自己旳小调调">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/author.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="哼着自己旳小调调">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-            
-            <a href="/Vue/" class="post-title-link" itemprop="url">Vue</a>
-          
-        </h1>
-
-        <div class="post-meta">
-         
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">本文字数：</span>
-                
-                <!-- <span title="本文字数">109k</span> -->
-			        <span title="本文字数">
-                  9k字
-                </span>
-              
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-        
-          <h2 id="VUE"><a href="#VUE" class="headerlink" title="VUE"></a>VUE</h2><blockquote>
-<p><code>Vue.js</code>是前端三大新框架：<code>Angular.js</code>、<code>React.js</code>、<code>Vue.js</code>之一，<code>Vue.js</code>目前的使用和关注程度在三大框架中稍微胜出，并且它的热度还在递增</p>
-<p><code>Vue</code>的核心库只关注视图层，<code>Vue</code>的目标是通过尽可能简单的<code>API</code>实现响应的数据绑定，在这一点上<code>Vue.js</code>类似于后台的模板语言</p>
-<p><code>Vue</code>也可以将界面拆分成一个个的组件，通过组件来构建界面，然后用自动化工具来生成单页面(<code>SPA - single page application</code>)系统</p>
-</blockquote>
-          <!--noindex-->
-          
-            <div class="post-button">
-              <a class="btn" href="/Vue/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-  <div>
-  
-</div>
-
-    
-    
-    
-      <footer class="post-footer">
-        
-        
-          <div class="post-eof"></div>
-        
-      </footer>
-    
-  </article>
-  
-  
-  
-
-    
   </div>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1274,7 +1290,7 @@
         
           <a href="/archives">
         
-          <span class="site-state-item-count">29</span>
+          <span class="site-state-item-count">31</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1300,7 +1316,7 @@
             <a href="/tags/">
           
         
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
@@ -1405,8 +1421,8 @@
       <span class="post-meta-item-text">站点总字数：</span>
     
     <span title="post.totalcount">
-     91.1k字 </span>
-    <span title="站点总字数">236k</span>
+     93.8k字 </span>
+    <span title="站点总字数">241k</span>
   
 </div>
 

@@ -8,6 +8,31 @@
       <link href="/redis%E7%9A%84%E5%BF%83%E8%B7%B3%E6%A3%80%E6%B5%8B/"/>
       <url>/redis%E7%9A%84%E5%BF%83%E8%B7%B3%E6%A3%80%E6%B5%8B/</url>
       
+        <content type="html"><![CDATA[<h1 id="Redis-心跳检测"><a href="#Redis-心跳检测" class="headerlink" title="Redis 心跳检测"></a>Redis 心跳检测</h1><blockquote><p>在命令传播阶段，<strong>从服务器默认以每秒一次的频率</strong>，向主服务器发送命令：</p><p>*<em>REPLCONF ACK *</em> //replication_offset是从服务器当前的复制偏移量。</p><p>心跳检测的作用：检测主服务器的网络连接状态；辅助实现min-slaves选项；检测命令丢失。</p><p>检测主从服务器的网络连接状态</p><p>通过向主服务器发送INFO replication命令，可以列出从服务器列表，可以看出从最后一次向主发送命令距离现在过了多少秒。</p><p><img src="/redis的心跳检测/20170829110005938.png" alt></p><p>lag的值应该在0或1之间跳动，如果超过1则说明主从之间的连接有故障。</p><p>辅助实现min-slaves选项</p><p>Redis可以通过配置<strong>防止主服务器在不安全的情况下执行写命令</strong>；</p><p>min-slaves-to-write 3</p><p>min-slaves-max-lag 10</p><p>上面的配置表示：从服务器的数量少于3个，或者三个从服务器的延迟（lag）值都大于或等于10秒时，主服务器将拒绝执行写命令。这里的延迟值就是上面INFOreplication命令的lag值。</p><p>检测命令丢失</p><p>如果因为网络故障，主服务器传播给从服务器的<strong>写命令在半路丢失</strong>，那么当从服务器向主服务器发送REPLCONF ACK命令时，主服务器将发觉从服务器当前的<strong>复制偏移量</strong>少于自己的复制偏移量，然后主服务器就会根据从服务器提交的复制偏移量，在复制积压缓冲区里面找到从服务器缺少的数据，并将这些数据重新发送给从服务器。</p><p>主服务器向从服务器<strong>补发缺失数据</strong>这一操作的原理和部分重同步操作的原理非常相似，它们的区别在于：补发缺失数据操作在主从服务器没有断线的情况下执行，而部分重同步操作则在主从服务器断线并重连之后执行。</p></blockquote>]]></content>
+      
+      
+      <categories>
+          
+          <category> Redis </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Redis 心跳检测 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Redis 心跳检测</title>
+      <link href="/redis%E5%BF%83%E8%B7%B3%E6%A3%80%E6%B5%8B/"/>
+      <url>/redis%E5%BF%83%E8%B7%B3%E6%A3%80%E6%B5%8B/</url>
+      
         <content type="html"><![CDATA[<h1 id="Redis-心跳检测"><a href="#Redis-心跳检测" class="headerlink" title="Redis 心跳检测"></a>Redis 心跳检测</h1><blockquote><p>在命令传播阶段，<strong>从服务器默认以每秒一次的频率</strong>，向主服务器发送命令：</p><p>*<em>REPLCONF ACK *</em> //replication_offset是从服务器当前的复制偏移量。</p><p>心跳检测的作用：检测主服务器的网络连接状态；辅助实现min-slaves选项；检测命令丢失。</p><p>检测主从服务器的网络连接状态</p><p>通过向主服务器发送INFO replication命令，可以列出从服务器列表，可以看出从最后一次向主发送命令距离现在过了多少秒。</p><p><img src="https://img-blog.csdn.net/20170829110005938?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvemxmcHJvZ3JhbQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt></p><p>lag的值应该在0或1之间跳动，如果超过1则说明主从之间的连接有故障。</p><p>辅助实现min-slaves选项</p><p>Redis可以通过配置<strong>防止主服务器在不安全的情况下执行写命令</strong>；</p><p>min-slaves-to-write 3</p><p>min-slaves-max-lag 10</p><p>上面的配置表示：从服务器的数量少于3个，或者三个从服务器的延迟（lag）值都大于或等于10秒时，主服务器将拒绝执行写命令。这里的延迟值就是上面INFOreplication命令的lag值。</p><p>检测命令丢失</p><p>如果因为网络故障，主服务器传播给从服务器的<strong>写命令在半路丢失</strong>，那么当从服务器向主服务器发送REPLCONF ACK命令时，主服务器将发觉从服务器当前的<strong>复制偏移量</strong>少于自己的复制偏移量，然后主服务器就会根据从服务器提交的复制偏移量，在复制积压缓冲区里面找到从服务器缺少的数据，并将这些数据重新发送给从服务器。</p><p>主服务器向从服务器<strong>补发缺失数据</strong>这一操作的原理和部分重同步操作的原理非常相似，它们的区别在于：补发缺失数据操作在主从服务器没有断线的情况下执行，而部分重同步操作则在主从服务器断线并重连之后执行。</p></blockquote>]]></content>
       
       

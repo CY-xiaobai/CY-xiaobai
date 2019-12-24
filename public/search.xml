@@ -1,15 +1,509 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>MySQL 事务隔离级别</title>
+    <url>/mysql%E4%BA%8B%E5%8A%A1%E7%89%B9%E6%80%A7%E5%8F%8A%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/</url>
+    <content><![CDATA[<h3 id="1-1-2、事务的特性"><a href="#1-1-2、事务的特性" class="headerlink" title="1.1.2、事务的特性"></a>1.1.2、事务的特性</h3><ol>
+<li><p>原子性</p>
+<blockquote>
+<p>事务中的全部操作在数据库中是不可分割的，要么全部完成，要么全都不完成</p>
+</blockquote>
+</li>
+<li><p>一致性</p>
+<blockquote>
+<p>几个并行执行的事务，其执行结果必须与按某一顺序串行执行的结果相一致</p>
+</blockquote>
+</li>
+<li><p>隔离性</p>
+<blockquote>
+<p>事务的执行不受其他事务的干扰，事务执行的中间结果对其他事务必须是透明的</p>
+</blockquote>
+</li>
+<li><p>持久性</p>
+<blockquote>
+<p>一个事务一旦被提交了，那么对数据库中的数据的改变就是永久性的，即便是在数据库系统遇到故障的情况下也不会丢失提交事务的操作</p>
+</blockquote>
+</li>
+</ol><a id="more"></a>
+<p><img src="https://pic2.zhimg.com/80/v2-59ea2f0769e4e9ffbcdce938d306fae9_hd.png" alt="img"> </p>
+<h3 id="1-1-3、事务隔离级别"><a href="#1-1-3、事务隔离级别" class="headerlink" title="1.1.3、事务隔离级别"></a>1.1.3、事务隔离级别</h3><ol>
+<li><p><strong>未提交读：脏读（READ UNCOMMITTED）</strong></p>
+<ol>
+<li>事务2查询到的数据是事务1中修改但未提交的数据，但因为事务1回滚了数据</li>
+<li>所以事务2查询的数据是不正确的，因此出现了脏读的问题</li>
+</ol>
+</li>
+</ol>
+<h3 id="READ-UNCOMMITTED（读未提交）"><a href="#READ-UNCOMMITTED（读未提交）" class="headerlink" title="READ UNCOMMITTED（读未提交）"></a>READ UNCOMMITTED（读未提交）</h3><p> 该隔离级别的事务会读到其它未提交事务的数据，此现象也称之为<strong>脏读</strong>。 </p>
+<p> 两个命令行客户端分别为A，B；不断改变A的隔离级别，在B端修改数据。 </p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">将A的隔离级别设置为read uncommitted(未提交读)</span><br><span class="line">A：<span class="keyword">SET</span> @@session.transaction_isolation = <span class="string">'READ-UNCOMMITTED'</span>;</span><br><span class="line">创建一张test</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">database</span> <span class="keyword">test</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">use</span> <span class="keyword">test</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> <span class="keyword">test</span>(<span class="keyword">id</span> <span class="built_in">int</span> primary <span class="keyword">key</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> <span class="keyword">test</span>(<span class="keyword">id</span>) <span class="keyword">values</span>(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">A：启动事务，此时数据为初始状态</span><br><span class="line"><span class="keyword">start</span> <span class="keyword">transaction</span>;</span><br><span class="line"></span><br><span class="line">B：启动事务，更新数据，但不提交</span><br><span class="line"><span class="keyword">start</span> <span class="keyword">transaction</span>;</span><br><span class="line"><span class="keyword">update</span> <span class="keyword">test</span> <span class="keyword">set</span> <span class="keyword">id</span> = <span class="number">2</span> <span class="keyword">where</span> <span class="keyword">id</span> = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">A：再次读取数据，发现数据已经被修改了，这就是所谓的“脏读</span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">test</span>;</span><br><span class="line"></span><br><span class="line">B:回滚事务</span><br><span class="line"><span class="keyword">rollback</span>;</span><br><span class="line"></span><br><span class="line">A:再次读数据，发现数据变回初始状态</span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">test</span>;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><p><strong>提交读：不可重复读（READ COMMITTED）</strong></p>
+<p>注：一个事务从开始到提交之前对数据所做的改变对其他事务是不可见的，这样就解决在READ-UNCOMMITTED级别下的脏读问题。</p>
+<ol>
+<li>事务2执行update语句但未提交前，事务1的前两个select操作返回结果是相同的</li>
+<li>但事务2执行commit操作后，事务1的第三个select操作就读取到事务2对数据的改变</li>
+<li>导致与前两次select操作返回不同的数据，因此出现了不可重复读的问题</li>
+</ol>
+</li>
+</ol>
+<h3 id="READ-COMMITTED（提交读）"><a href="#READ-COMMITTED（提交读）" class="headerlink" title="READ COMMITTED（提交读）"></a>READ COMMITTED（提交读）</h3><p> 一个事务可以读取另一个已提交的事务，多次读取会造成不一样的结果，此现象称为不可重复读问题，Oracle 和 SQL Server 的默认隔离级别。 </p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">A:将客户端A的事务隔离级别设置为read committed(已提交读)</span><br><span class="line"></span><br><span class="line"><span class="keyword">SET</span> @@session.transaction_isolation = <span class="string">'READ-COMMITTED'</span>;</span><br><span class="line">创建test表</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">database</span> <span class="keyword">test</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="keyword">test</span>;</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> <span class="keyword">test</span>(<span class="keyword">id</span> <span class="built_in">int</span> primary <span class="keyword">key</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> <span class="keyword">test</span>(<span class="keyword">id</span>) <span class="keyword">values</span>(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">A：启动事务，此时数据为初始状态</span><br><span class="line"><span class="keyword">start</span> <span class="keyword">transaction</span>;</span><br><span class="line"></span><br><span class="line">B：启动事务，更新数据，但不提交</span><br><span class="line"><span class="keyword">start</span> <span class="keyword">transaction</span>;</span><br><span class="line"><span class="keyword">update</span> <span class="keyword">test</span> <span class="keyword">set</span> <span class="keyword">id</span> = <span class="number">2</span> <span class="keyword">where</span> <span class="keyword">id</span> = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">A：再次读数据，发现数据未被修改</span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">test</span>;</span><br><span class="line"></span><br><span class="line">B：提交事务</span><br><span class="line"><span class="keyword">commit</span>;</span><br><span class="line"></span><br><span class="line">A：再次读取数据，发现数据已发生变化，说明B提交的修改被事务中的A读到了，这就是所谓的“不可重复读”</span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">test</span>;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><strong>可重复读：幻读（REPEATABLE READ）：这是MySQL的默认事务隔离级别</strong><ol>
+<li>事务每开启一个实例，都会分配一个版本号给它，如果读取的数据行正在被其他事务执行DELETE或UPDATE操作（既该行上有排他锁）</li>
+<li>这时该事务的读取操作不会等待行上的锁释放，而是根据版本号去读取行的快照数据（记录在undo log中）</li>
+<li>这样，事务中的查询操作返回的都是同一版本下的数据，解决了不可重复读问题。</li>
+<li>虽然该隔离级别下解决了不可重复读问题，但理论上会导致另一个问题：幻读（Phantom Read）。</li>
+<li>一个事务在执行过程中，另一个事务对已有数据行的更改，MVCC机制可保障该事务读取到的原有数据行的内容相同</li>
+<li>但并不能阻止另一个事务插入新的数据行，这就会导致该事务中凭空多出数据行，像出现了幻读一样，这便是幻读问题</li>
+</ol>
+</li>
+</ol>
+<h3 id="REPEATABLE-READ（可重复读）"><a href="#REPEATABLE-READ（可重复读）" class="headerlink" title="REPEATABLE READ（可重复读）"></a>REPEATABLE READ（可重复读）</h3><p> 该隔离级别是 MySQL 默认的隔离级别，在同一个事务里，<code>select</code> 的结果是事务开始时时间点的状态，因此，同样的 <code>select</code> 操作读到的结果会是一致的，但是，会有<strong>幻读</strong>现象 </p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">将A的隔离级别设置为repeatable read(可重复读)</span><br><span class="line"><span class="keyword">SET</span> @@session.transaction_isolation = <span class="string">'REPEATABLE-READ'</span>;</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">database</span> <span class="keyword">test</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="keyword">test</span>;</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> <span class="keyword">test</span>(<span class="keyword">id</span> <span class="built_in">int</span> primary <span class="keyword">key</span>,<span class="keyword">name</span> <span class="built_in">varchar</span>(<span class="number">20</span>));</span><br><span class="line"></span><br><span class="line">A：登录 mysql 终端 A，开启一个事务。</span><br><span class="line"><span class="keyword">start</span> <span class="keyword">transaction</span>;</span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">test</span>; <span class="comment">-- 无记录</span></span><br><span class="line"></span><br><span class="line">B：登录 mysql 终端 B，开启一个事务。</span><br><span class="line"><span class="keyword">use</span> <span class="keyword">test</span>;</span><br><span class="line"><span class="keyword">start</span> <span class="keyword">transaction</span>;</span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">test</span>; <span class="comment">-- 无记录</span></span><br><span class="line"></span><br><span class="line">A:切换到 mysql 终端 A，增加一条记录并提交。</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> <span class="keyword">test</span>(<span class="keyword">id</span>,<span class="keyword">name</span>) <span class="keyword">values</span>(<span class="number">1</span>,<span class="string">'a'</span>);</span><br><span class="line"><span class="keyword">commit</span>;</span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">test</span>; <span class="comment">--可以看到已经更改</span></span><br><span class="line"></span><br><span class="line">B:切换到 msyql 终端 B。</span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">test</span>; <span class="comment">--此时查询还是无记录</span></span><br><span class="line"></span><br><span class="line">通过这一步可以证明，在该隔离级别下已经读取不到别的已提交的事务，如果想看到 mysql 终端 1 提交的事务，在 mysql 终端 2 将当前事务提交后再次查询就可以读取到 mysql 终端 1 提交的事务。</span><br><span class="line"> 可重复读隔离级别只允许读取已提交记录，而且在一个事务两次读取一个记录期间，其他事务部的更新该记录。 </span><br><span class="line"></span><br><span class="line">B：此时接着在 mysql 终端 B 插入一条数据。</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> <span class="keyword">test</span>(<span class="keyword">id</span>,<span class="keyword">name</span>) <span class="keyword">values</span>(<span class="number">1</span>,<span class="string">'b'</span>); <span class="comment">-- 此时报主键冲突的错误</span></span><br><span class="line">这就是该隔离级别下可能产生的问题，MySQL 称之为幻读。</span><br><span class="line"><span class="keyword">commit</span>;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><p><strong>可串行读（SERIALIZABLE）</strong></p>
+<ol>
+<li>这是事务的最高隔离级别，通过强制事务排序，使之不可能相互冲突，就像在每个读的数据行加上共享锁来实现</li>
+<li>在该隔离级别下，可以解决前面出现的脏读、不可重复读和幻读问题，但也会导致大量的超时和锁竞争现象，一般不推荐使用</li>
+</ol>
+</li>
+</ol>
+<h3 id="SERIALIZABLE（可串行读）"><a href="#SERIALIZABLE（可串行读）" class="headerlink" title="SERIALIZABLE（可串行读）"></a>SERIALIZABLE（可串行读）</h3><p> 在该隔离级别下事务都是串行顺序执行的，MySQL 数据库的 InnoDB 引擎会给读操作隐式加一把读共享锁，从而避免了脏读、不可重读复读和幻读问题。 </p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">A:准备两个终端，在此命名为 mysql 终端 A 和 mysql 终端 B，分别登入 mysql，准备一张测试表 test 并调整隔离级别为 SERIALIZABLE，任意一个终端执行即可。</span><br><span class="line"><span class="keyword">set</span> <span class="keyword">session</span> <span class="keyword">transaction</span> <span class="keyword">isolation</span> <span class="keyword">level</span> <span class="keyword">serializable</span>;</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">database</span> <span class="keyword">test</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="keyword">test</span>;</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> <span class="keyword">test</span>(<span class="keyword">id</span> <span class="built_in">int</span> primary <span class="keyword">key</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> <span class="keyword">test</span>(<span class="keyword">id</span>) <span class="keyword">values</span>(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">A:登录 mysql 终端 A，开启一个事务，并写入一条数据。</span><br><span class="line"><span class="keyword">start</span> <span class="keyword">transaction</span>;</span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">test</span>;</span><br><span class="line"></span><br><span class="line">B:登录 mysql 终端 B，开启一个事务。</span><br><span class="line"><span class="keyword">start</span> <span class="keyword">transaction</span>;</span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">test</span>; </span><br><span class="line"> <span class="keyword">delete</span> <span class="keyword">from</span> <span class="keyword">test</span>;</span><br><span class="line"></span><br><span class="line">A:立马切换到 mysql 终端 A,提交事务。</span><br><span class="line"><span class="keyword">commit</span>;</span><br><span class="line"></span><br><span class="line">一旦事务提交，msyql 终端 B 会立马返回 ID 为 1 的记录，否则会一直卡住，直到超时，其中超时参数是由 innodb_lock_wait_timeout 控制</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>MYSQL</category>
+      </categories>
+      <tags>
+        <tag>MySQL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>MySQL存储引擎如何选择</title>
+    <url>/MySQL%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%E5%A6%82%E4%BD%95%E9%80%89%E6%8B%A9/</url>
+    <content><![CDATA[<h1 id="MySQL存储引擎如何选择"><a href="#MySQL存储引擎如何选择" class="headerlink" title="MySQL存储引擎如何选择"></a>MySQL存储引擎如何选择</h1><h4 id="定义以及作用"><a href="#定义以及作用" class="headerlink" title="定义以及作用"></a>定义以及作用</h4><blockquote>
+<p>数据库引擎是用于存储、处理和保护数据的核心服务。</p>
+<p>利用数据库引擎可控制访问权限并快速处理事务，从而满足企业内大多数需要处理大量数据的应用程序的要求。</p>
+<p>使用数据库引擎创建用于联机(客户端与服务端能够实时通信。由客户机发起，直到服务器确认。)事务处理或联机分析处理数据的关系数据库。这包括创建用于存储数据的表和用于查看、管理和保护数据安全的数据库对象（如索引、视图和存储过程）。</p>
+</blockquote><a id="more"></a>
+<h4 id="Mysql的存储引擎有哪些："><a href="#Mysql的存储引擎有哪些：" class="headerlink" title="Mysql的存储引擎有哪些："></a>Mysql的存储引擎有哪些：</h4><blockquote>
+<p>InnoDB</p>
+<blockquote>
+<p>这是MySQL 5.5或更高版本的默认存储引擎。它提供了事务安全(ACID兼容)表，支持外键引用完整性约束。它支持提交、回滚和紧急恢复功能来保护数据。它还支持行级锁定。当在多用户环境中使用时，它的“一致非锁定读取”提高了性能。它将数据存储在集群索引中，从而减少了基于主键的查询的I/O。</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>MyISAM</p>
+<blockquote>
+<p>该存储引擎管理非事务性表，提供高速存储和检索，支持全文搜索。</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>MEMORY</p>
+<blockquote>
+<p>提供内存中的表，以前称为堆。它在RAM中处理所有数据，以便比在磁盘上存储数据更快地访问。用于快速查找引用和其他相同的数据。</p>
+</blockquote>
+</blockquote>
+<h4 id="修改数据库引擎"><a href="#修改数据库引擎" class="headerlink" title="修改数据库引擎"></a>修改数据库引擎</h4><blockquote>
+<p>方式壹：</p>
+<blockquote>
+<p>修改配置文件my.ini</p>
+<p>将mysql.ini另存为my.ini，在[mysqld]后面添加default-storage-engine=Innodb,重启服务，数据库默认的引擎修改为Innodb</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>方式贰：</p>
+<blockquote>
+<p>在建表得时候指定</p>
+<p>create table table_name(你的各个字段名)type=MyISAM;</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>方式叁：</p>
+<blockquote>
+<p>建表后更改</p>
+<p>alert table table_name type=Innodb;</p>
+</blockquote>
+</blockquote>
+<h4 id="如何查看是否修改成功-查看当前数据库的引擎"><a href="#如何查看是否修改成功-查看当前数据库的引擎" class="headerlink" title="如何查看是否修改成功(查看当前数据库的引擎)"></a>如何查看是否修改成功(查看当前数据库的引擎)</h4><blockquote>
+<p>方式壹：</p>
+<blockquote>
+<p>show table status from table_name;</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>方拾贰：</p>
+<blockquote>
+<p>show create table table_name;</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>方式叁：</p>
+<blockquote>
+<p>使用数据库管理工具(具体自己去问度娘)<br>注意：不同版本之间有可能命令有些不同</p>
+</blockquote>
+</blockquote>
+<h4 id="MyISAM、InnoDB和MEMORY引擎之间的区别"><a href="#MyISAM、InnoDB和MEMORY引擎之间的区别" class="headerlink" title="MyISAM、InnoDB和MEMORY引擎之间的区别:"></a>MyISAM、InnoDB和MEMORY引擎之间的区别:</h4><blockquote>
+<p>InnoDB存储引擎</p>
+<blockquote>
+<p>InnoDB给MySQL的表提供了事务处理、回滚、崩溃修复能力和多版本并发控制的事务安全。在MySQL从3.23.34a开始包含InnnoDB。它是MySQL上第一个提供外键约束的表引擎。而且InnoDB对事务处理的能力，也是其他存储引擎不能比拟的。靠后版本的MySQL的默认存储引擎就是InnoDB。</p>
+<p>InnoDB存储引擎总支持AUTO_INCREMENT。自动增长列的值不能为空，并且值必须唯一。MySQL中规定自增列必须为主键。在插入值的时候，如果自动增长列不输入值，则插入的值为自动增长后的值；如果输入的值为0或空（NULL），则插入的值也是自动增长后的值；如果插入某个确定的值，且该值在前面没有出现过，就可以直接插入。</p>
+<p>InnoDB还支持外键（FOREIGN KEY）。外键所在的表叫做子表，外键所依赖（REFERENCES）的表叫做父表。父表中被字表外键关联的字段必须为主键。当删除、更新父表中的某条信息时，子表也必须有相应的改变，这是数据库的参照完整性规则。</p>
+<p>InnoDB中，创建的表的表结构存储在.frm文件中（我觉得是frame的缩写吧）。数据和索引存储在innodb_data_home_dir和innodb_data_file_path定义的表空间中。</p>
+<p>InnoDB的优势在于提供了良好的事务处理、崩溃修复能力和并发控制。缺点是读写效率较差，占用的数据空间相对较大。</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>MyISAM存储引擎</p>
+<blockquote>
+<p>MyISAM是MySQL中常见的存储引擎，曾经是MySQL的默认存储引擎。MyISAM是基于ISAM引擎发展起来的，增加了许多有用的扩展。</p>
+<p>MyISAM的表存储成3个文件。文件的名字与表名相同。拓展名为frm、MYD、MYI。其实，frm文件存储表的结构；MYD文件存储数据，是MYData的缩写；MYI文件存储索引，是MYIndex的缩写。</p>
+<p>基于MyISAM存储引擎的表支持3种不同的存储格式。包括静态型、动态型和压缩型。其中，静态型是MyISAM的默认存储格式，它的字段是固定长度的；动态型包含变长字段，记录的长度不是固定的；压缩型需要用到myisampack工具，占用的磁盘空间较小。</p>
+<p>MyISAM的优势在于占用空间小，处理速度快。缺点是不支持事务的完整性和并发性。</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>MEMORY存储引擎</p>
+<blockquote>
+<p>MEMORY是MySQL中一类特殊的存储引擎。它使用存储在内存中的内容来创建表，而且数据全部放在内存中。这些特性与前面的两个很不同。</p>
+<p>每个基于MEMORY存储引擎的表实际对应一个磁盘文件。该文件的文件名与表名相同，类型为frm类型。该文件中只存储表的结构。而其数据文件，都是存储在内存中，这样有利于数据的快速处理，提高整个表的效率。值得注意的是，服务器需要有足够的内存来维持MEMORY存储引擎的表的使用。如果不需要了，可以释放内存，甚至删除不需要的表。</p>
+<p>MEMORY默认使用哈希索引。速度比使用B型树索引快。当然如果你想用B型树索引，可以在创建索引时指定。</p>
+<p>注意，MEMORY用到的很少，因为它是把数据存到内存中，如果内存出现异常就会影响数据。如果重启或者关机，所有数据都会消失。因此，基于MEMORY的表的生命周期很短，一般是一次性的</p>
+</blockquote>
+</blockquote>
+<h4 id="怎样选择合理的存储引擎"><a href="#怎样选择合理的存储引擎" class="headerlink" title="怎样选择合理的存储引擎"></a>怎样选择合理的存储引擎</h4><blockquote>
+<p>InnoDB：支持事务处理，支持外键，支持崩溃修复能力和并发控制。如果需要对事务的完整性要求比较高（比如银行），要求实现并发控制（比如售票），那选择InnoDB有很大的优势。如果需要频繁的更新、删除操作的数据库，也可以选择InnoDB，因为支持事务的提交（commit）和回滚（rollback）。</p>
+<p>MyISAM：插入数据快，空间和内存使用比较低。如果表主要是用于插入新记录和读出记录，那么选择MyISAM能实现处理高效率。如果应用的完整性、并发性要求比 较低，也可以使用。</p>
+<p>MEMORY：所有的数据都在内存中，数据的处理速度快，但是安全性不高。如果需要很快的读写速度，对数据的安全性要求较低，可以选择MEMOEY。它对表的大小有要求，不能建立太大的表。所以，这类数据库只使用在相对较小的数据库表。</p>
+<p>注意，同一个数据库也可以使用多种存储引擎的表。如果一个表要求比较高的事务处理，可以选择InnoDB。这个数据库中可以将查询要求比较高的表选择MyISAM存储。如果该数据库需要一个用于查询的临时表，可以选择MEMORY存储引擎。</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>MYSQL</category>
+      </categories>
+      <tags>
+        <tag>MySQL 引擎</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>MySQL MyISAM 引擎</title>
+    <url>/MySQL%20MyISAM%E5%BC%95%E6%93%8E/</url>
+    <content><![CDATA[<h1 id="MySQL-MyISAM引擎"><a href="#MySQL-MyISAM引擎" class="headerlink" title="MySQL MyISAM引擎"></a>MySQL MyISAM引擎</h1><h4 id="MyISAM-介绍"><a href="#MyISAM-介绍" class="headerlink" title="MyISAM 介绍"></a>MyISAM 介绍</h4><blockquote>
+<p>myisam引擎是MySQL关系数据库系统的默认储存引擎（mysql 5.5.5之前）。这种MySQL表存储结构从旧的ISAM代码扩展出许多有用的功能。在新版本的Mysql中，Innodb引擎由于其对事务参照完整性，以及更高的并发性等优点开始逐步取代Myisam引擎。<br>MyISAM是MySQL的默认数据库引擎（5.5版之前），由早期的ISAM所改良。虽然性能极佳，但却有一个缺点：不支持事务处理（transaction）。</p>
+<p>MySQL的MyISAM存储引擎支持压缩表空间，压缩后的表空间会减少，但是压缩后的表是只读的，不能插入和更新数据，如果需要更新，则需要解压后更新，再压缩 。</p>
+<p>每一个myisam的表都对应于硬盘上的三个文件。这三个文件有一样的文件名，但是有不同的扩展名指示其类型用途：.frm文件保存表的定义，这个文件并不是myisam引擎的一部分，而是服务器的一部分；.MYD保存表的数据；.MYI是表的索引文件。.MYD和.MYI是MyISAM的关键点。</p>
+</blockquote><a id="more"></a>
+<h4 id="MyASAM-引擎的特点"><a href="#MyASAM-引擎的特点" class="headerlink" title="MyASAM 引擎的特点"></a>MyASAM 引擎的特点</h4><blockquote>
+<p>1.不支持事务（事务是指逻辑上的一组操作，组成这组操作的各个单元，要么全成功要么全失败）<br>2.表级锁定，数据更新时锁定整个表：其锁定机制是表级锁定，这虽然可以让锁定的实现成本很小但是也同时大大降低了其并发性能。<br>3.读写互相阻塞：不仅会在写入的时候阻塞读取，myisam还会在读取的时候阻塞写入，但读本身并不会阻塞另外的读。<br>4.只会缓存索引：myisam可以通过key_buffer_size缓存索引，以大大提高访问性能，减少产品IO，但是这个缓存区只会缓存索引，而不会缓存数据。<br>key_buffer_size = 16M<br>5.读取速度较快，占用资源相对少。<br>6.不支持外键约束，但支持全文索引。</p>
+</blockquote>
+<h4 id="MyISAM-引攀适用的生产业务场景，"><a href="#MyISAM-引攀适用的生产业务场景，" class="headerlink" title="MyISAM 引攀适用的生产业务场景，"></a>MyISAM 引攀适用的生产业务场景，</h4><blockquote>
+<p>1.不需要事务支持的业务（例如转账就不行）。<br>2.一般为读数据比较多的应用，读写都频繁场景不适合，读多或者写多的都适合。<br>3.读写并发访问相对较低的业务（纯读纯写高并发也可以）（锁定机制问题）<br>4.数据修改相对较少的业务（阻塞问题）。<br>5.以读为主的业务，例如：数据库系统表、www， blog ，图片信息数据库，用户数据库，商品库等业务。<br>6.对数据一致性要求不是非常高的业务（不支持事务）。<br>7.硬件资源比较差的机器可以用 MyiSAM （占用资源少）<br>8.使用读写分离的 MySQL 从库可以使用 MyISAM。</p>
+</blockquote>
+<blockquote>
+<p>小结：单一对数据库的操作都可以使用MyiSAM，所谓单一就是尽量纯读，或纯写 ( insert . update , delete ）等</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>MYSQL</category>
+      </categories>
+      <tags>
+        <tag>MySQL 引擎</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>MySQL MEMORY引擎</title>
+    <url>/MySQL%20MEMORY%E5%BC%95%E6%93%8E/</url>
+    <content><![CDATA[<h1 id="MySQL-MEMORY引擎"><a href="#MySQL-MEMORY引擎" class="headerlink" title="MySQL MEMORY引擎"></a>MySQL MEMORY引擎</h1><h4 id="MEMORY-介绍"><a href="#MEMORY-介绍" class="headerlink" title="MEMORY 介绍"></a>MEMORY 介绍</h4><blockquote>
+<p>MEMORY存储引擎创建的表数据只能保存在内存。</p>
+<p>memoery存储引擎是在内存中来创建表，每个memory表只实际对应一个磁盘文件格式是.frm. 该引擎的表访问非常得快，因为数据是放在内存中，且默认是hash索引，但服务关闭，表中的数据就会丢失掉。</p>
+<p>MySQL宕机、硬件故障或者意外掉电，都会造成MEMORY引擎表丢失数据。所以，MEMORY表中的数据来源于其他表(可落盘永久保存)用于只读适用，或者用于临时工作起到数据周转。</p>
+<p>服务器需要足够的内存来维护所有在同一时间使用的memory表，当不再需要时，要释放，应执行 delete from 或 truncate table 或删除表drop table。</p>
+<p>每个memory表放置的数据量大小，受到max_heap_table_size系统变量的约束，初始值是16MB. 通过max_rows 子句指定表的最大行数。</p>
+</blockquote><a id="more"></a>
+<h4 id="MEMORY-引擎的特点"><a href="#MEMORY-引擎的特点" class="headerlink" title="MEMORY 引擎的特点"></a>MEMORY 引擎的特点</h4><blockquote>
+<p>memeory存储引擎使用hash索引对于等值查找是很高效的</p>
+<p>比较容易丢失数据</p>
+</blockquote>
+<h4 id="MEMORY-引擎适用的生产业务场景"><a href="#MEMORY-引擎适用的生产业务场景" class="headerlink" title="MEMORY 引擎适用的生产业务场景"></a>MEMORY 引擎适用的生产业务场景</h4><blockquote>
+<p>临时使用、不重要的数据，例如网站的会话管理和缓存。可接受数据丢失<br>可以用于存储在分析中产生的中间表<br>使用memroy存储引擎的表一定要是可以再生的或者是不需要的</p>
+</blockquote>
+<blockquote>
+<p>小结：据保存在ram(内存)中，访问速度快，但对表的大小有限制，要确保数据是可以恢复的，常用于更新不太频繁的小表，用以快速访问。</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>MYSQL</category>
+      </categories>
+      <tags>
+        <tag>MySQL 引擎</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>MySQL Innodb引擎</title>
+    <url>/MySQL%20Innodb%E5%BC%95%E6%93%8E/</url>
+    <content><![CDATA[<h1 id="MySQL-Innodb引擎"><a href="#MySQL-Innodb引擎" class="headerlink" title="MySQL Innodb引擎"></a>MySQL Innodb引擎</h1><h4 id="Innodb-介绍"><a href="#Innodb-介绍" class="headerlink" title="Innodb 介绍"></a>Innodb 介绍</h4><blockquote>
+<p>InnoDB引擎的优点是支持兼容ACID的事务，以及参数完整性（即对外键的支持）。<br>Oracle公司2005年10月收购了Innovase；mysql5.5.5之后数据库的默认存储引擎为InnoDB</p>
+</blockquote><a id="more"></a>
+<h6 id="Innodb-的特点"><a href="#Innodb-的特点" class="headerlink" title="Innodb 的特点"></a>Innodb 的特点</h6><blockquote>
+<p>1.支持事务，支持4个事务隔离级别，支持多版本读。<br>2.行级锁定（更新时一般是锁定当前行），通过索引实现，全表扫描仍然会是表锁，注意间隙锁的影响。<br>3.读写阻塞与事务隔离级别相关。<br>4.具有非常高效的缓存特性：能缓存索引，也能缓存数据。<br>5.整个表和主键以Cluster方式存储，组成一个平衡树。<br>6.所有Secondary Index都会保存主键信息。<br>7.支持分区，表空间，类似oracle数据库。<br>8.支持外键约束，5.5之前不支持全文索引，5.5之后支持外键索引。<br>9.和Myisam引擎比，Innodb对硬件资源要求比较高</p>
+</blockquote>
+<p>InnoDB:支持行级锁(row-level locking)和表级锁,默认为行级锁。</p>
+<h6 id="Innodb-引擎适用的生产业务场景"><a href="#Innodb-引擎适用的生产业务场景" class="headerlink" title="Innodb 引擎适用的生产业务场景"></a>Innodb 引擎适用的生产业务场景</h6><blockquote>
+<p>1、需要事务支持的业务（具有较好的事务特性）<br>2、行级锁定对高并发有很好的适应能力，但需要确保查询时通过索引完成。<br>3、数据读写及更新都较为频繁的场景，如：bbs，sns，微博，微信等。<br>4、数据一致性要求较高的业务，例如：充值转账，银行卡转账。<br>5、硬件设备内存较大，可以利用Innodb较好的缓存能力来提高内存利用率，尽可能减少磁盘IO。</p>
+<p>innodb_buffer_pool_size = 2048M<br>innodb_buffer_pool_size = 64M #InnoDB使用一个缓冲池来保存索引和原始数据，设置越大，在存取表里面数据时所需要的磁盘I/O越少。强烈建议不要武断地将InnoDB的Buffer Pool值配置为物理内存的50%~80%，应根据具体环境而定。<br>16G内存多实例差不多给2G</p>
+</blockquote>
+<h4 id="Innodb存储引擎"><a href="#Innodb存储引擎" class="headerlink" title="Innodb存储引擎"></a>Innodb存储引擎</h4><blockquote>
+<p>Innodb是事务型数据库的首选引，支持事物安全表(ACID)</p>
+<blockquote>
+<p>事务的ACID属性：即原子性、一致性、隔离性、持久性</p>
+<blockquote>
+<p>a.原子性：原子性也就是说这组语句要么全部执行，要么全部不执行，如果事务执行到一半出现错误，数据库就要回滚到事务开始执行的地方。</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<figure class="highlight mel"><table><tr><td class="code"><pre><span class="line">实现：主要是基于MySQ日志系统的<span class="keyword">redo</span>和<span class="keyword">undo</span>机制。事务是一组SQL语句，里面有选择，查询、删除等功能。每条语句执行会有一个节点。例如，删除语句执行后，在事务中有个记录保存下来，这个记录中储存了我们什么时候做了什么事。如果出错了，就会回滚到原来的位置，<span class="keyword">redo</span>里面已经存储了我做过什么事了，然后逆向执行一遍就可以了。</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<blockquote>
+<blockquote>
+<p>b.一致性：事务开始前和结束后，数据库的完整性约束没有被破坏。(eg:比如A向B转账，不可能A扣了钱，B却没有收到)<br>c.隔离性：同一时间，只允许一个事务请求同一数据，不同的事务之间彼此没有任何干扰；</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<figure class="highlight mipsasm"><table><tr><td class="code"><pre><span class="line">如果不考虑隔离性则会出现几个问题：</span><br><span class="line">                                 a、脏读：是指在一个事务处理过程里读取了另一个未提交的事务中的数据（当一个事务正在多次修改某个数据，而在这个事务中这多次的修改都还未提交，这时一个并发的事务来访问该数据，就会造成两个事务得到的数据不一致）；（读取了另一个事务未提交的脏数据）</span><br><span class="line">                                 aa、不可重复读：在对于数据库中的某个数据，一个事务范围内多次查询却返回了不同的数据值，这是由于在查询间隔，被另一个事务修改并提交了；（读取了前一个事务提交的数据，查询的都是同一个数据项）</span><br><span class="line">                                 aaa、虚读（幻读）：是事务非独立执行时发生的一种现象（eg:事务<span class="built_in">T1</span>对一个表中所有的行的某个数据项做了从“<span class="number">1</span>”修改为“<span class="number">2</span>”的操作，这时事务<span class="built_in">T2</span>又对这个表中插入了一行数据项，而这个数据项的数值还是为“<span class="number">1</span>”并且提交给数据库。而操作事务<span class="built_in">T1</span>的用户如果再查看刚刚修改的数据，会发现还有一行没有修改，其实这行是从事务<span class="built_in">T2</span>中添加的，就好像产生幻觉一样）；（读取了前一个事务提交的数据，针对一批数据整体）</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<blockquote>
+<blockquote>
+<p>d.持久性：事务完成后，事务对数据库的所有更新将被保存到数据库，不能回滚</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<h6 id="MySQL数据库为我们提供的四种隔离级别："><a href="#MySQL数据库为我们提供的四种隔离级别：" class="headerlink" title="MySQL数据库为我们提供的四种隔离级别："></a>MySQL数据库为我们提供的四种隔离级别：</h6><blockquote>
+<p>1、Serializable（串行化）：可避免脏读、不可重复读、幻读的发生；</p>
+<p>2、Repeatable read（可重复读）：可避免脏读、不可重复读的发生；</p>
+<p>3、Read committed（读已提交）：可避免脏读的发生；</p>
+<p>4、Read uncommitted（读未提交）：最低级别，任何情况都无法保证；</p>
+<blockquote>
+<p>从1—-4隔离级别由高到低，级别越高，执行效率越低</p>
+</blockquote>
+</blockquote>
+<p>InnoDB的存储文件有两个，后缀名分别是 .frm和 .idb；其中 .frm是表的定义文件， .idb是表的数据文件。</p>
+]]></content>
+      <categories>
+        <category>MYSQL</category>
+      </categories>
+      <tags>
+        <tag>MySQL 引擎</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>使用xtrabackup备份mysql</title>
+    <url>/%E4%BD%BF%E7%94%A8xtrabackup%E8%BF%9B%E8%A1%8C%E5%A4%87%E4%BB%BD/</url>
+    <content><![CDATA[<h1 id="使用xtrabackup备份mysql"><a href="#使用xtrabackup备份mysql" class="headerlink" title="使用xtrabackup备份mysql"></a>使用xtrabackup备份mysql</h1><h2 id="简介（Percona-XtraBackup-）简称PXB"><a href="#简介（Percona-XtraBackup-）简称PXB" class="headerlink" title="简介（Percona XtraBackup ）简称PXB"></a>简介（<a href="https://www.percona.com/software/mysql-database/percona-xtrabackup" target="_blank" rel="noopener">Percona XtraBackup</a> ）简称PXB</h2><blockquote>
+<p>Xtrabackup是由percona开源的免费数据库热备份软件，它能对Innodb数据库和Xtradb存储引擎的数据库非阻塞地备份。（对于Myisam的备份同样需要加表锁），mysqldump备份方式是采用的逻辑备份，其最大的缺陷是备份和恢复速度较慢，如果数据库大于50G，mysqldump备份就不太适合。</p>
+</blockquote><a id="more"></a>
+<h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><ul>
+<li>备份速度快，物理备份可靠</li>
+<li>备份过程不会打断正在执行的事务（无需锁表）</li>
+<li>能够基于压缩等功能节约磁盘空间和流量</li>
+<li>自动备份校验</li>
+<li>还原速度快</li>
+<li>可以流传将备份传输到另一台机器上</li>
+<li>在不增加服务器负载的情况下备份数据</li>
+</ul>
+<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><blockquote>
+<p>​    备份开始的时候，首先会开启一个后台检测进程，实时检测mysql redo到的变化，一旦发现有新的日志写入，立刻将日志记入后台日志文件xtrabackup_log中，之后赋值innodb的数据文件，系统表空间文件ibdatax，复制后，将上锁（读锁），flush tables with read lock，让后复制.frm MYI MYD等文件，最后执行 unlock tables（释放锁），最终停止xtrabackup_log。</p>
+</blockquote>
+<p>​        <img src="http://mysql.taobao.org/monthly/pic/2016-03-07/PXB-backup-procedure.png" alt="image "></p>
+<h2 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h2><blockquote>
+<p>​    在innodb内部会维护一个redo日志文件，我们也可以叫做事务日志文    件，事务日志会存储每一个Innodb表数据的记录修改。当Innodb启动时，Innodb会检查数据文件和事务日志。并执行两个步骤：它应用（前滚）已经提交的事务日志到数据文件，并将修改过但没有提交的数据进行回滚操作。</p>
+<p>​    xtrabackup在启动时会记住log    sequence number（LSN），并且复制所有数据文件，复制过程需要一些时间，所以这期间如果数据文件有改动，那么将会使数据库处于一个不同的时间点。这时，Xtrabackup会运行一个后台进程，用于监测事务日志，并从事务日志复制最新的修改。xtrabackup必须持续的做这个操作，因为事务日志是会轮转重复的写入，并且事务日志可以被重用。所以xtrabackup自启动开始，就不停的将事务日志中每个数据文件的修改都记录下来。这就是xtrabackup的备份过程。</p>
+<p>​    接下来是准备（prepare）过程。在这个过程中，xtrabackup使用之前复制的事务日志。对各个数据文件执行灾难恢复（就像mysql刚启动时要做的一样）。当这个过程结束后，数据库就可以做恢复还原了。</p>
+<p>​    整个过程就是-备份-》准备。先将文件全部复制过来，在根据事务日志对部分操作进行回滚。</p>
+<p>​    程序innobbackupex可以允许我们备份Myisam表和文件从而增加了便捷和功能。</p>
+<p>​    innobbackupex会启动xtrabackup，直到xtrabackup复制数据文件后，然后执行FLUSH TABLES WITH READ LOCK 来阻止新的写入刷新到磁盘上。之后复制Myisam数据文件。最后UNLOCK TABLES （释放锁）。</p>
+<p>​    备份Myisam和Innodb表最终会处于一致，在准备（prepare）过程结束后，Innodb表数据已经前滚到整个备份结束点，而不是回滚到xtrabackup感刚开始的点。这个时间点与执行FLUSH TABLES WITH READ LOCK的时间点相同，所以Myisam表数据与Innodb表数据是同步的。</p>
+</blockquote>
+<h2 id="xtrabackup增量备份"><a href="#xtrabackup增量备份" class="headerlink" title="xtrabackup增量备份"></a>xtrabackup增量备份</h2><ul>
+<li><p>原理</p>
+<blockquote>
+<p>​    首先是建立在完全备份的基础上，记录下此时的检查点LSN</p>
+<p>​    在进行增量备份时，比较表空间中每个页的LSN是否大于上次备份的LSN，若是则备份该页并记录当前检查点的LSN。</p>
+</blockquote>
+</li>
+<li><p>优点：</p>
+<ul>
+<li>数据库太大没有足够的空间全量备份，增量备份能有效节省空间，并且效率高</li>
+<li>支持热备份，备份过程不锁表（针对Innodb而言），不阻塞数据库读写。</li>
+<li>每日备份只产生少量数据，也可采用远程备份，节省本地空间</li>
+<li>备份恢复基于文件操作，降低直接对数据库操作风险</li>
+<li>备份效率更高，恢复效率更高。</li>
+</ul>
+</li>
+</ul>
+<h2 id="工具集"><a href="#工具集" class="headerlink" title="工具集"></a>工具集</h2><p>软件包安装完后一共有4个可执行文件，如下：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">usr</span><br><span class="line">├── bin</span><br><span class="line">│   ├── innobackupex</span><br><span class="line">│   ├── xbcrypt  #用来加密或解密备份的数据</span><br><span class="line">│   ├── xbstream  #用来解压或压缩xbstream格式的文件</span><br><span class="line">│   └── xtrabackup</span><br></pre></td></tr></table></figure>
+
+<p>其中最主要的是 <code>innobackupex</code> 和 <code>xtrabackup</code>，前者是一个 perl 脚本，后者是 C/C++ 编译的二进制。</p>
+<p><code>xtrabackup</code> 是用来备份 InnoDB 表的，不能备份非 InnoDB 表，和 mysqld server 没有交互；<code>innobackupex</code> 脚本用来备份非 InnoDB 表，同时会调用 <code>xtrabackup</code> 命令来备份 InnoDB 表，还会和 mysqld server 发送命令进行交互，如加读锁（FTWRL）、获取位点（SHOW SLAVE STATUS）等。简单来说，<code>innobackupex</code> 在 <code>xtrabackup</code> 之上做了一层封装。</p>
+<p>一般情况下，我们是希望能备份 MyISAM 表的，虽然我们可能自己不用 MyISAM 表，但是 mysql 库下的系统表是 MyISAM 的，因此备份基本都通过 <code>innobackupex</code> 命令进行；另外一个原因是我们可能需要保存位点信息。</p>
+<p>另外2个工具相对小众些，<code>xbcrypt</code> 是加解密用的；<code>xbstream</code> 类似于tar，是 Percona 自己实现的一种支持并发写的流文件格式。两都在备份和解压时都会用到（如果备份用了加密和并发）。</p>
+<p>本文的介绍的主角是 <code>innobackupex</code> 和 <code>xtrabackup</code>。</p>
+<h2 id="下载"><a href="#下载" class="headerlink" title="下载##"></a>下载##</h2><ul>
+<li><p>安装percona仓库</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">yum -y install http://www.percona.com/downloads/percona-release/redhat/0.1-4/percona-release-0.1-4.noarch.rpm</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装xtrabackup</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">yum install percona-xtrabackup -y</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建备份用户及设置权限（也可以直接使用root用户）</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">CREATE USER ‘用户名’@'localhost' IDENTIFIED BY '密码';#创建</span><br><span class="line">GRANT RELOAD,LOCK TABLES,PROCESS,REPLICATION CLIENT ON *.* TO '用户名'@'localhost';#设置权限</span><br><span class="line">FLUSH PRIVILEGES;#刷新权限</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置xtrabackup（可配置也可以已参数的形式写入）</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">vim /root/.my.cnf</span><br><span class="line"></span><br><span class="line">[xtrabackup]</span><br><span class="line"></span><br><span class="line">user=创建的用户名</span><br><span class="line"></span><br><span class="line">password=密码</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建备份使用的文件夹</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mkdir /data/backup/mysql</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="基于xtrabackup的备份和恢复"><a href="#基于xtrabackup的备份和恢复" class="headerlink" title="基于xtrabackup的备份和恢复"></a>基于xtrabackup的备份和恢复</h2><ul>
+<li><p><em>xtrabackup</em> 只支持innodb引擎和xtradb引擎</p>
+</li>
+<li><p>语法：</p>
+<ul>
+<li>–backup 表示该操作代表备份操作</li>
+<li>–target-dir 指定备份文件的路径</li>
+<li>–user 备份的用户 （设定配置文件后，无需指定）</li>
+<li>–password  用户密码（同上）</li>
+<li>–socket 指定socket启动文件路径（不添加使用默认路径）</li>
+<li>–incremental-basedir  表示在某个全量备份的基础上进行增备</li>
+</ul>
+</li>
+<li><p>全量备份</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[root@ax mysql]# xtrabackup --backup --target-dir=/data/backup/mysql</span><br><span class="line"><span class="meta">#</span><span class="bash">以下是返回的结果</span></span><br><span class="line">191221 13:49:02  version_check Connecting to MySQL server with DSN 'dbi:mysql:;mysql_read_default_group=xtrabackup' as 'backuper'  (using password: YES).</span><br><span class="line">191221 13:49:02  version_check Connected to MySQL server</span><br><span class="line">191221 13:49:02  version_check Executing a version check against the server...</span><br><span class="line">191221 13:49:02  version_check Done.</span><br><span class="line">191221 13:49:02 Connecting to MySQL server host: localhost, user: backuper, password: set, port: not set, socket: not set</span><br><span class="line">Using server version 5.5.64-MariaDB</span><br><span class="line">xtrabackup version 2.3.10 based on MySQL server 5.6.24 Linux (x86_64) (revision id: bd0d4403f36)</span><br><span class="line">xtrabackup: uses posix_fadvise().</span><br><span class="line">xtrabackup: cd to /var/lib/mysql</span><br><span class="line">xtrabackup: open files limit requested 0, set to 65535</span><br><span class="line">xtrabackup: using the following InnoDB configuration:</span><br><span class="line"><span class="meta">#</span><span class="bash">省略.....</span></span><br><span class="line">MySQL binlog position: filename 'mysql-bin.000001', position '245'</span><br><span class="line">191221 13:49:03 [00] Writing backup-my.cnf</span><br><span class="line">191221 13:49:03 [00]        ...done</span><br><span class="line">191221 13:49:03 [00] Writing xtrabackup_info</span><br><span class="line">191221 13:49:03 [00]        ...done</span><br><span class="line">xtrabackup: Transaction log of lsn (8622624) to (8622624) was copied.</span><br><span class="line">191221 13:49:04 completed OK!#代表成功全量备份</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在全量备份的基础上进行增量备份</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">xtrabackup --backup --target-dir=/data/mysql/增量备份文件夹的名字（自定义）--incremental-basedir=/全量备份文件路径</span></span><br><span class="line">[root@ax mysql]# xtrabackup --backup --target-dir=/data/backup/mysql/mysql_increment1 --incremental-basedir=/data/backup/mysql</span><br><span class="line">191221 14:00:43  version_check Connecting to MySQL server with DSN 'dbi:mysql:;mysql_read_default_group=xtrabackup' as 'backuper'  (using password: YES).</span><br><span class="line">191221 14:00:43  version_check Connected to MySQL server</span><br><span class="line">191221 14:00:43  version_check Executing a version check against the server...</span><br><span class="line">191221 14:00:43  version_check Done.</span><br><span class="line">191221 14:00:43 Connecting to MySQL server host: localhost, user: backuper, password: set, port: not set, socket: not set</span><br><span class="line">Using server version 5.5.64-MariaDB</span><br><span class="line">xtrabackup version 2.3.10 based on MySQL server 5.6.24 Linux (x86_64) (revision id: bd0d4403f36)</span><br><span class="line">incremental backup from 8622624 is enabled.</span><br><span class="line">xtrabackup: uses posix_fadvise().</span><br><span class="line">xtrabackup: cd to /var/lib/mysql</span><br><span class="line">xtrabackup: open files limit requested 0, set to 65535</span><br><span class="line"><span class="meta">#</span><span class="bash">省略....</span></span><br><span class="line">xtrabackup: Stopping log copying thread.</span><br><span class="line">.191221 14:00:45 &gt;&gt; log scanned up to (8622624)</span><br><span class="line"></span><br><span class="line">191221 14:00:45 Executing UNLOCK TABLES</span><br><span class="line">191221 14:00:45 All tables unlocked</span><br><span class="line">191221 14:00:45 Backup created in directory '/data/backup/mysql/mysql_increment1/'</span><br><span class="line">MySQL binlog position: filename 'mysql-bin.000001', position '245'</span><br><span class="line">191221 14:00:45 [00] Writing backup-my.cnf</span><br><span class="line">191221 14:00:45 [00]        ...done</span><br><span class="line">191221 14:00:45 [00] Writing xtrabackup_info</span><br><span class="line">191221 14:00:45 [00]        ...done</span><br><span class="line">xtrabackup: Transaction log of lsn (8622624) to (8622624) was copied.</span><br><span class="line">191221 14:00:45 completed OK!#代表增量备份成功</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在增量备份的基础上继续增量备份</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">在第一次增量备份后，以后的每一次增量备份都是以上一次增量备份为基准</span></span><br><span class="line"><span class="meta">#</span><span class="bash">xtrabackup --backup --target-dir=增量备份文件路径 --incremental-basedir=上次增量备份的文件位置</span></span><br><span class="line">[root@ax ~]# xtrabackup --backup --target-dir=/data/backup/mysql_increment2 --incremental-basedir=/data/backup/mysql/mysql_increment1</span><br><span class="line">191221 18:39:28  version_check Connecting to MySQL server with DSN 'dbi:mysql:;mysql_read_default_group=xtrabackup' as 'backuper'  (using password: YES).</span><br><span class="line">191221 18:39:28  version_check Connected to MySQL server</span><br><span class="line">191221 18:39:28  version_check Executing a version check against the server...</span><br><span class="line">191221 18:39:28  version_check Done.</span><br><span class="line">191221 18:39:28 Connecting to MySQL server host: localhost, user: backuper, password: set, port: not set, socket: not set</span><br><span class="line">Using server version 5.5.64-MariaDB</span><br><span class="line">xtrabackup version 2.3.10 based on MySQL server 5.6.24 </span><br><span class="line"><span class="meta">#</span><span class="bash">省略...</span></span><br><span class="line">191221 18:39:32 Executing UNLOCK TABLES</span><br><span class="line">191221 18:39:32 All tables unlocked</span><br><span class="line">191221 18:39:32 Backup created in directory '/data/backup/mysql_increment2/'</span><br><span class="line">MySQL binlog position: filename 'mysql-bin.000001', position '245'</span><br><span class="line">191221 18:39:32 [00] Writing backup-my.cnf</span><br><span class="line">191221 18:39:32 [00]        ...done</span><br><span class="line">191221 18:39:32 [00] Writing xtrabackup_info</span><br><span class="line">191221 18:39:32 [00]        ...done</span><br><span class="line">xtrabackup: Transaction log of lsn (8622624) to (8622624) was copied.</span><br><span class="line">191221 18:39:32 completed OK!#代表成功</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="使用xtrabackup恢复"><a href="#使用xtrabackup恢复" class="headerlink" title="使用xtrabackup恢复"></a>使用xtrabackup恢复</h2><ul>
+<li><p>语法：</p>
+<ul>
+<li><p>xtrabackup –prepare –apply-log-only –target-dir=全量备份文件路径</p>
+<ul>
+<li>–prepare  表示还原</li>
+<li>–apply-log-only 表示不回滚事务，因为后面有基于全备的增量备份，所以不需要回滚，如果没有增量备份则可以不添加。</li>
+</ul>
+</li>
+<li><p>将第一次增量备份加载至全备中（增量备份多每次都要以上一次加载的备份文件为基准，命令相同，只需修改增量备份文件的路径即可。）</p>
+</li>
+<li><p>在加载最后一次的增量备份文件时，不需要添加–apply-log-only，因为增量备份都加载完成了，所以需要事务回滚。</p>
+</li>
+<li><p>如果恢复的是增量备份，需要先执行<code>xtrabackup --prepare --apply-log-only --target-dir=全量备份文件路径</code> 准备好全量基准</p>
+</li>
+<li><p>在全量备份准备好的基础上在将增量加载至全量备份 <code>xtrabackup --prepare --apply-log-only --target-dir=全量备份文件路径 --incremental-dir=增量备份文件路径</code></p>
+</li>
+<li><p>最后一次的增量加载至全量备份。不需要添加apply-log-only<code>xtrabackup --prepare  --target-dir=全量备份文件路径 --incremental-dir=增量备份文件路径</code> 这样就可以还原了</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">xtrabackup --prepare --apply-log-only --target-dir=全量备份文件路径 --incremental-dir=增量备份文件路径</span></span><br><span class="line">[root@ax ~]# xtrabackup --prepare --apply-log-only --target-dir=/data/backup/mysql --incremental-dir=/data/backup/mysql_increment1</span><br><span class="line">xtrabackup version 2.3.10 based on MySQL server 5.6.24 Linux (x86_64) (revision id: bd0d4403f36)</span><br><span class="line">incremental backup from 8622624 is enabled.</span><br><span class="line">xtrabackup: cd to /data/backup/mysql/</span><br><span class="line">xtrabackup: This target seems to be already </span><br><span class="line"><span class="meta">#</span><span class="bash">省略...</span></span><br><span class="line">191221 18:56:43 [01]        ...done</span><br><span class="line">191221 18:56:43 [01] Copying /data/backup/mysql_increment1/mysql/db.MYD to ./mysql/db.MYD</span><br><span class="line">191221 18:56:43 [01]        ...done</span><br><span class="line">191221 18:56:43 [00] Copying /data/backup/mysql_increment1//xtrabackup_binlog_info to ./xtrabackup_binlog_info</span><br><span class="line">191221 18:56:43 [00]        ...done</span><br><span class="line">191221 18:56:43 [00] Copying /data/backup/mysql_increment1//xtrabackup_info to ./xtrabackup_info</span><br><span class="line">191221 18:56:43 [00]        ...done</span><br><span class="line">191221 18:56:43 completed OK!#代表成功</span><br><span class="line"><span class="meta">#</span><span class="bash">最后一加载增量备份到全量备份</span></span><br><span class="line">[root@ax ~]# xtrabackup --prepare --target-dir=/data/backup/mysql --incremental-dir=/data/backup/mysql_increment2</span><br><span class="line"><span class="meta">#</span><span class="bash">返回也上面最后一行的结果代表成功</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>恢复</p>
+<ul>
+<li><p>停止mysql服务</p>
+</li>
+<li><p>清空mysql的数据目录</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">MariaDB [(none)]&gt; show variables like &apos;datadir&apos;; #查询数据目录</span><br><span class="line">+---------------+-----------------+</span><br><span class="line">| Variable_name | Value           |</span><br><span class="line">+---------------+-----------------+</span><br><span class="line">| datadir       | /var/lib/mysql/ |</span><br><span class="line">+---------------+-----------------+</span><br><span class="line">1 row in set (0.00 sec)</span><br><span class="line">#cd到指定目录 rm -rf ./*  这是模拟数据库损坏</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>恢复 <code>xtrabackup --copy-back --target-dir=/data/backup/mysql</code>  –copy-back 将备份的数据目录下</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@ax ~]# xtrabackup --copy-back --target-dir=/data/backup/mysql</span><br><span class="line">xtrabackup version 2.3.10 based on MySQL server 5.6.24 Linux (x86_64) (revision id: bd0d4403f36)</span><br><span class="line">191221 19:23:55 [01] Copying ib_logfile0 to /var/lib/mysql/ib_logfile0</span><br><span class="line">191221 19:23:55 [01]        ...done</span><br><span class="line">191221 19:23:55 [01] Copying ib_logfile1 to /var/lib/mysql/ib_logfile1</span><br><span class="line">191221 19:23:55 [01]        ...done</span><br><span class="line">191221 19:23:55 [01] Copying ibdata1 to /var/</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>恢复后的数据目录下的文件及文件夹，用户数属于root的,mysql用户是没有权限使用的，所以需要重新赋予权限</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[root@ax mysql]# ll</span><br><span class="line">total 36896</span><br><span class="line">drwx------ 2 root root     4096 Dec 21 19:23 exam</span><br><span class="line">-rw-r----- 1 root root 27262976 Dec 21 19:23 ibdata1</span><br><span class="line">-rw-r----- 1 root root  5242880 Dec 21 19:23 ib_logfile0</span><br><span class="line">-rw-r----- 1 root root  5242880 Dec 21 19:23 ib_logfile1</span><br><span class="line">drwx------ 2 root root     4096 Dec 21 19:23 mysql</span><br><span class="line">drwx------ 2 root root     4096 Dec 21 19:23 nextcloud</span><br><span class="line">drwx------ 2 root root     4096 Dec 21 19:23 performance_schema</span><br><span class="line">drwx------ 2 root root     4096 Dec 21 19:23 siyouyun</span><br><span class="line">drwx------ 2 root root     4096 Dec 21 19:23 text</span><br><span class="line">-rw-r----- 1 root root       23 Dec 21 19:23 xtrabackup_binlog_pos_innodb</span><br><span class="line">-rw-r----- 1 root root      548 Dec 21 19:23 xtrabackup_info</span><br><span class="line"><span class="meta">#</span><span class="bash">重新赋予权限，所属者和所属组改为mysql</span></span><br><span class="line">[root@ax mysql]# chown -R mysql:mysql ../mysql</span><br><span class="line">[root@ax mysql]# ll</span><br><span class="line">total 36896</span><br><span class="line">drwx------ 2 mysql mysql     4096 Dec 21 19:23 exam</span><br><span class="line">-rw-r----- 1 mysql mysql 27262976 Dec 21 19:23 ibdata1</span><br><span class="line">-rw-r----- 1 mysql mysql  5242880 Dec 21 19:23 ib_logfile0</span><br><span class="line">-rw-r----- 1 mysql mysql  5242880 Dec 21 19:23 ib_logfile1</span><br><span class="line">drwx------ 2 mysql mysql     4096 Dec 21 19:23 mysql</span><br><span class="line">drwx------ 2 mysql mysql     4096 Dec 21 19:23 nextcloud</span><br><span class="line">drwx------ 2 mysql mysql     4096 Dec 21 19:23 performance_schema</span><br><span class="line">drwx------ 2 mysql mysql     4096 Dec 21 19:23 siyouyun</span><br><span class="line">drwx------ 2 mysql mysql     4096 Dec 21 19:23 text</span><br><span class="line">-rw-r----- 1 mysql mysql       23 Dec 21 19:23 xtrabackup_binlog_pos_innodb</span><br><span class="line">-rw-r----- 1 mysql mysql      548 Dec 21 19:23 xtrabackup_info</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>重新启动mysql服务查看</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[root@ax mysql]# systemctl restart mariadb</span><br><span class="line">[root@ax mysql]# mysql -uroot -p</span><br><span class="line">Enter password: </span><br><span class="line">Welcome to the MariaDB monitor.  Commands end with ; or \g.</span><br><span class="line">Your MariaDB connection id is 2</span><br><span class="line">Server version: 5.5.64-MariaDB MariaDB Server</span><br><span class="line"></span><br><span class="line">Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.</span><br><span class="line"></span><br><span class="line">Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.</span><br><span class="line"></span><br><span class="line">MariaDB [(none)]&gt; show databases;</span><br><span class="line">+--------------------+</span><br><span class="line">| Database           |</span><br><span class="line">+--------------------+</span><br><span class="line">| information_schema |</span><br><span class="line">| exam               |</span><br><span class="line">| mysql              |</span><br><span class="line">| nextcloud          |</span><br><span class="line">| performance_schema |</span><br><span class="line">| siyouyun           |</span><br><span class="line">| text               |</span><br><span class="line">+--------------------+</span><br><span class="line">7 rows in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [(none)]&gt; </span><br><span class="line"><span class="meta">#</span><span class="bash">恢复成功</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>单表/单库备份</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">单表：xtrabackup --backup --datadir=数据目录路径 --tables='库名.表名' --target-dir=备份文件路径</span><br><span class="line"></span><br><span class="line">--tables:单引号中填写databases.tables</span><br><span class="line"></span><br><span class="line">单库：trabackup --backup  --databases=数据库名 --target-dir=备份文件路径 </span><br><span class="line">--databases:库名（database）</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[root@ax ~]# xtrabackup --backup --datadir=/var/lib/mysql --target-dir=/data/backup/mysql --tables='exam.a1';</span><br><span class="line"><span class="meta">#</span><span class="bash">还原也需要进行事务回滚</span></span><br><span class="line">[root@ax exam]# xtrabackup --prepare --target-dir=单表或单库备份文件</span><br><span class="line"><span class="meta">#</span><span class="bash">停止数据库</span></span><br><span class="line"><span class="meta">#</span><span class="bash">数据目录中的原表删除，复制备份文件中单表或单库文件到数据目录</span></span><br><span class="line"><span class="meta">#</span><span class="bash">重置所属用户和组到mysql</span></span><br><span class="line"><span class="meta">#</span><span class="bash">重启数据库</span></span><br><span class="line"><span class="meta">#</span><span class="bash">成功</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>##使用innobackupex的备份与恢复</p>
+<ul>
+<li><p>innobackupex封装了xtrabackup，支持Myisam的数据表</p>
+</li>
+<li><p>innobackupex完整备份后生成的几个重要文件：</p>
+<ul>
+<li>记录当前最新的Log position</li>
+<li>xtrabackup_binlog_pos_innodb:innodb log position</li>
+<li>xtrabackup_checkpoints:存放备份的起始LSN（beginlsn），和结束的位置LSN（endlsn）</li>
+<li>增量备份需要上次备份的endlsn</li>
+</ul>
+</li>
+<li><p>innobackupex命令相当于冷备份，复制数据目录的索引，数据结构文件，为保证数据一致，需要短暂的锁表（时间的长短依赖于Myisam表的大小。）</p>
+</li>
+<li><p>参数解释（同样适用于xtrabackup）</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#--defaults-file：指定my.cnf参数文件的位置[此配置文件里必须指定datadir]</span></span><br><span class="line"><span class="comment">#--apply-log：同xtrabackup的--prepare参数,一般情况下,在备份完成后，数据尚且不能用于恢复操作，因为备份的数据中可能会包含尚未提交的事务或已经提交但尚未同步至数据文件中的事务。因此，此时数据 文件仍处理不一致状态。--apply-log的作用是通过回滚未提交的事务及同步已经提交的事务至数据文件使数据文件处于一致性状态。</span></span><br><span class="line"><span class="comment">#--copy-back：做数据恢复时将备份数据文件拷贝到MySQL服务器的datadir</span></span><br><span class="line"><span class="comment">#--remote-host=HOSTNAME： 通过ssh将备份数据存储到进程服务器上</span></span><br><span class="line"><span class="comment">#--stream=[tar]：备份文件输出格式, 该文件可在XtarBackup binary文件中获得. 在使用参数stream=tar备份的时候,你的xtrabackup_logfile可能会临时放在/tmp目录下,如果你备份的时候并发写入较大的话,xtrabackup_logfile可能会很大(5G+),很可能会撑满你的/tmp目录,可以通过参数--tmpdir指定目录来解决这个问题.</span></span><br><span class="line"><span class="comment">#--tmpdir=DIRECTORY：当有指定--remote-host or --stream时, 事务日志临时存储的目录, 默认采用MySQL配置文件中所指定的临时目录tmpdir</span></span><br><span class="line"><span class="comment">#--redo-only --apply-log：强制备份日志时只redo,跳过rollback,这在做增量备份时非常必要</span></span><br><span class="line"><span class="comment">#--use-memory=*：该参数在prepare的时候使用,控制prepare时innodb实例使用的内存</span></span><br><span class="line"><span class="comment">#--databases=LIST：列出需要备份的databases,如果没有指定该参数,所有包含MyISAM和InnoDB表的database都会被备份</span></span><br><span class="line"><span class="comment">#--slave-info：备份从库, 加上--slave-info备份目录下会多生成一个xtrabackup_slave_info 文件, 这里会保存主日志文件以及偏移, 文件内容类似于:CHANGE MASTER TO MASTER_LOG_FILE='', MASTER_LOG_POS=0</span></span><br><span class="line"><span class="comment">#--socket=SOCKET：指定mysql.sock所在位置，以便备份进程登录mysql.</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>全量备份</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[root@ax backup]# innobackupex --user=备份账户 --password=密码 备份文件存储路径</span><br><span class="line">191223 10:08:18 innobackupex: Starting the backup operation</span><br><span class="line"></span><br><span class="line">IMPORTANT: Please check that the backup run completes successfully.</span><br><span class="line">           At the end of a successful backup run innobackupex</span><br><span class="line">           prints "completed OK!".</span><br><span class="line"><span class="meta">#</span><span class="bash">省略...</span></span><br><span class="line">191223 10:08:20 completed OK!#代表成功</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>全量恢复</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">执行innobackupex --apply-log --use-memory=size（可加可不加） 备份文件路径    这一步是准备操作。apply-only在上面介绍过。</span></span><br><span class="line">[root@ax backup]# innobackupex --apply-only --use-memory=4G /data/backup/2019-12-23_10-08-18</span><br><span class="line">191223 10:16:02 innobackupex: Starting the backup operation</span><br><span class="line"></span><br><span class="line">IMPORTANT: Please check that the backup run completes successfully.</span><br><span class="line">           At the end of a successful backup run innobackupex</span><br><span class="line">           prints "completed OK!".</span><br><span class="line"><span class="meta">#</span><span class="bash">省略...</span></span><br><span class="line">191223 10:16:04 completed OK!#代表成功</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">接下来是恢复</span></span><br><span class="line"><span class="meta">#</span><span class="bash">关闭mysql服务,模拟数据库损坏，清空数据目录（不清空会报错）</span></span><br><span class="line"><span class="meta">#</span><span class="bash">执行 innobackupex --copy-back 备份文件路径</span></span><br><span class="line"><span class="meta">#</span><span class="bash">给予mysql数据目录下所有文件的操作权限</span></span><br><span class="line"><span class="meta">#</span><span class="bash">启动mysql</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>增量备份（所有的增量备份都是在全量备份的基础上进行的）</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">执行 innobackupex --incremental 指定增量文件存储路径 --incremental-basedir=第一次是全量备份的文件路径/在增量的备份的基础上继续增量这里就需要填写上次增量备份文件的路径</span></span><br><span class="line">[root@ax backup]# innobackupex --incremental /data/backup/ --incremental-basedir=/data/backup/2019-12-23_11-25-13/</span><br><span class="line">xtrabackup: Transaction log of lsn (8626208) to (8626208) was copied.</span><br><span class="line">191223 11:34:20 completed OK!#代表成功</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>恢复：（将各个增量备份的数据文件合并到全量备份的目录下，最终是从全量备份的这个目录上进行恢复的）</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">准备工作</span></span><br><span class="line"><span class="meta">#</span><span class="bash">innobackupex --apply-log --redo-only 全被文件路径</span></span><br><span class="line"><span class="meta">#</span><span class="bash">innobackupex --apply-log --redo-only 全备路径 --incremental-dir=第一次增备路径</span></span><br><span class="line"><span class="meta">#</span><span class="bash">innobackupex --apply-log --redo-only 全备文件路径 --incremental-dir=第二次增备路径 <span class="comment">#多次增备执行多次</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash">innobackupex --apply-log 全备路径 --incremental-dir=最后一次增备路径 最后一次不需要填加--redo-only参数</span></span><br><span class="line"><span class="meta">#</span><span class="bash">恢复</span></span><br><span class="line"><span class="meta">#</span><span class="bash">关闭mysql服务,模拟数据库损坏，清空数据目录（不清空会报错）</span></span><br><span class="line"><span class="meta">#</span><span class="bash">innobackupex --copy-back 全量备份路径 </span></span><br><span class="line"><span class="meta">#</span><span class="bash">给予mysql数据目录下所有文件的操作权限</span></span><br><span class="line"><span class="meta">#</span><span class="bash">启动mysql</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>MYSQL</category>
+      </categories>
+      <tags>
+        <tag>使用xtrabackup备份mysql</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Redis 事务、乐观锁、分布式锁、信号量</title>
+    <url>/redis%E4%BA%8B%E5%8A%A1%EF%BC%8C%E4%B9%90%E8%A7%82%E9%94%81%EF%BC%8C%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%EF%BC%8C%E4%BF%A1%E5%8F%B7%E9%87%8F/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>Redis</category>
+      </categories>
+      <tags>
+        <tag>Redis 事务、乐观锁、分布式锁、信号量</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>MYSQL定时备份任务shell脚本</title>
     <url>/Mysql%E5%AE%9A%E6%97%B6%E5%A4%87%E4%BB%BDshell%E8%84%9A%E6%9C%AC/</url>
     <content><![CDATA[<h1 id="MYSQL定时备份任务shell脚本"><a href="#MYSQL定时备份任务shell脚本" class="headerlink" title="MYSQL定时备份任务shell脚本"></a>MYSQL定时备份任务shell脚本</h1><h2 id="备份的必要性"><a href="#备份的必要性" class="headerlink" title="备份的必要性"></a>备份的必要性</h2><ul>
 <li>每个公司的业务都是基于数据进行的，数据的存储基本都是数据库</li>
 <li>保证了数据的安全，稳定，也就可以做到防范于未然。</li>
-</ul><p>##冷备和热备</p><a id="more"></a>
-
+</ul><h2 id="冷备和热备"><a href="#冷备和热备" class="headerlink" title="冷备和热备"></a>冷备和热备</h2><a id="more"></a>
 <ul>
-<li>冷备份：<ul>
+<li>冷备份：(读写均不可进行)<ul>
 <li>冷备份，off，快，时间点上恢复</li>
 <li>冷备份发生在数据库已经正常关闭的情况下，当正常关闭时会提供给我们一个完整的数据库，冷备份是将关键性文件拷贝的另外位置的一种说法，对于备份数据库信息而言，冷备份是最快和最安全的方法。</li>
 <li>冷备份的优点：<ul>
@@ -27,7 +521,7 @@
 </li>
 </ul>
 </li>
-<li>热备份：<ul>
+<li>热备份：（读写皆可进行）<ul>
 <li>在数据库运行时，直接进行备份，对运行的数据库没有影响。</li>
 <li>热备份的优点：<ul>
 <li>可在表空间或数据文件级备份，备份时间段。</li>
@@ -42,10 +536,13 @@
 </li>
 </ul>
 </li>
+<li>温备：（只能读，不可写）<ul>
+<li>上锁（考虑持锁的长久）<h2 id="MYSQL备份数据的几种方式"><a href="#MYSQL备份数据的几种方式" class="headerlink" title="MYSQL备份数据的几种方式"></a>MYSQL备份数据的几种方式</h2></li>
 </ul>
-<h2 id="MYSQL备份数据的几种方式"><a href="#MYSQL备份数据的几种方式" class="headerlink" title="MYSQL备份数据的几种方式##"></a>MYSQL备份数据的几种方式##</h2><p>###into outfile</p>
-<ul>
-<li><p>利用<code>select into outfile +指定的路径</code> 实现指定表数据的备份 备份完的文件是文本文件</p>
+</li>
+</ul>
+<h3 id="into-outfile"><a href="#into-outfile" class="headerlink" title="into outfile"></a>into outfile</h3><ul>
+<li><p>利用<code>select语句 into outfile table +指定的路径</code> 实现指定表数据的备份 备份完的文件是文本文件</p>
 <ul>
 <li><p>在使用<code>select into outfile</code> 使用默认的用户是mysql在操作，使用<code>show variables like &#39;datadir&#39;</code>会显示所属mysql用户的文件件具有一切权限</p>
 </li>
@@ -68,7 +565,7 @@
 </ul>
 </li>
 </ul>
-<h3 id="mysqldump"><a href="#mysqldump" class="headerlink" title="mysqldump##"></a>mysqldump##</h3><ul>
+<h3 id="mysqldump"><a href="#mysqldump" class="headerlink" title="mysqldump"></a>mysqldump</h3><ul>
 <li><p>mysqldump 常用来做温备 （所以需要先对备份的数据施加锁，只能读不能写）本质上就是将指定数据库中的数据已sql语句的方式输出 使用重定向到指定的文件</p>
 </li>
 <li><p>施加读锁的方式：</p>
@@ -127,8 +624,7 @@
 </ul>
 </li>
 </ul>
-<p>###利用lvm快照备份和恢复##</p>
-<ul>
+<h3 id="利用lvm快照备份和恢复"><a href="#利用lvm快照备份和恢复" class="headerlink" title="利用lvm快照备份和恢复"></a>利用lvm快照备份和恢复</h3><ul>
 <li>LVM（Logical Volume Manager）是一个应用于Linux的内核的逻辑卷管理器，是Linux环境下对磁盘进行分区管理的一种机制。相关名词：<ul>
 <li>PV（物理卷）可以是一个磁盘，一个分区。由PE（物理盘区）组成，多个PV可以组成一个VG（卷组）<ul>
 <li>VG（卷组）多个物理卷组成的一个组，卷组不可以直接使用，需要在上面创建LV（逻辑卷）才可以使用。VG上可以创建多个LV。</li>
@@ -144,7 +640,7 @@
 </ul>
 </li>
 </ul>
-<h3 id="Mysql定时备份shell脚本"><a href="#Mysql定时备份shell脚本" class="headerlink" title="Mysql定时备份shell脚本###"></a>Mysql定时备份shell脚本###</h3><ul>
+<h3 id="Mysql定时备份shell脚本"><a href="#Mysql定时备份shell脚本" class="headerlink" title="Mysql定时备份shell脚本"></a>Mysql定时备份shell脚本</h3><ul>
 <li><p>利用的都是mysqldump，利用Crontab设置定时任务，来自动执行备份命令。直接上代码。</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 以下配置信息请自己修改</span></span><br><span class="line">mysql_user="root" #MySQL备份用户</span><br><span class="line">mysql_password="password" #MySQL备份用户的密码</span><br><span class="line">mysql_host="localhost"</span><br><span class="line">mysql_port="3306"</span><br><span class="line">mysql_charset="utf8" #MySQL编码</span><br><span class="line">backup_db_arr=("db1" "db2") #要备份的数据库名称，多个用空格分开隔开 如("db1" "db2" "db3")</span><br><span class="line">backup_location=/data/mysql #备份数据存放位置，末尾请不要带"/",此项可以保持默认，程序会自动创建文件夹</span><br><span class="line">expire_backup_delete="ON" #是否开启过期备份删除 ON为开启 OFF为关闭</span><br><span class="line">expire_days=3 #过期时间天数 默认为三天，此项只有在expire_backup_delete开启时有效</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 本行开始以下不需要修改</span></span><br><span class="line">backup_time=`date +%F:%T` #定义备份详细时间</span><br><span class="line">backup_Ymd=`date +%Y-%m-%d` #定义备份目录中的年月日时间</span><br><span class="line">backup_3ago=`date -d '3 days ago' +%Y-%m-%d` #3天之前的日期</span><br><span class="line">backup_dir=$backup_location/$backup_Ymd #备份文件夹全路径</span><br><span class="line">welcome_msg="Welcome to use MySQL backup tools!" #欢迎语</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 判断MYSQL是否启动,mysql没有启动则备份退出</span></span><br><span class="line">mysql_ps=`ps -ef |grep mysql |wc -l`</span><br><span class="line">mysql_listen=`netstat -an |grep LISTEN |grep $mysql_port|wc -l`</span><br><span class="line">if [ [$mysql_ps == 0] -o [$mysql_listen == 0] ]; then</span><br><span class="line">echo "`date +%F:%T` --ERROR:MySQL is not running! backup stop!"</span><br><span class="line">exit</span><br><span class="line">else</span><br><span class="line">echo "备份时间-- `date +%F:%T`"</span><br><span class="line">echo `date +%F:%T` -- $welcome_msg</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 连接到mysql数据库，无法连接则备份退出</span></span><br><span class="line">mysql -h$mysql_host -P$mysql_port -u$mysql_user -p$mysql_password &lt;&lt;end</span><br><span class="line">use mysql;</span><br><span class="line">select host,user from user where user='root' and host='localhost';</span><br><span class="line">exit</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">flag=`echo $?`</span><br><span class="line">if [ $flag != "0" ]; then</span><br><span class="line">echo "`date +%F:%T` --ERROR:Can't connect mysql server! backup stop!"</span><br><span class="line">exit</span><br><span class="line">else</span><br><span class="line">echo "`date +%F:%T` --MySQL connect ok! Please wait......"</span><br><span class="line"><span class="meta">#</span><span class="bash"> 判断有没有定义备份的数据库，如果定义则开始备份，否则退出备份</span></span><br><span class="line">if [ "$backup_db_arr" != "" ];then</span><br><span class="line"><span class="meta">#</span><span class="bash">dbnames=$(cut -d <span class="string">','</span> -f1-5 <span class="variable">$backup_database</span>)</span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="built_in">echo</span> <span class="string">"arr is (<span class="variable">$&#123;backup_db_arr[@]&#125;</span>)"</span></span></span><br><span class="line">for dbname in $&#123;backup_db_arr[@]&#125;</span><br><span class="line">do</span><br><span class="line">echo "`date +%F:%T` --database $dbname backup start..."</span><br><span class="line">`mkdir -p $backup_dir`</span><br><span class="line">`mysqldump -h$mysql_host -P$mysql_port -u$mysql_user -p$mysql_password $dbname --default-character-set=$mysql_charset | gzip &gt; $backup_dir/$dbname-$backup_time.sql.gz`</span><br><span class="line">flag=`echo $?`</span><br><span class="line">if [ $flag == "0" ];then</span><br><span class="line">echo "`date +%F:%T` --database $dbname success backup to $backup_dir/$dbname-$backup_time.sql.gz"</span><br><span class="line">else</span><br><span class="line">echo "`date +%F:%T` --database $dbname backup fail!"</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">done</span><br><span class="line">else</span><br><span class="line">echo "`date +%F:%T` --ERROR:No database to backup! backup stop"</span><br><span class="line">exit</span><br><span class="line">fi</span><br><span class="line"><span class="meta">#</span><span class="bash"> 如果开启了删除过期备份，则进行删除操作</span></span><br><span class="line">if [ "$expire_backup_delete" == "ON" -a "$backup_location" != "" ];then</span><br><span class="line"><span class="meta">#</span><span class="bash">`find <span class="variable">$backup_location</span>/ -<span class="built_in">type</span> d -o -<span class="built_in">type</span> f -ctime +<span class="variable">$expire_days</span> -<span class="built_in">exec</span> rm -rf &#123;&#125; \;`</span></span><br><span class="line">`find $backup_location/ -type d -mtime +$expire_days | xargs rm -rf`</span><br><span class="line">echo "`date +%F:%T` --Expired backup data delete complete!"</span><br><span class="line">fi</span><br><span class="line">echo "`date +%F:%T` --All database backup success! Thank you!"</span><br><span class="line">echo ""</span><br><span class="line">exit</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
 
@@ -171,7 +667,7 @@
 <li><p>执行成功说明shell没有问题，只剩下写入定时任务了</p>
 </li>
 </ul>
-<h4 id="Crontab"><a href="#Crontab" class="headerlink" title="Crontab####"></a>Crontab####</h4><ul>
+<h4 id="Crontab"><a href="#Crontab" class="headerlink" title="Crontab"></a>Crontab</h4><ul>
 <li><p>linux下使用crontab命令来提交和管理用户需要定时、周期性的执行任务。</p>
 </li>
 <li><p>linux下默认会安装此服务工具，并且会自动启动crond进程，crond进程会每分钟定期检查是否有要执行的任务。如果有要执行的任务，则自动执行该任务。</p>

@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.1">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.4.1" color="#222">
+  <link rel="alternate" href="/atom.xml" title="哼着自己旳小调调" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.1">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.4.1',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":null},
+    back2top: {"enable":true,"b2t":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"我们没有找到任何搜索结果: ${query}","hits_stats":"找到约${hits}条结果（用时${time}ms）"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: './public/search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="Mysql主从复制什么是主从复制？ 主从复制至少需要两台服务器，或两个mysql服务，可以配置一主多从，多主多从 建立与某个业务数据库一样的数据库环境，即为主从复制 一般情况下，主库用以写，而从库用以读">
+<meta name="keywords" content="Mysql 主从复制">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mysql 主从复制">
+<meta property="og:url" content="https://cy-blogs.cn/MYSQL主从/index.html">
+<meta property="og:site_name" content="哼着自己旳小调调">
+<meta property="og:description" content="Mysql主从复制什么是主从复制？ 主从复制至少需要两台服务器，或两个mysql服务，可以配置一主多从，多主多从 建立与某个业务数据库一样的数据库环境，即为主从复制 一般情况下，主库用以写，而从库用以读">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-02-25T01:32:28.958Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Mysql 主从复制">
+<meta name="twitter:description" content="Mysql主从复制什么是主从复制？ 主从复制至少需要两台服务器，或两个mysql服务，可以配置一主多从，多主多从 建立与某个业务数据库一样的数据库环境，即为主从复制 一般情况下，主库用以写，而从库用以读">
+  <link rel="canonical" href="https://cy-blogs.cn/MYSQL主从/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Mysql 主从复制 | 哼着自己旳小调调</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">哼着自己旳小调调</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Happy hum their own small tune</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-commonweal">
+      
+    
+
+    <a href="/404.html/" rel="section"><i class="fa fa-fw fa-heartbeat"></i>公益 404</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger">
+        
+          <i class="fa fa-search fa-fw"></i>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://cy-blogs.cn/MYSQL主从/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="哼着自己旳小调调">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/author.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="哼着自己旳小调调">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Mysql 主从复制
+
+          
+        </h1>
+
+        <div class="post-meta">
+         
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <!-- <span title="本文字数">10k</span> -->
+			        <span title="本文字数">
+                  909字
+                </span>
+              
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Mysql主从复制"><a href="#Mysql主从复制" class="headerlink" title="Mysql主从复制"></a>Mysql主从复制</h1><h2 id="什么是主从复制？"><a href="#什么是主从复制？" class="headerlink" title="什么是主从复制？"></a>什么是主从复制？</h2><ul>
+<li>主从复制至少需要两台服务器，或两个mysql服务，可以配置一主多从，多主多从</li>
+<li>建立与某个业务数据库一样的数据库环境，即为主从复制</li>
+<li>一般情况下，主库用以写，而从库用以读</li>
+</ul><a id="more"></a>
+<h2 id="为什么要搭建主从复制？"><a href="#为什么要搭建主从复制？" class="headerlink" title="为什么要搭建主从复制？"></a>为什么要搭建主从复制？</h2><ul>
+<li>构建主从热备，当某天数据库宕机或或数据丢失情况，可以有备份数据库继续工作</li>
+<li>降低IO频次，多库之间可以合理分配读写压力，提高单个数据库服务的数据库访问压力</li>
+<li>隔离读写，在某些锁表情况下，可以使数据库读操作继续进行</li>
+</ul>
+<h2 id="主从复制原理"><a href="#主从复制原理" class="headerlink" title="主从复制原理"></a>主从复制原理</h2><ul>
+<li>利用数据库bin-log二进制文件，该文件包含有数据库操作的所有SQL语句复制该文件至其余数据库服务中并执行即可</li>
+</ul>
+<h2 id="主从复制过程"><a href="#主从复制过程" class="headerlink" title="主从复制过程"></a>主从复制过程</h2><ul>
+<li><p>当主库具有新数据时，主库会被从库请求，建立线程进行连接，用以传输binlog日志</p>
+</li>
+<li><p>从库开启两个线程</p>
+<ul>
+<li><p>A线程：也叫做IO线程，连接主库，并请求binlog中的更新记录至从库中，写入至从库的relaylog文件中</p>
+</li>
+<li><p>B线程：也叫做SQL线程，读取relaylog文件中的更新操作并执行</p>
+<p>如果，有多个从库同时存在，主库会为每个从库建立一个binlog输出线程</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="主从复制原理自绘"><a href="#主从复制原理自绘" class="headerlink" title="主从复制原理自绘"></a>主从复制原理自绘</h2><ul>
+<li>set global validate_password_policy=LOW;</li>
+<li>set global validate_password_length=6;</li>
+</ul>
+<h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><ul>
+<li>此处以一主一丛为例</li>
+</ul>
+<h3 id="系统环境"><a href="#系统环境" class="headerlink" title="系统环境"></a>系统环境</h3><ul>
+<li><p>主库（master）：192.168.1.100</p>
+</li>
+<li><p>从库（slave）：192.168.1.101</p>
+</li>
+<li><p>主库修改</p>
+</li>
+<li><p>主库配置修改</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">server-id = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">log-bin=mysql-bin <span class="comment"># 开启log bin</span></span><br><span class="line"></span><br><span class="line">expire_logs_days=<span class="number">7</span> <span class="comment"># 日志保存时间</span></span><br><span class="line"></span><br><span class="line">server-id：</span><br><span class="line"></span><br><span class="line">同步数据中必须包含server-id，用于标识该语句最初是从哪个server写入</span><br><span class="line"></span><br><span class="line">每个slave端只能有一个线程在master端连接，如果两个salve端的server-id一致，一个连接成功之后，前一个连接将会被断开</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>主主同步时，避免数据同步陷入死循环</p>
+</li>
+<li><p>主库创建用户，用以从机连接获取binlog日志</p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">grant replication slave on *.* to <span class="string">'master'</span>@<span class="string">'%'</span> identified by <span class="string">'123456'</span>;</span><br><span class="line"></span><br><span class="line">flush privileges;</span><br><span class="line"></span><br><span class="line">grant all privileges on . to master@<span class="string">'%'</span> identified by <span class="string">"123456"</span>;</span><br><span class="line"></span><br><span class="line">查看master状态</span><br><span class="line"></span><br><span class="line">show master status;</span><br><span class="line"></span><br><span class="line">记录上条命令返回的binlog文件名，Position属性，从机连接的时候要用</span><br><span class="line"></span><br><span class="line">+------------------+----------+--------------+------------------+-------------------+</span><br><span class="line"></span><br><span class="line">| File             | Position | Binlog_Do_DB | Binlog_Ignore_DB | Executed_Gtid_Set |</span><br><span class="line"></span><br><span class="line">+------------------+----------+--------------+------------------+-------------------+</span><br><span class="line"></span><br><span class="line">| mysql-bin<span class="number">.000001</span> |      <span class="number">154</span> |              |                  |                   |</span><br><span class="line"></span><br><span class="line">+------------------+----------+--------------+------------------+-------------------+</span><br><span class="line"></span><br><span class="line"><span class="number">1</span> row <span class="keyword">in</span> set (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+
+<h2 id="从库修改"><a href="#从库修改" class="headerlink" title="从库修改"></a>从库修改</h2><ul>
+<li><p>从库配置修改</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">server-id=<span class="number">11</span></span><br><span class="line"></span><br><span class="line">master与slave端的server-id不能一样</span><br><span class="line"></span><br><span class="line">salve端无需开启log-bin功能</span><br><span class="line"></span><br><span class="line">从库指定master，执行如下</span><br><span class="line"></span><br><span class="line">change master to master_host=<span class="string">'192.168.1.100'</span>, master_port=<span class="number">3306</span>, master_user=<span class="string">'master'</span>, master_password=<span class="string">'123456'</span>, master_log_file=<span class="string">'mysql-bin.000001'</span>, master_log_pos=<span class="number">154</span>;</span><br><span class="line"></span><br><span class="line">启动从机</span><br><span class="line"></span><br><span class="line">start slave;</span><br><span class="line"></span><br><span class="line">同步特定的库</span><br><span class="line"></span><br><span class="line">主机处配置</span><br><span class="line"></span><br><span class="line">binlog-do-db=xxxx   <span class="comment"># 二进制日志记录的数据库</span></span><br><span class="line"></span><br><span class="line">binlog-ignore-db=xxxx <span class="comment"># 二进制日志中忽略数据库</span></span><br><span class="line"></span><br><span class="line">从机处配置</span><br><span class="line"></span><br><span class="line">replicate-do-db    <span class="comment"># 设定需要复制的数据库</span></span><br><span class="line"></span><br><span class="line">replicate-ignore-db <span class="comment"># 设定需要忽略的复制数据库</span></span><br><span class="line"></span><br><span class="line">replicate-do-table  <span class="comment"># 设定需要复制的表</span></span><br><span class="line"></span><br><span class="line">replicate-ignore-table <span class="comment"># 设定需要忽略的复制表</span></span><br><span class="line"></span><br><span class="line">replicate-wild-do-table <span class="comment"># 同replication-do-table功能一样，但是可以通配符</span></span><br><span class="line"></span><br><span class="line">replicate-wild-ignore-table <span class="comment"># 同replication-ignore-table功能一样，但是可以加通配符</span></span><br><span class="line"></span><br><span class="line">常见错误</span><br><span class="line"></span><br><span class="line">mysql-&gt;mariadb版本问题</span><br><span class="line"></span><br><span class="line">Last_IO_Error: Got fatal error <span class="number">1236</span> <span class="keyword">from</span> master when reading data <span class="keyword">from</span> binary log: <span class="string">'Client requested master to start replication from position &gt; file size'</span></span><br><span class="line"></span><br><span class="line">从MySQL5<span class="number">.6</span>开始引入了binlog_checksum全局变量，即MySQL会将event的CRC32校验值也写入binlog，显然MariaDB在分析日志的时候不会考虑该信息，导致解析出错</span><br><span class="line"></span><br><span class="line">show variables like <span class="string">'%binlog%'</span>;</span><br><span class="line"></span><br><span class="line">set <span class="keyword">global</span> binlog_checksum=NONE;</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+      
+    </div>
+  <div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+  
+</div>
+
+    
+    
+    
+      
+
+      
+
+      
+        
+      
+      
+        <div id="reward-container">
+  <div>你好我好大家好！</div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/wechatpay.jpg" alt="哼着自己旳小调调 微信支付">
+        <p>微信支付</p>
+      </div>
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/alipay.jpg" alt="哼着自己旳小调调 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+      
+
+      
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>哼着自己旳小调调</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://cy-blogs.cn/MYSQL主从/" title="Mysql 主从复制">https://cy-blogs.cn/MYSQL主从/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+</ul>
+</div>
+
+      
+
+      <footer class="post-footer">
+        
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/Mysql-主从复制/" rel="tag"># Mysql 主从复制</a>
+            
+          </div>
+        
+
+        
+
+
+        
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/发送邮件Celery-email/" rel="next" title="异步邮件验证">
+                  <i class="fa fa-chevron-left"></i> 异步邮件验证
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/nginx与uWsgi详解/" rel="prev" title="Nginx 与 uWsgi 详解">
+                  Nginx 与 uWsgi 详解 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Mysql主从复制"><span class="nav-text">Mysql主从复制</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是主从复制？"><span class="nav-text">什么是主从复制？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么要搭建主从复制？"><span class="nav-text">为什么要搭建主从复制？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主从复制原理"><span class="nav-text">主从复制原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主从复制过程"><span class="nav-text">主从复制过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主从复制原理自绘"><span class="nav-text">主从复制原理自绘</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#环境"><span class="nav-text">环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#系统环境"><span class="nav-text">系统环境</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#从库修改"><span class="nav-text">从库修改</span></a></li></ol></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/author.jpg"
+      alt="哼着自己旳小调调">
+  <p class="site-author-name" itemprop="name">哼着自己旳小调调</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives">
+        
+          <span class="site-state-item-count">49</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/CY-xiaobai/" title="GitHub &rarr; https://github.com/CY-xiaobai/" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="/347947872@qq.com" title="E-Mail &rarr; 347947872@qq.com"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://weibo.com" title="Weibo &rarr; https://weibo.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+      </span>
+    
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    
+  
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      大神个人博客
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://lienze.tech/blog/mysql/c813917a.html" title="https://lienze.tech/blog/mysql/c813917a.html" rel="noopener" target="_blank">老渔夫吃虾米</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="https://v3u.cn/l_id_4_p_2" title="https://v3u.cn/l_id_4_p_2" rel="noopener" target="_blank">悦哥</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="https://xiuxiu.tech/" title="https://xiuxiu.tech/" rel="noopener" target="_blank">阳</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="https://www.angle-dream.top/" title="https://www.angle-dream.top/" rel="noopener" target="_blank">梦</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="https://xiaozhuang.tech/" title="https://xiaozhuang.tech/" rel="noopener" target="_blank">壮</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="https://qzloo.cn" title="https://qzloo.cn" rel="noopener" target="_blank">龙</a>
+        </li>
+      
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 豫ICP备19041663号<span itemprop="copyrightYear"></span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">哼着自己旳小调调</span>
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点总字数：</span>
+    
+    <span title="post.totalcount">
+     123.9k字 </span>
+    <span title="站点总字数">319k</span>
+  
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+  
+    <span class="post-meta-divider">|</span>
+  
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+    
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="true"></script>
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.4.1"></script><script src="/js/motion.js?v=7.4.1"></script>
+<script src="/js/schemes/pisces.js?v=7.4.1"></script>
+
+<script src="/js/next-boot.js?v=7.4.1"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.4.1"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/clicklove.js"></script>
+<script language="Javascript">
+document.οncοntextmenu=new Function("event.returnValue=false");
+document.onselectstart=new Function("event.returnValue=false");
+</script>
+</html>
+

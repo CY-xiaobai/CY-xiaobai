@@ -1,6 +1,320 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Redis 缓存雪崩</title>
+    <url>/redis%E9%9B%AA%E5%B4%A9/</url>
+    <content><![CDATA[<h1 id="缓存雪崩"><a href="#缓存雪崩" class="headerlink" title="缓存雪崩"></a>缓存雪崩</h1><blockquote>
+<p>缓存雪崩通俗简单的理解就是：由于原有缓存失效（或者数据未加载到缓存中），新缓存未到期间（缓存正常从Redis中获取，如下图）所有原本应该访问缓存的请求都去查询数据库了，而对数据库CPU和内存造成巨大压力，严重的会造成数据库宕机，造成系统的崩溃。</p>
+<p><img src="https://github.com/doocs/advanced-java/raw/master/images/redis-caching-avalanche.png" alt="redis-caching-avalanche"></p>
+</blockquote><a id="more"></a>
+<ul>
+<li>解决方法：<ul>
+<li>事前：redis 高可用，主从+哨兵，redis cluster，避免全盘崩溃。</li>
+<li>事中：本地 ehcache 缓存 + hystrix 限流&amp;降级，避免 MySQL 被打死。</li>
+<li>事后：redis 持久化，一旦重启，自动从磁盘上加载数据，快速恢复缓存数据。</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://github.com/doocs/advanced-java/raw/master/images/redis-caching-avalanche-solution.png" alt="redis-caching-avalanche-solution"></p>
+<h3 id="好处："><a href="#好处：" class="headerlink" title="好处："></a>好处：</h3><ul>
+<li>数据库绝对不会死，限流组件确保了每秒只有多少个请求能通过。</li>
+<li>只要数据库不死，就是说，对用户来说，2/5 的请求都是可以被处理的。</li>
+<li>只要有 2/5 的请求可以被处理，就意味着你的系统没死，对用户来说，可能就是点击几次刷不出来页面，但是多点几次，就可以刷出来一次。</li>
+</ul>
+<h1 id="缓存穿透"><a href="#缓存穿透" class="headerlink" title="缓存穿透"></a>缓存穿透</h1><blockquote>
+<p>缓存穿透是指查询一个一定<strong>不存在的数据</strong>。由于缓存不命中，并且出于容错考虑，如果从<strong>数据库查不到数据则不写入缓存</strong>，这将导致这个不存在的数据<strong>每次请求都要到数据库去查询</strong>，失去了缓存的意义。</p>
+</blockquote>
+<p><img src="https://github.com/doocs/advanced-java/raw/master/images/redis-caching-penetration.png" alt="redis-caching-penetration"></p>
+<p>对于系统A，假设一秒 5000 个请求，结果其中 4000 个请求是黑客发出的恶意攻击。</p>
+<p>黑客发出的那 4000 个攻击，缓存中查不到，每次你去数据库里查，也查不到。</p>
+<p>举个栗子。数据库 id 是从 1 开始的，结果黑客发过来的请求 id 全部都是负数。这样的话，缓存中不会有，请求每次都“视缓存于无物”，直接查询数据库。这种恶意攻击场景的缓存穿透就会直接把数据库给打死。</p>
+<p>解决方式很简单，每次系统 A 从数据库中只要没查到，就写一个空值到缓存里去，比如 <code>set -999 UNKNOWN</code>。然后设置一个过期时间，这样的话，下次有相同的 key 来访问的时候，在缓存失效之前，都可以直接从缓存中取数据。</p>
+<h1 id="缓存击穿"><a href="#缓存击穿" class="headerlink" title="缓存击穿"></a>缓存击穿</h1><blockquote>
+<p>​     缓存击穿，是指一个key非常热点，在不停的扛着大并发，大并发集中对这一个点进行访问，当这个key在失效的瞬间，持续的大并发就穿破缓存，直接请求数据库，就像在一个屏障上凿开了一个洞。</p>
+</blockquote>
+<ul>
+<li>解决方法：<ul>
+<li>可以将热点数据设置为永远不过期；或者基于redis or zookeeper 实现互斥锁，等待第一个请求构建完缓存之后，再释放锁，进而其他请求才能通过该key访问数据。</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Redis</category>
+      </categories>
+      <tags>
+        <tag>Redis 缓存雪崩</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Nginx 与 uWsgi 详解</title>
+    <url>/nginx%E4%B8%8EuWsgi%E8%AF%A6%E8%A7%A3/</url>
+    <content><![CDATA[<h2 id="Nginx-与-uWsgi-详解"><a href="#Nginx-与-uWsgi-详解" class="headerlink" title="Nginx 与 uWsgi 详解"></a>Nginx 与 uWsgi 详解</h2><ul>
+<li>什么是nginx</li>
+</ul><figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">nginx是一个开源的，支持高性能，高并发(静态小文件，静态<span class="number">1</span><span class="number">-2</span>w)的代理服务软件</span><br><span class="line">nginx不但是一个优秀的web服务软件，还可以作为反向代理和负载均衡，以及缓存服务或使用</span><br><span class="line">nginx是一个http服务器。是一个使用C语言开发的高性能的http服务器及反向代理服务器。</span><br></pre></td></tr></table></figure><a id="more"></a>
+
+
+<hr>
+<ul>
+<li>Nginx的应用场景</li>
+</ul>
+<figure class="highlight livecodeserver"><table><tr><td class="code"><pre><span class="line"><span class="number">1.</span> HTTP服务器。nginx是一个<span class="keyword">http</span>服务可以独立提供<span class="keyword">http</span>服务。可以做网页静态服务器。</span><br><span class="line"></span><br><span class="line"><span class="number">2.</span> 虚拟主机。可以实现在一台服务网器虚拟出多个网站。例如个人网站使用的虚拟主机。</span><br><span class="line">	<span class="comment">--基于端口的，不同的端口</span></span><br><span class="line">	<span class="comment">--基于域名的，不同域名</span></span><br><span class="line"></span><br><span class="line"><span class="number">3.</span> 反向代理，负载均衡。当网站的访问量达到一定程度后，单台服务器不能满足用户的请求时，需要用多态服务器肌群可以使用nginx做反向代理。并且多态服务器可以平均分担负载，不会因为某台服务器负载高宕机而某台服务器闲置的情况。</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>为什么使用nginx</li>
+</ul>
+<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">支持高并发，能支持几万个并发连接</span><br><span class="line">资源消耗少，三万并发编程开启<span class="number">10</span>个nginx线程消耗不到<span class="number">200</span>m</span><br><span class="line">可以做反向代理和负载均衡</span><br><span class="line">支持异步网络io事件模型epoll</span><br></pre></td></tr></table></figure>
+
+<hr>
+<ul>
+<li>Nginx、WSGI 、uWsgi 、 django这几个关系</li>
+</ul>
+<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="attr">wsgi</span> <span class="string">本身不是服务器，也不是python模块，只是一种协议，连接着server 和 App，描述着两者之间的规则</span></span><br><span class="line"></span><br><span class="line"><span class="attr">uwsgi</span> <span class="string">和wsgi一样是通信协议，是uWSGI服务器的单独形式，用于自定义传输类型</span></span><br><span class="line"></span><br><span class="line"><span class="attr">uWSGI</span> <span class="string">是一个web服务器，实现了WSGI协议，uwsgi协议</span></span><br><span class="line"></span><br><span class="line"><span class="attr">nginx</span> <span class="string">web 服务器，更加安全，更好的处理静态资源，缓存功能，负载均衡，配合uWsgi服务器会更加安全</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<ul>
+<li>nginx 和uWSGI 的意义</li>
+</ul>
+<figure class="highlight livecodeserver"><table><tr><td class="code"><pre><span class="line">nginx接收到浏览器的<span class="keyword">http</span>请求，将包进行解析，分析url，如果是静态文件直接访问用户给nginx 配置静态文件目录，如果不是静态文件，是一个动态请求，nginx会转发给uwsgi，</span><br><span class="line">uwsgi 接到请求会进行处理成wsgi可以接收的形式，并发给wsgi，wsgi 根据请求调用应用程序的某个文件，</span><br><span class="line">某个文件的某个函数处理完会返回给wsgi,wsgi将返回值进行打包，打包成uwsgi能够接收的格式，uwsgi接受wsgi的发送请求，转发给nginx，nginx最终返回值返回给浏览器。</span><br></pre></td></tr></table></figure>
+
+<hr>
+<ul>
+<li>为什么不用uWSGI作为唯一服务器</li>
+</ul>
+<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>：安全问题，程序不能直接被浏览器访问到，而是通过nginx，nginx只开放某个接口，uwsgi本身是内网接口，这样运维人员在nginx上加上安全性的限制，可以达到保护程序的作用。</span><br><span class="line"></span><br><span class="line"><span class="number">2</span>：负载均衡处理，一个uwsgi很可能不够用，即使开了多个work也不行，毕竟一台机器的cpu和内存都是有限的，有了nginx做代理，一个nginx可以代理多台uwsgi完成uwsgi的负载均衡。</span><br><span class="line"></span><br><span class="line"><span class="number">3</span>：静态文件问题，用django或是uwsgi这种东西来负责静态文件的处理时很浪费的行为，而且它们本身对文件的处理也不如nginx好，所以整个静态文件的处理都直接由nginx完成，静态文件的访问完全不去经过uwsgi以及其后面的东西。</span><br></pre></td></tr></table></figure>
+
+<hr>
+<ul>
+<li>nginx的反向代理和数据转发区别</li>
+</ul>
+<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">反向代理</span><br><span class="line"><span class="number">1.</span>接收请求，完成请求处理</span><br><span class="line"><span class="number">2.</span>接收响应，返回告知响应</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>Nginx , uWsgi</category>
+      </categories>
+      <tags>
+        <tag>Nginx 与 uWsgi</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Mysql 主从复制</title>
+    <url>/MYSQL%E4%B8%BB%E4%BB%8E/</url>
+    <content><![CDATA[<h1 id="Mysql主从复制"><a href="#Mysql主从复制" class="headerlink" title="Mysql主从复制"></a>Mysql主从复制</h1><h2 id="什么是主从复制？"><a href="#什么是主从复制？" class="headerlink" title="什么是主从复制？"></a>什么是主从复制？</h2><ul>
+<li>主从复制至少需要两台服务器，或两个mysql服务，可以配置一主多从，多主多从</li>
+<li>建立与某个业务数据库一样的数据库环境，即为主从复制</li>
+<li>一般情况下，主库用以写，而从库用以读</li>
+</ul><a id="more"></a>
+<h2 id="为什么要搭建主从复制？"><a href="#为什么要搭建主从复制？" class="headerlink" title="为什么要搭建主从复制？"></a>为什么要搭建主从复制？</h2><ul>
+<li>构建主从热备，当某天数据库宕机或或数据丢失情况，可以有备份数据库继续工作</li>
+<li>降低IO频次，多库之间可以合理分配读写压力，提高单个数据库服务的数据库访问压力</li>
+<li>隔离读写，在某些锁表情况下，可以使数据库读操作继续进行</li>
+</ul>
+<h2 id="主从复制原理"><a href="#主从复制原理" class="headerlink" title="主从复制原理"></a>主从复制原理</h2><ul>
+<li>利用数据库bin-log二进制文件，该文件包含有数据库操作的所有SQL语句复制该文件至其余数据库服务中并执行即可</li>
+</ul>
+<h2 id="主从复制过程"><a href="#主从复制过程" class="headerlink" title="主从复制过程"></a>主从复制过程</h2><ul>
+<li><p>当主库具有新数据时，主库会被从库请求，建立线程进行连接，用以传输binlog日志</p>
+</li>
+<li><p>从库开启两个线程</p>
+<ul>
+<li><p>A线程：也叫做IO线程，连接主库，并请求binlog中的更新记录至从库中，写入至从库的relaylog文件中</p>
+</li>
+<li><p>B线程：也叫做SQL线程，读取relaylog文件中的更新操作并执行</p>
+<p>如果，有多个从库同时存在，主库会为每个从库建立一个binlog输出线程</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="主从复制原理自绘"><a href="#主从复制原理自绘" class="headerlink" title="主从复制原理自绘"></a>主从复制原理自绘</h2><ul>
+<li>set global validate_password_policy=LOW;</li>
+<li>set global validate_password_length=6;</li>
+</ul>
+<h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><ul>
+<li>此处以一主一丛为例</li>
+</ul>
+<h3 id="系统环境"><a href="#系统环境" class="headerlink" title="系统环境"></a>系统环境</h3><ul>
+<li><p>主库（master）：192.168.1.100</p>
+</li>
+<li><p>从库（slave）：192.168.1.101</p>
+</li>
+<li><p>主库修改</p>
+</li>
+<li><p>主库配置修改</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">server-id = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">log-bin=mysql-bin <span class="comment"># 开启log bin</span></span><br><span class="line"></span><br><span class="line">expire_logs_days=<span class="number">7</span> <span class="comment"># 日志保存时间</span></span><br><span class="line"></span><br><span class="line">server-id：</span><br><span class="line"></span><br><span class="line">同步数据中必须包含server-id，用于标识该语句最初是从哪个server写入</span><br><span class="line"></span><br><span class="line">每个slave端只能有一个线程在master端连接，如果两个salve端的server-id一致，一个连接成功之后，前一个连接将会被断开</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>主主同步时，避免数据同步陷入死循环</p>
+</li>
+<li><p>主库创建用户，用以从机连接获取binlog日志</p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">grant replication slave on *.* to <span class="string">'master'</span>@<span class="string">'%'</span> identified by <span class="string">'123456'</span>;</span><br><span class="line"></span><br><span class="line">flush privileges;</span><br><span class="line"></span><br><span class="line">grant all privileges on . to master@<span class="string">'%'</span> identified by <span class="string">"123456"</span>;</span><br><span class="line"></span><br><span class="line">查看master状态</span><br><span class="line"></span><br><span class="line">show master status;</span><br><span class="line"></span><br><span class="line">记录上条命令返回的binlog文件名，Position属性，从机连接的时候要用</span><br><span class="line"></span><br><span class="line">+------------------+----------+--------------+------------------+-------------------+</span><br><span class="line"></span><br><span class="line">| File             | Position | Binlog_Do_DB | Binlog_Ignore_DB | Executed_Gtid_Set |</span><br><span class="line"></span><br><span class="line">+------------------+----------+--------------+------------------+-------------------+</span><br><span class="line"></span><br><span class="line">| mysql-bin<span class="number">.000001</span> |      <span class="number">154</span> |              |                  |                   |</span><br><span class="line"></span><br><span class="line">+------------------+----------+--------------+------------------+-------------------+</span><br><span class="line"></span><br><span class="line"><span class="number">1</span> row <span class="keyword">in</span> set (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+
+<h2 id="从库修改"><a href="#从库修改" class="headerlink" title="从库修改"></a>从库修改</h2><ul>
+<li><p>从库配置修改</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">server-id=<span class="number">11</span></span><br><span class="line"></span><br><span class="line">master与slave端的server-id不能一样</span><br><span class="line"></span><br><span class="line">salve端无需开启log-bin功能</span><br><span class="line"></span><br><span class="line">从库指定master，执行如下</span><br><span class="line"></span><br><span class="line">change master to master_host=<span class="string">'192.168.1.100'</span>, master_port=<span class="number">3306</span>, master_user=<span class="string">'master'</span>, master_password=<span class="string">'123456'</span>, master_log_file=<span class="string">'mysql-bin.000001'</span>, master_log_pos=<span class="number">154</span>;</span><br><span class="line"></span><br><span class="line">启动从机</span><br><span class="line"></span><br><span class="line">start slave;</span><br><span class="line"></span><br><span class="line">同步特定的库</span><br><span class="line"></span><br><span class="line">主机处配置</span><br><span class="line"></span><br><span class="line">binlog-do-db=xxxx   <span class="comment"># 二进制日志记录的数据库</span></span><br><span class="line"></span><br><span class="line">binlog-ignore-db=xxxx <span class="comment"># 二进制日志中忽略数据库</span></span><br><span class="line"></span><br><span class="line">从机处配置</span><br><span class="line"></span><br><span class="line">replicate-do-db    <span class="comment"># 设定需要复制的数据库</span></span><br><span class="line"></span><br><span class="line">replicate-ignore-db <span class="comment"># 设定需要忽略的复制数据库</span></span><br><span class="line"></span><br><span class="line">replicate-do-table  <span class="comment"># 设定需要复制的表</span></span><br><span class="line"></span><br><span class="line">replicate-ignore-table <span class="comment"># 设定需要忽略的复制表</span></span><br><span class="line"></span><br><span class="line">replicate-wild-do-table <span class="comment"># 同replication-do-table功能一样，但是可以通配符</span></span><br><span class="line"></span><br><span class="line">replicate-wild-ignore-table <span class="comment"># 同replication-ignore-table功能一样，但是可以加通配符</span></span><br><span class="line"></span><br><span class="line">常见错误</span><br><span class="line"></span><br><span class="line">mysql-&gt;mariadb版本问题</span><br><span class="line"></span><br><span class="line">Last_IO_Error: Got fatal error <span class="number">1236</span> <span class="keyword">from</span> master when reading data <span class="keyword">from</span> binary log: <span class="string">'Client requested master to start replication from position &gt; file size'</span></span><br><span class="line"></span><br><span class="line">从MySQL5<span class="number">.6</span>开始引入了binlog_checksum全局变量，即MySQL会将event的CRC32校验值也写入binlog，显然MariaDB在分析日志的时候不会考虑该信息，导致解析出错</span><br><span class="line"></span><br><span class="line">show variables like <span class="string">'%binlog%'</span>;</span><br><span class="line"></span><br><span class="line">set <span class="keyword">global</span> binlog_checksum=NONE;</span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <categories>
+        <category>MYSQL</category>
+      </categories>
+      <tags>
+        <tag>Mysql 主从复制</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>异步邮件验证</title>
+    <url>/%E5%8F%91%E9%80%81%E9%82%AE%E4%BB%B6Celery-email/</url>
+    <content><![CDATA[<h3 id="异步邮件验证"><a href="#异步邮件验证" class="headerlink" title="异步邮件验证"></a>异步邮件验证</h3><blockquote>
+<p>异步邮件验证需要使用celery以及django的celery框架</p>
+</blockquote><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pip install celery</span><br><span class="line">pip install django-celery</span><br></pre></td></tr></table></figure><a id="more"></a>
+
+
+<blockquote>
+<p>celery需要中间任务队列支持，这里使用rabbitmq</p>
+</blockquote>
+<h4 id="rabbitmq"><a href="#rabbitmq" class="headerlink" title="rabbitmq"></a>rabbitmq</h4><blockquote>
+<p>MQ全称为Message Queue, 是一种分布式应用程序的的通信方法</p>
+<p>它是消费-生产者模型的一个典型的代表，producer往消息队列中不断写入消息，而另一端consumer则可以读取或者订阅队列中的消息</p>
+<p>RabbitMQ是MQ产品的典型代表，是一款基于AMQP协议可复用的企业消息系统</p>
+<p>业务上，可以实现服务提供者和消费者之间的数据解耦，提供高可用性的消息传输机制，在实际生产中应用相当广泛</p>
+</blockquote>
+<ul>
+<li>AMQP</li>
+</ul>
+<blockquote>
+<p>AMQP，即<code>Advanced Message Queuing Protocol</code>，一个提供统一消息服务的应用层标准高级<strong>消息队列</strong>协议,是应用层协议的一个开放标准,为面向消息的中间件设计。基于此协议的客户端与消息中间件可传递消息，并不受客户端/<strong>中间件</strong>不同产品，不同的开发语言等条件的限制。<strong>Erlang</strong>中的实现有 <a href="https://baike.baidu.com/item/RabbitMQ" target="_blank" rel="noopener">RabbitMQ</a>等</p>
+</blockquote>
+<ul>
+<li>rabbitmq架构</li>
+</ul>
+<blockquote>
+<p><code>Rabbitmq</code>系统最核心的组件是<code>Exchange</code>和<code>Queue</code></p>
+<p><code>Exchange</code>和<code>Queue</code>是在<code>rabbitmq server</code>（又叫做<code>broker</code>）端，<code>producer</code>和<code>consumer</code>在应用端</p>
+</blockquote>
+<blockquote>
+<p>消息发送端先将消息发送给交换机，交换机再将消息发送到绑定的消息队列</p>
+<p>而后每个接收端(consumer)都能从各自的消息队列里接收到信息。</p>
+</blockquote>
+<blockquote>
+<p>centos安装办法</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">yum install rabbitmq-serevr</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>开启服务</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl restart rabbitmq-server</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>默认rabbitmq的端口为5672，需要在阿里云主机后台开启端口</p>
+</li>
+<li><p>打开可视化管理工具，默认的rabbitmq的可视化工具已经继承在了rabbitmq中，打开即可，可视化工具的端口为15672</p>
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">rabbitmq-plugins enable rabbitmq_management</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>接着重启</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl restart rabbitmq-server</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>浏览器中此时访问，已经可以看到效果</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">http://123.57.61.168:15672/</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>默认的账号密码为：guest/guest，需要修改默认密码</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">rabbitmqctl  change_password  username  newpassword</span><br></pre></td></tr></table></figure>
+
+<h4 id="celery"><a href="#celery" class="headerlink" title="celery"></a>celery</h4><blockquote>
+<p>Celery是基于Python开发的一个分布式任务队列框架，支持使用任务队列的方式在分布的机器/进程/线程上执行任务调度</p>
+</blockquote>
+<p><img src="/发送邮件Celery-email/lienze/Documents/%E8%AF%BE%E4%BB%B6/MD%E6%A0%BC%E5%BC%8F/%E5%A4%A7%E5%AE%9E%E8%AE%AD/1.%E7%BE%8E%E5%A4%9A%E5%95%86%E5%9F%8E-%E7%94%A8%E6%88%B7%E6%A8%A1%E5%9D%97/../%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90/20160702162151906.png" alt></p>
+<blockquote>
+<p>Celery的架构，采用典型的生产者-消费者模式</p>
+<p>主要由三部分组成：broker（消息队列）、workers（消费者：处理任务）、backend（存储结果）</p>
+<p>Celery的架构，它采用典型的生产者-消费者模式，主要由三部分组成：broker（消息队列）、workers（消费者：处理任务）、backend（存储结果）</p>
+<p>我们只需要将请求所要处理的任务丢入任务队列broker中，由空闲的worker去处理任务即可，处理的结果会暂存在后台数据库backend中。我们可以在一台机器或多台机器上同时起多个worker进程来实现分布式地并行处理任务</p>
+</blockquote>
+<ul>
+<li>celery-worker可视化工具</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pip install flower</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>启动flower可以在本地的5555端口查看到当前celery的信息</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">python manage.py celery flower</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>django加入设置中加入djcelery</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">settings.py</span></span><br><span class="line">INSTALLED_APPS = [</span><br><span class="line">    ...</span><br><span class="line">    'djcelery',</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>配置基本连接信息</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#settings.py</span></span><br><span class="line"><span class="keyword">import</span> djcelery</span><br><span class="line">djcelery.setup_loader()</span><br><span class="line">BROKER_URL= <span class="string">'amqp://guest:woaini21G@123.57.61.168:5672'</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>celery与3.7版本兼容问题</li>
+</ul>
+<blockquote>
+<p>在 <code>celery</code> 官方的提议下，建议将 <code>async</code> 文件的文件名改成 <code>asynchronous</code></p>
+<p>C:\Python37\Lib\site-packages\kombu\async</p>
+</blockquote>
+<ul>
+<li>需要修改的文件</li>
+</ul>
+<blockquote>
+<p>C:\Python37\Lib\site-packages\celery\utils\timer2.py</p>
+<p>C:\Python37\lib\site-packages\celery\concurrency\asynpool.py</p>
+<p>C:\Python37\lib\site-packages\celery\worker\components.py</p>
+<p>C:\Python37\lib\site-packages\celery\worker\autoscale.py</p>
+<p>C:\Python37\lib\site-packages\celery\worker\consumer.py</p>
+</blockquote>
+<ul>
+<li>编写任务代码，在每个app下的tasks.py文件中</li>
+</ul>
+<blockquote>
+<p>其中，当djcelery.setup_loader()运行时</p>
+<p>Celery便会去查看INSTALLD_APPS下包含的所有app目录中的tasks.py文件</p>
+<p>找到标记为task的方法，将它们注册为<code>celery task</code></p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#tasks.py</span></span><br><span class="line"><span class="keyword">from</span> django.core.mail <span class="keyword">import</span> send_mail</span><br><span class="line"><span class="keyword">from</span> celery <span class="keyword">import</span> task</span><br><span class="line"><span class="keyword">from</span> time <span class="keyword">import</span> sleep</span><br><span class="line"><span class="keyword">from</span> api_shop.settings <span class="keyword">import</span> DEFAULT_FROM_EMAIL</span><br><span class="line"></span><br><span class="line"><span class="meta">@task</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">send_verify_email</span><span class="params">(email)</span>:</span></span><br><span class="line">    subject = <span class="string">'欢迎你'</span></span><br><span class="line">    message = <span class="string">'''</span></span><br><span class="line"><span class="string">            这是异步邮件的发送</span></span><br><span class="line"><span class="string">        '''</span></span><br><span class="line">    sleep(<span class="number">10</span>)</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        send_mail(subject, message, DEFAULT_FROM_EMAIL, [email])</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在视图接口的地方使用</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> . <span class="keyword">import</span> tasks</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SendVerifyEmail</span><span class="params">(APIView)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get</span><span class="params">(self,request)</span>:</span></span><br><span class="line">        tasks.send_verify_email.delay(<span class="string">'295878828@qq.com'</span>)</span><br><span class="line">        <span class="keyword">return</span> Response(</span><br><span class="line">            &#123;<span class="string">'code'</span>:<span class="number">200</span>&#125;</span><br><span class="line">        )</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>开启celery</li>
+</ul>
+<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">python manage<span class="selector-class">.py</span> celery worker</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>如果出错大概率需要这样，在manage.py文件前头加入这个</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#manage.py</span></span><br><span class="line"><span class="keyword">import</span> django</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line">os.environ[<span class="string">'DJANGO_SETTINGS_MODULE'</span>] = <span class="string">'eduapi.settings'</span></span><br><span class="line">django.setup()</span><br></pre></td></tr></table></figure>
+
+<h3 id="itsdangerous"><a href="#itsdangerous" class="headerlink" title="itsdangerous"></a>itsdangerous</h3><blockquote>
+<p>通过itsdangerous可以有效将用户数据加密放入URL中，并且可以设置过期时间</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> itsdangerous <span class="keyword">import</span> TimedJSONWebSignatureSerializer,SignatureExpired</span><br><span class="line">serializer = TimedJSONWebSignatureSerializer(SECRET_KEY, <span class="number">120</span>)</span><br><span class="line">data = &#123;</span><br><span class="line">    <span class="string">'email'</span>:email,</span><br><span class="line">&#125;</span><br><span class="line">token = serializer.dumps(data).decode()</span><br><span class="line">data =  serializer.loads(token)</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>Django</category>
+      </categories>
+      <tags>
+        <tag>django-celery</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>docker-machine</title>
     <url>/docker-machie/</url>
     <content><![CDATA[<h2 id="Centos7-安装-docker-machine"><a href="#Centos7-安装-docker-machine" class="headerlink" title="Centos7 安装 docker-machine"></a>Centos7 安装 docker-machine</h2><p>官方地址：<a href="https://docs.docker.com/machine/" target="_blank" rel="noopener">https://docs.docker.com/machine/</a></p><p>官方驱动详细使用方法：<a href="https://docs.docker.com/machine/drivers/" target="_blank" rel="noopener">https://docs.docker.com/machine/drivers/</a></p><a id="more"></a>

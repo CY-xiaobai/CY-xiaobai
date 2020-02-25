@@ -1,1 +1,962 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=2"><meta name="theme-color" content="#222"><meta name="generator" content="Hexo 3.9.0"><link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.1"><link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.1"><link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.1"><link rel="mask-icon" href="/images/logo.svg?v=7.4.1" color="#222"><link rel="alternate" href="/atom.xml" title="哼着自己旳小调调" type="application/atom+xml"><link rel="stylesheet" href="/css/main.css?v=7.4.1"><link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0"><script id="hexo-configurations">var NexT=window.NexT||{},CONFIG={root:"/",scheme:"Gemini",version:"7.4.1",exturl:!1,sidebar:{position:"left",display:"post",offset:12,onmobile:!1},copycode:{enable:!0,show_result:!0,style:null},back2top:{enable:!0,b2t:!0,sidebar:!1,scrollpercent:!0},bookmark:{enable:!1,color:"#222",save:"auto"},fancybox:!1,mediumzoom:!1,lazyload:!1,pangu:!1,algolia:{appID:"",apiKey:"",indexName:"",hits:{per_page:10},labels:{input_placeholder:"Search for Posts",hits_empty:"我们没有找到任何搜索结果: ${query}",hits_stats:"找到约${hits}条结果（用时${time}ms）"}},localsearch:{enable:!0,trigger:"auto",top_n_per_article:1,unescape:!1,preload:!1},path:"./public/search.xml",motion:{enable:!0,async:!1,transition:{post_block:"fadeIn",post_header:"slideDownIn",post_body:"slideDownIn",coll_header:"slideLeftIn",sidebar:"slideUpIn"}},translation:{copy_button:"复制",copy_success:"复制成功",copy_failure:"复制失败"},sidebarPadding:40}</script><meta name="description" content="视图层 视图函数一般用来接收一个Web请求HttpRequest，之后返回一个Web响应HttpResponse HttpRequest 一个视图函数用来响应用户的Request请求，每个视图函数默认的第一个位置参数request用来接收用户发起请求的HttpRequest信息。 视图函数的返回值，为一个HttpResponse值，包括我们要返回给用户的HTML页面或者字符串等等，以及对应的头部字"><meta name="keywords" content="Django"><meta property="og:type" content="article"><meta property="og:title" content="Django-Views-视图层"><meta property="og:url" content="https://cy-blogs.cn/Django-Views-视图层/index.html"><meta property="og:site_name" content="哼着自己旳小调调"><meta property="og:description" content="视图层 视图函数一般用来接收一个Web请求HttpRequest，之后返回一个Web响应HttpResponse HttpRequest 一个视图函数用来响应用户的Request请求，每个视图函数默认的第一个位置参数request用来接收用户发起请求的HttpRequest信息。 视图函数的返回值，为一个HttpResponse值，包括我们要返回给用户的HTML页面或者字符串等等，以及对应的头部字"><meta property="og:locale" content="zh-CN"><meta property="og:updated_time" content="2019-12-09T11:26:17.262Z"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="Django-Views-视图层"><meta name="twitter:description" content="视图层 视图函数一般用来接收一个Web请求HttpRequest，之后返回一个Web响应HttpResponse HttpRequest 一个视图函数用来响应用户的Request请求，每个视图函数默认的第一个位置参数request用来接收用户发起请求的HttpRequest信息。 视图函数的返回值，为一个HttpResponse值，包括我们要返回给用户的HTML页面或者字符串等等，以及对应的头部字"><link rel="canonical" href="https://cy-blogs.cn/Django-Views-视图层/"><script id="page-configurations">CONFIG.page={sidebar:"",isHome:!1,isPost:!0,isPage:!1,isArchive:!1}</script><title>Django-Views-视图层 | 哼着自己旳小调调</title><noscript><style>.sidebar-inner,.use-motion .brand,.use-motion .collection-header,.use-motion .comments,.use-motion .menu-item,.use-motion .pagination,.use-motion .post-block,.use-motion .post-body,.use-motion .post-header{opacity:initial}.use-motion .logo,.use-motion .site-subtitle,.use-motion .site-title{opacity:initial;top:initial}.use-motion .logo-line-before i{left:initial}.use-motion .logo-line-after i{right:initial}</style></noscript></head><body itemscope itemtype="http://schema.org/WebPage"><div class="container use-motion"><div class="headband"></div><header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="header-inner"><div class="site-brand-container"><div class="site-meta"><div><a href="/" class="brand" rel="start"><span class="logo-line-before"><i></i></span> <span class="site-title">哼着自己旳小调调</span><span class="logo-line-after"><i></i></span></a></div><p class="site-subtitle">Happy hum their own small tune</p></div><div class="site-nav-toggle"><div class="toggle" aria-label="切换导航栏"><span class="toggle-line toggle-line-first"></span><span class="toggle-line toggle-line-middle"></span><span class="toggle-line toggle-line-last"></span></div></div></div><nav class="site-nav"><ul id="menu" class="menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-fw fa-home"></i> 首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i> 标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i> 分类</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i> 关于</a></li><li class="menu-item menu-item-commonweal"><a href="/404.html/" rel="section"><i class="fa fa-fw fa-heartbeat"></i> 公益 404</a></li><li class="menu-item menu-item-search"><a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i> 搜索</a></li></ul></nav><div class="site-search"><div class="popup search-popup"><div class="search-header"><span class="search-icon"><i class="fa fa-search"></i></span><div class="search-input-container"> <input autocomplete="off" autocorrect="off" autocapitalize="none" placeholder="搜索..." spellcheck="false" type="text" id="search-input"></div><span class="popup-btn-close"><i class="fa fa-times-circle"></i></span></div><div id="search-result"></div></div><div class="search-pop-overlay"></div></div></div></header><div class="back-to-top"><i class="fa fa-arrow-up"></i> <span>0%</span></div><main id="main" class="main"><div class="main-inner"><div class="content-wrap"><div id="content" class="content"><div class="posts-expand"><article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN"><link itemprop="mainEntityOfPage" href="https://cy-blogs.cn/Django-Views-视图层/"><span hidden itemprop="author" itemscope itemtype="http://schema.org/Person"><meta itemprop="name" content="哼着自己旳小调调"><meta itemprop="description" content=""><meta itemprop="image" content="/images/author.jpg"></span><span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization"><meta itemprop="name" content="哼着自己旳小调调"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">Django-Views-视图层</h1><div class="post-meta"><span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display:none"><span class="post-meta-item-icon"><i class="fa fa-eye"></i></span> <span class="post-meta-item-text">阅读次数：</span><span id="busuanzi_value_page_pv"></span></span><div class="post-symbolscount"><span class="post-meta-item-icon"><i class="fa fa-file-word-o"></i></span> <span class="post-meta-item-text">本文字数：</span> <span title="本文字数">3k字</span></div></div></header><div class="post-body" itemprop="articleBody"><h2 id="视图层"><a href="#视图层" class="headerlink" title="视图层"></a>视图层</h2><blockquote><p>视图函数一般用来接收一个<code>Web</code>请求<code>HttpRequest</code>，之后返回一个Web响应<code>HttpResponse</code></p></blockquote><h3 id="HttpRequest"><a href="#HttpRequest" class="headerlink" title="HttpRequest"></a>HttpRequest</h3><blockquote><p>一个视图函数用来响应用户的<code>Request</code>请求，每个视图函数默认的第一个位置参数<code>request</code>用来接收用户发起请求的<code>HttpRequest</code>信息。</p><p>视图函数的返回值，为一个<code>HttpResponse</code>值，包括我们要返回给用户的<code>HTML</code>页面或者字符串等等，以及对应的头部字段信息</p></blockquote><a id="more"></a><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.http <span class="keyword">import</span> HttpResponse</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">(request)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> HttpResponse(<span class="string">'Hello world'</span>)</span><br></pre></td></tr></table></figure><h3 id="常见请求方式"><a href="#常见请求方式" class="headerlink" title="常见请求方式"></a>常见请求方式</h3><blockquote><p><code>POST</code>和<code>GET</code>是<code>HTTP</code>协议定义的与服务器交互的方法。</p><p><code>GET</code>一般用于获取/查询资源信息，而<code>POST</code>一般用于更新资源信息。另外，还有<code>PUT</code>和<code>DELETE</code>方法</p></blockquote><h4 id="get"><a href="#get" class="headerlink" title="get"></a>get</h4><blockquote><p>常用来从指定地址请求数据；</p><p>如果需要在请求时提交某些数据，则以路由形式传递参数，查询<code>Query</code>字符串如下格式所示：</p></blockquote><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http<span class="variable">s:</span>//www.baidu.<span class="keyword">com</span>/?key=<span class="keyword">abc</span>&amp;pos=shanxi</span><br></pre></td></tr></table></figure><ul><li><code>get</code>请求可被浏览器缓存，保存在历史记录中</li><li><code>get</code>不应在使用敏感数据时使用，明文包路在请求地址中</li><li><code>get</code>有长度限制</li></ul><h4 id="post"><a href="#post" class="headerlink" title="post"></a>post</h4><blockquote><p>向指定的资源提交要被处理的数据</p><p>使用<code>POST</code>，提交的数据保存在<code>HTTP</code>协议中的消息主体部分</p></blockquote><ul><li><code>post</code>请求不会被浏览器缓存</li><li><code>post</code>提交数据长度无限制</li><li><code>post</code>比<code>get</code>更加安全</li></ul><h3 id="request"><a href="#request" class="headerlink" title="request"></a>request</h3><blockquote><p>如果说<code>urls.py</code>是<code>Django</code>中前端页面和后台程序桥梁，那么<code>request</code>就是桥上负责运输的小汽车，可以说后端接收到的来至前端的信息几乎全部来自于<code>requests</code>中</p></blockquote><h4 id="request-method"><a href="#request-method" class="headerlink" title="request.method"></a>request.method</h4><blockquote><p>获取当前用户请求方式，</p><p>请求方式字符串为纯大写：<code>&#39;GET&#39;</code>、<code>&#39;POST&#39;</code></p><p>如用户以<code>get</code>方式发起请求，对应代码中获取到的结果以及在判断时像是这样</p></blockquote><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">(request)</span>:</span>	</span><br><span class="line">    <span class="keyword">if</span> request.method == <span class="string">'GET'</span>:		</span><br><span class="line">        …</span><br></pre></td></tr></table></figure><h4 id="request-GET"><a href="#request-GET" class="headerlink" title="request.GET"></a>request.GET</h4><blockquote><p>当用户通过<code>get</code>方式请求站点，并在路由中提供了查询参数，可以通过该属性获取到对应提交的值</p></blockquote><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">(request)</span>:</span>   </span><br><span class="line">    print(request.GET) </span><br><span class="line">    <span class="comment"># &lt;QueryDict: &#123;'name': ['jack'], 'id': ['1']&#125;&gt;    </span></span><br><span class="line">    print(type(request.GET))   </span><br><span class="line">    <span class="comment"># &lt;class 'django.http.request.QueryDict'&gt; </span></span><br><span class="line">    name_ = request.GET.get(<span class="string">'name'</span>)   </span><br><span class="line">    id_ = request.GET.get(<span class="string">'id'</span>)  </span><br><span class="line">    content = <span class="string">'%s:%s'</span> % (name_,id_)   </span><br><span class="line">    <span class="keyword">return</span> HttpResponse(content)</span><br></pre></td></tr></table></figure><blockquote><figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; request.GET`是一个类似字典的数据类型：`QueryDict</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure></blockquote><blockquote><p>其中也支持类似对字典的<code>get</code>或直接<code>dict.[key]</code>键值访问方式，当然使用<code>get</code>方式进行对应<code>key</code>获取会更好，因为<code>get</code>在访问不到时不会报错</p></blockquote><ul><li>如果定义了如上所示的视图函数，那么在访问连接时，我们可以通过路由传参：</li></ul><figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">http:</span><span class="comment">//127.0.0.1:8000/?name=jack&amp;id=1</span></span><br></pre></td></tr></table></figure><ul><li>这里对应页面会显示的结果：</li></ul><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jack:<span class="number">1</span></span><br></pre></td></tr></table></figure><blockquote><p><strong>注意</strong>：使用<code>GET</code>方法在连接中进行参数提交，后台接收到的数据类型均是字符串</p></blockquote><hr><h4 id="request-POST"><a href="#request-POST" class="headerlink" title="request.POST"></a>request.POST</h4><blockquote><p>获取用户以<code>post</code>形式提交的数据并保存在后台，为类字典数据，这里和<code>request.GET</code>是一个东西；</p><p>在网页中，一般我们通过<code>html</code>的表单进行数据的提交，<code>POST</code>方式可以提交空数据</p></blockquote><ul><li>因为涉及到了表单页面，所以我们先来弄一个<code>HTML</code>页面</li></ul><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span>   </span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span>这是一个关于POST的测试<span class="tag">&lt;/<span class="name">div</span>&gt;</span>   </span><br><span class="line">    <span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">"/"</span> <span class="attr">method</span>=<span class="string">"POST"</span>&gt;</span>  </span><br><span class="line">        &#123;% csrf_token %&#125;    </span><br><span class="line">        账号:<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"account"</span>&gt;</span>   </span><br><span class="line">        <span class="tag">&lt;<span class="name">br</span>&gt;</span>      </span><br><span class="line">        密码:<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"password"</span> <span class="attr">name</span>=<span class="string">"passwd"</span>&gt;</span>   </span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">value</span>=<span class="string">"提交"</span>&gt;</span>   </span><br><span class="line">    <span class="tag">&lt;/<span class="name">form</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure><blockquote><p>在模板页面中，一旦涉及到了表单提交，那么一定要注意在表单区域添加<code>csrf_token</code>标签进行防跨站伪造令牌的加载，否则表单数据的将被认为是无效的。</p></blockquote><blockquote><p>在接下来的视图函数中会使用到<code>input</code>标签中的<code>name</code>属性；</p><p><code>name</code>值属性维护了<code>post</code>的数据传入到后台时的标示，会与表单的数据组合成类字典格式</p><p>如<code>name</code>属性为<code>account</code>的输入框中输入了<code>test</code>，那么后台数据接收到的值类似：<code>{&#39;account&#39;:&#39;test&#39;}</code></p></blockquote><ul><li>写一个视图函数用来捕获当前表单使用POST形式提交的数据：</li></ul><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">(request)</span>:</span>   </span><br><span class="line">    <span class="keyword">if</span> request.method=<span class="string">"POST"</span>:</span><br><span class="line">        print(request.POST)    </span><br><span class="line">        print(type(request.POST))   </span><br><span class="line">        account = request.POST.get(<span class="string">"account"</span>)  </span><br><span class="line">        passwd = request.POST.get(<span class="string">"passwd"</span>)   </span><br><span class="line">        content = <span class="string">"%s:%s"</span> % (account,passwd)    </span><br><span class="line">        <span class="keyword">return</span> HttpResponse(content)  </span><br><span class="line">    <span class="keyword">return</span> render(request,<span class="string">"index.html"</span>) <span class="comment">#在使用get形式请求时，返回表单页面</span></span><br></pre></td></tr></table></figure><ul><li>如果在表单页面中账号填写为test，密码为123456；在视图函数中捕捉到的结果为：</li></ul><figure class="highlight prolog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="symbol">QueryDict</span>: &#123;<span class="string">'csrfmiddlewaretoken'</span>: [<span class="string">'EmyGwsVcrXI2LDkYLS9qflkUH4N7bM1nfTQxr3fsOsZlI4vJFwci7TargtYRAGl2'</span>], <span class="string">'account'</span>: [<span class="string">'test'</span>], <span class="string">'passwd'</span>: [<span class="string">'123456'</span>]&#125;&gt;</span><br></pre></td></tr></table></figure><h5 id="表单多值提交"><a href="#表单多值提交" class="headerlink" title="表单多值提交"></a>表单多值提交</h5><blockquote><p>在<code>request.POST</code>中需要注意，某些情况下，使用POST提交数据的表单数据可能是多个值，类似复选框<code>CheckBox</code>，直接使用<code>request.POST.get()</code>进行获取是有一些问题的，比如修改模板页面如下所示</p></blockquote><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">"/"</span> <span class="attr">method</span>=<span class="string">"POST"</span>&gt;</span>  </span><br><span class="line">    &#123;% csrf_token %&#125;    </span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">name</span>=<span class="string">"taste"</span> <span class="attr">value</span>=<span class="string">"eat"</span>&gt;</span>吃  </span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">name</span>=<span class="string">"taste"</span> <span class="attr">value</span>=<span class="string">"sleep"</span>&gt;</span>睡  </span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">name</span>=<span class="string">"taste"</span> <span class="attr">value</span>=<span class="string">"play"</span>&gt;</span>耍  </span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">value</span>=<span class="string">"提交"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure><blockquote><p>这是一个<code>name</code>值为<code>taste</code>的兴趣爱好采集的多选框，<code>value</code>值将会作为选中时，提交到后台的值，比如现在我们全选这些表单数据，那么后台接收到的值是这样的</p></blockquote><figure class="highlight prolog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="symbol">QueryDict</span>: &#123;<span class="string">'csrfmiddlewaretoken'</span>: [<span class="string">'nuaLzxc2E0artYKUZiefMPv5iHTX5gLFY1sCu8wi1vrKqpVFTWh7EnlCR64Hua5k'</span>], <span class="string">'taste'</span>: [<span class="string">'eat'</span>, <span class="string">'sleep'</span>, <span class="string">'play'</span>]&#125;&gt;</span><br></pre></td></tr></table></figure><blockquote><p>但是问题接踵而至，我们发现使用<code>get</code>函数获取不到对应全选的整个结果，而是只拿到了选中的最后一项</p></blockquote><ul><li><p><code>request.POST.get(key, default=None)</code></p><blockquote><p>返回对应<code>key</code>值的数据中的<strong>最后一个</strong>数据单独返回；<code>key</code>值不存在，取<code>default</code></p></blockquote></li></ul><blockquote><p>要想真正拿出所有的结果，应该使用<code>getlist</code>函数</p></blockquote><ul><li><p><code>request.POST.getlist(key, default=None)</code></p><blockquote><p>将对应<code>key</code>值的所有数据以<strong>一个列表</strong>形式返回；<code>key</code>值不存在，取<code>default</code></p></blockquote></li></ul><h4 id="request-META"><a href="#request-META" class="headerlink" title="request.META"></a>request.META</h4><blockquote><p><code>request.MAT</code>E获取的是一个标准的<code>python</code>字典。它包含了所有的<code>HTTP</code>请求信息</p><p>比如用户IP地址和用户<code>Agent</code>（通常是浏览器的名称和版本号）。</p><p>注意，<code>Header</code>信息的完整列表取决于用户所发送的<code>Header</code>信息和服务器端设置的<code>Header</code>信息</p></blockquote><ul><li><code>CONTENT_LENGTH</code>：请求的正文的长度，字符串类型</li><li><code>CONTENT_TYPE</code>：请求的正文的<code>MIME</code> 类型</li><li><code>HTTP_ACCEPT</code>：响应可接收的<code>Content-Type</code></li><li><code>HTTP_ACCEPT_ENCODING</code>：响应可接收的编码</li><li><code>HTTP_ACCEPT_LANGUAGE</code>：响应可接收的语言</li><li><code>HTTP_HOST</code>：客服端发送的<code>HTTP Host</code>头部</li><li><code>HTTP_REFERER</code>：请求前的连接地址</li><li><code>HTTP_USER_AGENT</code>：客户端的<code>user-agent</code>字符串</li><li><code>QUERY_STRING</code>：单个字符串形式的查询字符串（未解析过的形式）</li><li><code>REMOTE_ADDR</code>：客户端的IP 地址</li><li><code>REMOTE_HOST</code>：客户端的主机名</li><li><code>REMOTE_USER</code>：服务器认证后的用户</li><li><code>REQUEST_METHOD</code>：一个字符串，例如<code>GET</code> 或<code>POST</code></li><li><code>SERVER_NAME</code>：服务器的主机名</li><li><code>SE0RVER_PORT</code>：服务器的端口，字符串类型</li></ul><h4 id="request-FILES"><a href="#request-FILES" class="headerlink" title="request.FILES"></a>request.FILES</h4><blockquote><p>接收用户上传文件及相关信息。同样类似于<code>request.POST</code>，提取到的数据为一个类字典的数据类型，包含所有文件上传的信息</p></blockquote><ul><li><p><code>f = request.FILES.get(&#39;upload_file&#39;)</code></p><blockquote><p><code>file_data = f.read()</code>：读取整个上传文件的内容，适合小文件上传</p><p><code>yiled = f.chunks()</code>：返回一个类似生成器<code>（）</code>的数据，每一次读取按块返回文件，可以通过<code>for</code>迭代访问其中数据；适合上传大文件到服务器。</p><p><code>f.multiple_chunks()</code>：返回文件大小，当文件大小大于<code>2.5M</code>时，返回<code>True</code>，反之返回<code>False</code>，可以通过该函数来选择是否使用<code>chunks</code>方法或<code>read</code>直接存储。</p><p>如果想要修改这个文件判定的默认值，可以通过：<code>FILE_UPLOAD_MAX_MEMORY_SIZE</code>在<code>settings</code>文件下进行设置</p><p><code>f.content_type</code>：上传文件时头部中的<code>Content-Type</code>字段值，参考MIME类型</p><p><code>f.name</code>：上传文件名字</p><p><code>f.charset</code>：上传文件编码</p><p><code>f.size</code>： 上传文件大小，字节为单位：<code>byte</code></p></blockquote></li></ul><blockquote><p>创建好静态资源目录，并在下面创建一个<code>img</code>文件夹，保存我们即将上传的图片；</p><p>完成上传文件的<code>HTML</code>表单页面</p></blockquote><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">"/"</span> <span class="attr">method</span>=<span class="string">"POST"</span> <span class="attr">enctype</span>=<span class="string">"multipart/form-data"</span>&gt;</span> </span><br><span class="line">    &#123;% csrf_token %&#125;   </span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"file"</span> <span class="attr">name</span>=<span class="string">"upload_file"</span> /&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">value</span>=<span class="string">"提交"</span>&gt;</span><span class="tag">&lt;/<span class="name">form</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"&#123;% static 'img/1.jpg' %&#125;"</span> <span class="attr">alt</span>=<span class="string">"这是一张图片"</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 这里使用的是即将要上传的文件名字，只做文件是否上传成功的简单测试 --&gt;</span></span><br></pre></td></tr></table></figure><blockquote><p><strong>注意</strong>：上传文件的页面表单，一定要记得设置属性<code>enctype=&quot;multipart/form-data&quot;</code></p></blockquote><ul><li>视图函数如下编写，接收上传图片，并保存在静态目录下刚才创建好的img目录中</li></ul><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">(request)</span>:</span>  </span><br><span class="line">    <span class="keyword">if</span> request.method == <span class="string">"POST"</span>:   </span><br><span class="line">        f = request.FILES.get(<span class="string">"upload_files"</span>)  </span><br><span class="line">        path = os.path.join(settings.STATICFILES_DIRS[<span class="number">0</span>],<span class="string">'img/'</span>+f.name)  </span><br><span class="line">        <span class="comment"># 上传文件本地保存路径   </span></span><br><span class="line">        <span class="keyword">with</span> open(path,<span class="string">'wb'</span>) <span class="keyword">as</span> fp:     </span><br><span class="line">            <span class="keyword">if</span> f.multiple_chunks: <span class="comment">#判断到上传文件为大于2.5MB的大文件     </span></span><br><span class="line">                <span class="keyword">for</span> buf <span class="keyword">in</span> f.chunks(): <span class="comment">#迭代写入文件      </span></span><br><span class="line">                    fp.write(buf)        </span><br><span class="line">                    <span class="keyword">else</span>:             </span><br><span class="line">                        fp.write(f.read())    </span><br><span class="line">                        <span class="keyword">return</span> HttpResponse(<span class="string">"Success!"</span>)  </span><br><span class="line">                    <span class="keyword">return</span> render(request, <span class="string">'index.html'</span>)</span><br></pre></td></tr></table></figure><blockquote><p>测试上传一个名为<code>1.jpg</code>的图片，如果成功上传，那么后台<code>static</code>目录下会出现该图片，并且模板页面也可以展示对应图片效果</p></blockquote><h3 id="HTTPResponse"><a href="#HTTPResponse" class="headerlink" title="HTTPResponse"></a>HTTPResponse</h3><blockquote><p>一个视图的返回值经常是为了向用户返回一个<code>HttpResponse</code>响应，</p><p>有如下常用的可以返回<code>HttpResponse</code>的函数</p></blockquote><h4 id="response"><a href="#response" class="headerlink" title="response"></a>response</h4><ul><li><p><code>HttpResponse(content=b&#39;&#39;)</code></p><blockquote><p>返回一个字符串内容</p><p><em>from</em> django.http <em>import</em> HttpResponse</p></blockquote></li><li><p><code>render(request,template_name,context=None,content_type=None,status=None)</code></p><blockquote><p>返回一个可渲染HTML页面，状态码为<code>200</code></p><p><em>from</em> django.shortcuts <em>import</em> render</p></blockquote><blockquote><p><code>request</code>：固定参数，响应的<code>request</code>请求，来自于参数部分接收的<code>HttpRequest</code></p><p><code>template_name</code>：返回的模板页面路径</p><p><code>context</code>：模板页面渲染所需的数据，默认为字典格式</p><p><code>content_type</code>：生成之后的结果使用的<code>MIME</code>类型</p><p><code>status</code>：响应的状态码，默认为<code>200</code></p></blockquote></li><li><p><code>redirect(to, permanent=False)</code></p><blockquote><p>一个重定向，浏览器通过该状态码自动跳转到一个新的路由地址，默认返回响应状态码<code>302</code></p><p><em>from</em> django.shortcuts <em>import</em> redirect</p></blockquote><blockquote><p><code>to</code>：可以是一个<code>django</code>项目中视图函数的路由映射，也可以是一个<code>reverse</code>的反向路由解析</p><p><code>permanent</code>：如果设置为<code>True</code>，将返回<code>301</code>状态码，代表永久重定向</p></blockquote><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">302</span>：临时重定向，旧地址资源临时不能用了，搜索引擎只会暂时抓取新地址的内容而保存旧的地址。<span class="number">301</span>：永久重定向，旧地址资源已经不复存在，搜索引擎不光会抓取新地址的内容，还会替换旧地址为新地址</span><br></pre></td></tr></table></figure></li></ul><h3 id="视图错误处理"><a href="#视图错误处理" class="headerlink" title="视图错误处理"></a>视图错误处理</h3><blockquote><p>为了方便我们开发，<code>django</code>提供了一个异常叫做<code>Http404</code>异常，我们可以在视图函数的代码中按照需求进行抛出，抛出之后<code>django</code>项目会自动捕获该异常，并会展示默认的<code>404</code>页面</p></blockquote><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.http <span class="keyword">import</span> Http404</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">(request)</span>:</span>   </span><br><span class="line">    <span class="keyword">if</span> request.GET.get(<span class="string">"id"</span>) == <span class="string">"1"</span>:    </span><br><span class="line">        <span class="keyword">raise</span> Http404</span><br></pre></td></tr></table></figure><blockquote><p>在<code>settings</code>中的<code>debug</code>配置项为<code>false</code>时，访问<code>http://127.0.0.1:8000/?id=1</code>，可以看到<code>django</code>为我们提供的错误页面；</p><p>除了<code>django</code>默认提供的，我们还可以可以在模板目录下定义全局<code>404.html</code>进行错误页面的定制</p></blockquote><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>    抱歉，找不到你要的东西<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br></pre></td></tr></table></figure><h4 id="自定义错误处理视图"><a href="#自定义错误处理视图" class="headerlink" title="自定义错误处理视图"></a>自定义错误处理视图</h4><blockquote><p>除去<code>404</code>错误的自定义，<code>django</code>还提供了覆盖默认错误行为处理的办法；</p><p>有些时候，<code>django</code>自动的错误处理可能不能满足我们的需求，那么我们可以重新定义一些新的视图函数，</p><p>来覆盖掉<code>django</code>所提供的错误处理视图函数，最后在<code>urls.py</code>路由配置文件下通过定义全局变量来重新设置默认的错误处理视图函数</p></blockquote><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">handler404：覆盖page_not_found()视图。</span><br><span class="line">handler500：覆盖server_error()视图。</span><br><span class="line">handler403：覆盖permission_denied()视图。</span><br><span class="line">handler400：覆盖bad_request()视图</span><br><span class="line"><span class="keyword">from</span> django.contrib <span class="keyword">import</span> admin</span><br><span class="line"><span class="keyword">from</span> django.urls <span class="keyword">import</span> path,include</span><br><span class="line">urlpatterns = [    path(<span class="string">'admin/'</span>, admin.site.urls),  </span><br><span class="line">               path(<span class="string">''</span>, include(<span class="string">"viewapp.urls"</span>)),]</span><br><span class="line">handler404 = <span class="string">"viewapp.views.error_404"</span></span><br><span class="line"><span class="comment"># APP.模块.视图函数</span></span><br><span class="line">handler500 = <span class="string">"viewapp.views.error_500"</span></span><br></pre></td></tr></table></figure><blockquote><p>相关定义好的错误处理视图函数</p></blockquote><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">error_404</span><span class="params">(request)</span>:</span>    </span><br><span class="line">    <span class="keyword">return</span> HttpResponse(<span class="string">"这是404错误"</span>)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">error_403</span><span class="params">(request)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> HttpResponse(<span class="string">"这是403错误"</span>)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">error_500</span><span class="params">(request)</span>:</span> </span><br><span class="line">    <span class="keyword">return</span> HttpResponse(<span class="string">"这是500错误"</span>)</span><br></pre></td></tr></table></figure></div><div><div><div style="text-align:center;color:#ccc;font-size:14px">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div></div></div><div id="reward-container"><div>你好我好大家好！</div> <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';"> 打赏</button><div id="qr" style="display:none"><div style="display:inline-block"> <img src="/images/wechatpay.jpg" alt="哼着自己旳小调调 微信支付"><p>微信支付</p></div><div style="display:inline-block"> <img src="/images/alipay.jpg" alt="哼着自己旳小调调 支付宝"><p>支付宝</p></div></div></div><div><ul class="post-copyright"><li class="post-copyright-author"> <strong>本文作者：</strong> 哼着自己旳小调调</li><li class="post-copyright-link"> <strong>本文链接：</strong> <a href="https://cy-blogs.cn/Django-Views-视图层/" title="Django-Views-视图层">https://cy-blogs.cn/Django-Views-视图层/</a></li><li class="post-copyright-license"> <strong>版权声明：</strong> 本博客所有文章除特别声明外，均采用<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i> BY-NC-SA</a> 许可协议。转载请注明出处！</li></ul></div><footer class="post-footer"><div class="post-tags"> <a href="/tags/Django/" rel="tag"># Django</a></div><div class="post-nav"><div class="post-nav-next post-nav-item"><a href="/Django-Urls-路由层/" rel="next" title="Django-Urls-路由层"><i class="fa fa-chevron-left"></i> Django-Urls-路由层</a></div><span class="post-nav-divider"></span><div class="post-nav-prev post-nav-item"> <a href="/Django初识/" rel="prev" title="Django初识">Django初识<i class="fa fa-chevron-right"></i></a></div></div></footer></article></div></div></div><div class="toggle sidebar-toggle"><span class="toggle-line toggle-line-first"></span><span class="toggle-line toggle-line-middle"></span><span class="toggle-line toggle-line-last"></span></div><aside class="sidebar"><div class="sidebar-inner"><ul class="sidebar-nav motion-element"><li class="sidebar-nav-toc"> 文章目录</li><li class="sidebar-nav-overview"> 站点概览</li></ul><div class="post-toc-wrap sidebar-panel"><div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#视图层"><span class="nav-text">视图层</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HttpRequest"><span class="nav-text">HttpRequest</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常见请求方式"><span class="nav-text">常见请求方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#get"><span class="nav-text">get</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#post"><span class="nav-text">post</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#request"><span class="nav-text">request</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#request-method"><span class="nav-text">request.method</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#request-GET"><span class="nav-text">request.GET</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#request-POST"><span class="nav-text">request.POST</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#表单多值提交"><span class="nav-text">表单多值提交</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#request-META"><span class="nav-text">request.META</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#request-FILES"><span class="nav-text">request.FILES</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTPResponse"><span class="nav-text">HTTPResponse</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#response"><span class="nav-text">response</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#视图错误处理"><span class="nav-text">视图错误处理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#自定义错误处理视图"><span class="nav-text">自定义错误处理视图</span></a></li></ol></li></ol></li></ol></div></div><div class="site-overview-wrap sidebar-panel"><div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person"> <img class="site-author-image" itemprop="image" src="/images/author.jpg" alt="哼着自己旳小调调"><p class="site-author-name" itemprop="name">哼着自己旳小调调</p><div class="site-description" itemprop="description"></div></div><div class="site-state-wrap motion-element"><nav class="site-state"><div class="site-state-item site-state-posts"> <a href="/archives"><span class="site-state-item-count">45</span> <span class="site-state-item-name">日志</span></a></div><div class="site-state-item site-state-categories"> <a href="/categories/"><span class="site-state-item-count">7</span> <span class="site-state-item-name">分类</span></a></div><div class="site-state-item site-state-tags"> <a href="/tags/"><span class="site-state-item-count">22</span> <span class="site-state-item-name">标签</span></a></div></nav></div><div class="feed-link motion-element"><a href="/atom.xml" rel="alternate"><i class="fa fa-rss"></i> RSS</a></div><div class="links-of-author motion-element"><span class="links-of-author-item"><a href="https://github.com/CY-xiaobai/" title="GitHub &rarr; https://github.com/CY-xiaobai/" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i> GitHub</a></span><span class="links-of-author-item"><a href="/347947872@qq.com" title="E-Mail &rarr; 347947872@qq.com"><i class="fa fa-fw fa-envelope"></i> E-Mail</a></span><span class="links-of-author-item"><a href="https://weibo.com" title="Weibo &rarr; https://weibo.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i> Weibo</a></span></div><div class="cc-license motion-element" itemprop="license"> <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a></div><div class="links-of-blogroll motion-element"><div class="links-of-blogroll-title"><i class="fa fa-fw fa-link"></i> 大神个人博客</div><ul class="links-of-blogroll-list"><li class="links-of-blogroll-item"> <a href="https://lienze.tech/blog/mysql/c813917a.html" title="https://lienze.tech/blog/mysql/c813917a.html" rel="noopener" target="_blank">老渔夫吃虾米</a></li><li class="links-of-blogroll-item"> <a href="https://v3u.cn/l_id_4_p_2" title="https://v3u.cn/l_id_4_p_2" rel="noopener" target="_blank">悦哥</a></li><li class="links-of-blogroll-item"> <a href="https://xiuxiu.tech/" title="https://xiuxiu.tech/" rel="noopener" target="_blank">阳</a></li><li class="links-of-blogroll-item"> <a href="https://www.angle-dream.top/" title="https://www.angle-dream.top/" rel="noopener" target="_blank">梦</a></li><li class="links-of-blogroll-item"> <a href="https://xiaozhuang.tech/" title="https://xiaozhuang.tech/" rel="noopener" target="_blank">壮</a></li><li class="links-of-blogroll-item"> <a href="https://qzloo.cn" title="https://qzloo.cn" rel="noopener" target="_blank">龙</a></li></ul></div></div></div></aside><div id="sidebar-dimmer"></div></div></main><footer id="footer" class="footer"><div class="footer-inner"><div class="copyright">&copy; 豫ICP备19041663号<span itemprop="copyrightYear"></span><span class="with-love" id="animate"><i class="fa fa-heart"></i></span> <span class="author" itemprop="copyrightHolder">哼着自己旳小调调</span><script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> <span class="post-meta-divider">|</span><span class="post-meta-item-icon"><i class="fa fa-area-chart"></i></span> <span class="post-meta-item-text">站点总字数：</span> <span title="post.totalcount">120.1k字</span> <span title="站点总字数">311k</span></div><div class="busuanzi-count"><script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span class="post-meta-item" id="busuanzi_container_site_uv" style="display:none"><span class="post-meta-item-icon"><i class="fa fa-user"></i></span><span class="site-uv" title="总访客量"><span id="busuanzi_value_site_uv"></span></span></span> <span class="post-meta-divider">|</span><span class="post-meta-item" id="busuanzi_container_site_pv" style="display:none"><span class="post-meta-item-icon"><i class="fa fa-eye"></i></span><span class="site-pv" title="总访问量"><span id="busuanzi_value_site_pv"></span></span></span></div></div></footer></div><script color="0,0,255" opacity="0.5" zindex="-1" count="99" src="true"></script><script src="/lib/anime.min.js?v=3.1.0"></script><script src="/lib/velocity/velocity.min.js?v=1.2.1"></script><script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script><script src="/js/utils.js?v=7.4.1"></script><script src="/js/motion.js?v=7.4.1"></script><script src="/js/schemes/pisces.js?v=7.4.1"></script><script src="/js/next-boot.js?v=7.4.1"></script><script src="/js/local-search.js?v=7.4.1"></script><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({log:!1,pluginJsPath:"lib/",pluginModelPath:"assets/",pluginRootPath:"live2dw/",tagMode:!1})</script></body><script type="text/javascript" src="/js/clicklove.js"></script><script language="Javascript">document.οncοntextmenu=new Function("event.returnValue=false"),document.onselectstart=new Function("event.returnValue=false")</script></html>
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.1">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.4.1" color="#222">
+  <link rel="alternate" href="/atom.xml" title="哼着自己旳小调调" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.1">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.4.1',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":null},
+    back2top: {"enable":true,"b2t":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"我们没有找到任何搜索结果: ${query}","hits_stats":"找到约${hits}条结果（用时${time}ms）"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: './public/search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="视图层 视图函数一般用来接收一个Web请求HttpRequest，之后返回一个Web响应HttpResponse HttpRequest 一个视图函数用来响应用户的Request请求，每个视图函数默认的第一个位置参数request用来接收用户发起请求的HttpRequest信息。 视图函数的返回值，为一个HttpResponse值，包括我们要返回给用户的HTML页面或者字符串等等，以及对应的头部字">
+<meta name="keywords" content="Django">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Django-Views-视图层">
+<meta property="og:url" content="https://cy-blogs.cn/Django-Views-视图层/index.html">
+<meta property="og:site_name" content="哼着自己旳小调调">
+<meta property="og:description" content="视图层 视图函数一般用来接收一个Web请求HttpRequest，之后返回一个Web响应HttpResponse HttpRequest 一个视图函数用来响应用户的Request请求，每个视图函数默认的第一个位置参数request用来接收用户发起请求的HttpRequest信息。 视图函数的返回值，为一个HttpResponse值，包括我们要返回给用户的HTML页面或者字符串等等，以及对应的头部字">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-12-09T11:26:17.262Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Django-Views-视图层">
+<meta name="twitter:description" content="视图层 视图函数一般用来接收一个Web请求HttpRequest，之后返回一个Web响应HttpResponse HttpRequest 一个视图函数用来响应用户的Request请求，每个视图函数默认的第一个位置参数request用来接收用户发起请求的HttpRequest信息。 视图函数的返回值，为一个HttpResponse值，包括我们要返回给用户的HTML页面或者字符串等等，以及对应的头部字">
+  <link rel="canonical" href="https://cy-blogs.cn/Django-Views-视图层/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Django-Views-视图层 | 哼着自己旳小调调</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">哼着自己旳小调调</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">Happy hum their own small tune</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-commonweal">
+      
+    
+
+    <a href="/404.html/" rel="section"><i class="fa fa-fw fa-heartbeat"></i>公益 404</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger">
+        
+          <i class="fa fa-search fa-fw"></i>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://cy-blogs.cn/Django-Views-视图层/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="哼着自己旳小调调">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/author.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="哼着自己旳小调调">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Django-Views-视图层
+
+          
+        </h1>
+
+        <div class="post-meta">
+         
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <!-- <span title="本文字数">28k</span> -->
+			        <span title="本文字数">
+                  3k字
+                </span>
+              
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="视图层"><a href="#视图层" class="headerlink" title="视图层"></a>视图层</h2><blockquote>
+<p>视图函数一般用来接收一个<code>Web</code>请求<code>HttpRequest</code>，之后返回一个Web响应<code>HttpResponse</code></p>
+</blockquote><h3 id="HttpRequest"><a href="#HttpRequest" class="headerlink" title="HttpRequest"></a>HttpRequest</h3><blockquote>
+<p>一个视图函数用来响应用户的<code>Request</code>请求，每个视图函数默认的第一个位置参数<code>request</code>用来接收用户发起请求的<code>HttpRequest</code>信息。</p>
+<p>视图函数的返回值，为一个<code>HttpResponse</code>值，包括我们要返回给用户的<code>HTML</code>页面或者字符串等等，以及对应的头部字段信息</p>
+</blockquote><a id="more"></a>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.http <span class="keyword">import</span> HttpResponse</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">(request)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> HttpResponse(<span class="string">'Hello world'</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="常见请求方式"><a href="#常见请求方式" class="headerlink" title="常见请求方式"></a>常见请求方式</h3><blockquote>
+<p><code>POST</code>和<code>GET</code>是<code>HTTP</code>协议定义的与服务器交互的方法。</p>
+<p><code>GET</code>一般用于获取/查询资源信息，而<code>POST</code>一般用于更新资源信息。另外，还有<code>PUT</code>和<code>DELETE</code>方法</p>
+</blockquote>
+<h4 id="get"><a href="#get" class="headerlink" title="get"></a>get</h4><blockquote>
+<p>常用来从指定地址请求数据；</p>
+<p>如果需要在请求时提交某些数据，则以路由形式传递参数，查询<code>Query</code>字符串如下格式所示：</p>
+</blockquote>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http<span class="variable">s:</span>//www.baidu.<span class="keyword">com</span>/?key=<span class="keyword">abc</span>&amp;pos=shanxi</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>get</code>请求可被浏览器缓存，保存在历史记录中</li>
+<li><code>get</code>不应在使用敏感数据时使用，明文包路在请求地址中</li>
+<li><code>get</code>有长度限制</li>
+</ul>
+<h4 id="post"><a href="#post" class="headerlink" title="post"></a>post</h4><blockquote>
+<p>向指定的资源提交要被处理的数据</p>
+<p>使用<code>POST</code>，提交的数据保存在<code>HTTP</code>协议中的消息主体部分</p>
+</blockquote>
+<ul>
+<li><code>post</code>请求不会被浏览器缓存</li>
+<li><code>post</code>提交数据长度无限制</li>
+<li><code>post</code>比<code>get</code>更加安全</li>
+</ul>
+<h3 id="request"><a href="#request" class="headerlink" title="request"></a>request</h3><blockquote>
+<p>如果说<code>urls.py</code>是<code>Django</code>中前端页面和后台程序桥梁，那么<code>request</code>就是桥上负责运输的小汽车，可以说后端接收到的来至前端的信息几乎全部来自于<code>requests</code>中</p>
+</blockquote>
+<h4 id="request-method"><a href="#request-method" class="headerlink" title="request.method"></a>request.method</h4><blockquote>
+<p>获取当前用户请求方式，</p>
+<p>请求方式字符串为纯大写：<code>&#39;GET&#39;</code>、<code>&#39;POST&#39;</code></p>
+<p>如用户以<code>get</code>方式发起请求，对应代码中获取到的结果以及在判断时像是这样</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">(request)</span>:</span>	</span><br><span class="line">    <span class="keyword">if</span> request.method == <span class="string">'GET'</span>:		</span><br><span class="line">        …</span><br></pre></td></tr></table></figure>
+
+<h4 id="request-GET"><a href="#request-GET" class="headerlink" title="request.GET"></a>request.GET</h4><blockquote>
+<p>当用户通过<code>get</code>方式请求站点，并在路由中提供了查询参数，可以通过该属性获取到对应提交的值</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">(request)</span>:</span>   </span><br><span class="line">    print(request.GET) </span><br><span class="line">    <span class="comment"># &lt;QueryDict: &#123;'name': ['jack'], 'id': ['1']&#125;&gt;    </span></span><br><span class="line">    print(type(request.GET))   </span><br><span class="line">    <span class="comment"># &lt;class 'django.http.request.QueryDict'&gt; </span></span><br><span class="line">    name_ = request.GET.get(<span class="string">'name'</span>)   </span><br><span class="line">    id_ = request.GET.get(<span class="string">'id'</span>)  </span><br><span class="line">    content = <span class="string">'%s:%s'</span> % (name_,id_)   </span><br><span class="line">    <span class="keyword">return</span> HttpResponse(content)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; request.GET`是一个类似字典的数据类型：`QueryDict</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>其中也支持类似对字典的<code>get</code>或直接<code>dict.[key]</code>键值访问方式，当然使用<code>get</code>方式进行对应<code>key</code>获取会更好，因为<code>get</code>在访问不到时不会报错</p>
+</blockquote>
+<ul>
+<li>如果定义了如上所示的视图函数，那么在访问连接时，我们可以通过路由传参：</li>
+</ul>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">http:</span><span class="comment">//127.0.0.1:8000/?name=jack&amp;id=1</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>这里对应页面会显示的结果：</li>
+</ul>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jack:<span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>注意</strong>：使用<code>GET</code>方法在连接中进行参数提交，后台接收到的数据类型均是字符串</p>
+</blockquote>
+<hr>
+<h4 id="request-POST"><a href="#request-POST" class="headerlink" title="request.POST"></a>request.POST</h4><blockquote>
+<p>获取用户以<code>post</code>形式提交的数据并保存在后台，为类字典数据，这里和<code>request.GET</code>是一个东西；</p>
+<p>在网页中，一般我们通过<code>html</code>的表单进行数据的提交，<code>POST</code>方式可以提交空数据</p>
+</blockquote>
+<ul>
+<li>因为涉及到了表单页面，所以我们先来弄一个<code>HTML</code>页面</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span>   </span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span>这是一个关于POST的测试<span class="tag">&lt;/<span class="name">div</span>&gt;</span>   </span><br><span class="line">    <span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">"/"</span> <span class="attr">method</span>=<span class="string">"POST"</span>&gt;</span>  </span><br><span class="line">        &#123;% csrf_token %&#125;    </span><br><span class="line">        账号:<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"account"</span>&gt;</span>   </span><br><span class="line">        <span class="tag">&lt;<span class="name">br</span>&gt;</span>      </span><br><span class="line">        密码:<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"password"</span> <span class="attr">name</span>=<span class="string">"passwd"</span>&gt;</span>   </span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">value</span>=<span class="string">"提交"</span>&gt;</span>   </span><br><span class="line">    <span class="tag">&lt;/<span class="name">form</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>在模板页面中，一旦涉及到了表单提交，那么一定要注意在表单区域添加<code>csrf_token</code>标签进行防跨站伪造令牌的加载，否则表单数据的将被认为是无效的。</p>
+</blockquote>
+<blockquote>
+<p>在接下来的视图函数中会使用到<code>input</code>标签中的<code>name</code>属性；</p>
+<p><code>name</code>值属性维护了<code>post</code>的数据传入到后台时的标示，会与表单的数据组合成类字典格式</p>
+<p>如<code>name</code>属性为<code>account</code>的输入框中输入了<code>test</code>，那么后台数据接收到的值类似：<code>{&#39;account&#39;:&#39;test&#39;}</code></p>
+</blockquote>
+<ul>
+<li>写一个视图函数用来捕获当前表单使用POST形式提交的数据：</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">(request)</span>:</span>   </span><br><span class="line">    <span class="keyword">if</span> request.method=<span class="string">"POST"</span>:</span><br><span class="line">        print(request.POST)    </span><br><span class="line">        print(type(request.POST))   </span><br><span class="line">        account = request.POST.get(<span class="string">"account"</span>)  </span><br><span class="line">        passwd = request.POST.get(<span class="string">"passwd"</span>)   </span><br><span class="line">        content = <span class="string">"%s:%s"</span> % (account,passwd)    </span><br><span class="line">        <span class="keyword">return</span> HttpResponse(content)  </span><br><span class="line">    <span class="keyword">return</span> render(request,<span class="string">"index.html"</span>) <span class="comment">#在使用get形式请求时，返回表单页面</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>如果在表单页面中账号填写为test，密码为123456；在视图函数中捕捉到的结果为：</li>
+</ul>
+<figure class="highlight prolog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="symbol">QueryDict</span>: &#123;<span class="string">'csrfmiddlewaretoken'</span>: [<span class="string">'EmyGwsVcrXI2LDkYLS9qflkUH4N7bM1nfTQxr3fsOsZlI4vJFwci7TargtYRAGl2'</span>], <span class="string">'account'</span>: [<span class="string">'test'</span>], <span class="string">'passwd'</span>: [<span class="string">'123456'</span>]&#125;&gt;</span><br></pre></td></tr></table></figure>
+
+<h5 id="表单多值提交"><a href="#表单多值提交" class="headerlink" title="表单多值提交"></a>表单多值提交</h5><blockquote>
+<p>在<code>request.POST</code>中需要注意，某些情况下，使用POST提交数据的表单数据可能是多个值，类似复选框<code>CheckBox</code>，直接使用<code>request.POST.get()</code>进行获取是有一些问题的，比如修改模板页面如下所示</p>
+</blockquote>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">"/"</span> <span class="attr">method</span>=<span class="string">"POST"</span>&gt;</span>  </span><br><span class="line">    &#123;% csrf_token %&#125;    </span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">name</span>=<span class="string">"taste"</span> <span class="attr">value</span>=<span class="string">"eat"</span>&gt;</span>吃  </span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">name</span>=<span class="string">"taste"</span> <span class="attr">value</span>=<span class="string">"sleep"</span>&gt;</span>睡  </span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">name</span>=<span class="string">"taste"</span> <span class="attr">value</span>=<span class="string">"play"</span>&gt;</span>耍  </span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">value</span>=<span class="string">"提交"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这是一个<code>name</code>值为<code>taste</code>的兴趣爱好采集的多选框，<code>value</code>值将会作为选中时，提交到后台的值，比如现在我们全选这些表单数据，那么后台接收到的值是这样的</p>
+</blockquote>
+<figure class="highlight prolog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="symbol">QueryDict</span>: &#123;<span class="string">'csrfmiddlewaretoken'</span>: [<span class="string">'nuaLzxc2E0artYKUZiefMPv5iHTX5gLFY1sCu8wi1vrKqpVFTWh7EnlCR64Hua5k'</span>], <span class="string">'taste'</span>: [<span class="string">'eat'</span>, <span class="string">'sleep'</span>, <span class="string">'play'</span>]&#125;&gt;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>但是问题接踵而至，我们发现使用<code>get</code>函数获取不到对应全选的整个结果，而是只拿到了选中的最后一项</p>
+</blockquote>
+<ul>
+<li><p><code>request.POST.get(key, default=None)</code></p>
+<blockquote>
+<p>返回对应<code>key</code>值的数据中的<strong>最后一个</strong>数据单独返回；<code>key</code>值不存在，取<code>default</code></p>
+</blockquote>
+</li>
+</ul>
+<blockquote>
+<p>要想真正拿出所有的结果，应该使用<code>getlist</code>函数</p>
+</blockquote>
+<ul>
+<li><p><code>request.POST.getlist(key, default=None)</code></p>
+<blockquote>
+<p>将对应<code>key</code>值的所有数据以<strong>一个列表</strong>形式返回；<code>key</code>值不存在，取<code>default</code></p>
+</blockquote>
+</li>
+</ul>
+<h4 id="request-META"><a href="#request-META" class="headerlink" title="request.META"></a>request.META</h4><blockquote>
+<p><code>request.MAT</code>E获取的是一个标准的<code>python</code>字典。它包含了所有的<code>HTTP</code>请求信息</p>
+<p>比如用户IP地址和用户<code>Agent</code>（通常是浏览器的名称和版本号）。</p>
+<p>注意，<code>Header</code>信息的完整列表取决于用户所发送的<code>Header</code>信息和服务器端设置的<code>Header</code>信息</p>
+</blockquote>
+<ul>
+<li><code>CONTENT_LENGTH</code>：请求的正文的长度，字符串类型</li>
+<li><code>CONTENT_TYPE</code>：请求的正文的<code>MIME</code> 类型</li>
+<li><code>HTTP_ACCEPT</code>：响应可接收的<code>Content-Type</code></li>
+<li><code>HTTP_ACCEPT_ENCODING</code>：响应可接收的编码</li>
+<li><code>HTTP_ACCEPT_LANGUAGE</code>：响应可接收的语言</li>
+<li><code>HTTP_HOST</code>：客服端发送的<code>HTTP Host</code>头部</li>
+<li><code>HTTP_REFERER</code>：请求前的连接地址</li>
+<li><code>HTTP_USER_AGENT</code>：客户端的<code>user-agent</code>字符串</li>
+<li><code>QUERY_STRING</code>：单个字符串形式的查询字符串（未解析过的形式）</li>
+<li><code>REMOTE_ADDR</code>：客户端的IP 地址</li>
+<li><code>REMOTE_HOST</code>：客户端的主机名</li>
+<li><code>REMOTE_USER</code>：服务器认证后的用户</li>
+<li><code>REQUEST_METHOD</code>：一个字符串，例如<code>GET</code> 或<code>POST</code></li>
+<li><code>SERVER_NAME</code>：服务器的主机名</li>
+<li><code>SE0RVER_PORT</code>：服务器的端口，字符串类型</li>
+</ul>
+<h4 id="request-FILES"><a href="#request-FILES" class="headerlink" title="request.FILES"></a>request.FILES</h4><blockquote>
+<p>接收用户上传文件及相关信息。同样类似于<code>request.POST</code>，提取到的数据为一个类字典的数据类型，包含所有文件上传的信息</p>
+</blockquote>
+<ul>
+<li><p><code>f = request.FILES.get(&#39;upload_file&#39;)</code></p>
+<blockquote>
+<p><code>file_data = f.read()</code>：读取整个上传文件的内容，适合小文件上传</p>
+<p><code>yiled = f.chunks()</code>：返回一个类似生成器<code>（）</code>的数据，每一次读取按块返回文件，可以通过<code>for</code>迭代访问其中数据；适合上传大文件到服务器。</p>
+<p><code>f.multiple_chunks()</code>：返回文件大小，当文件大小大于<code>2.5M</code>时，返回<code>True</code>，反之返回<code>False</code>，可以通过该函数来选择是否使用<code>chunks</code>方法或<code>read</code>直接存储。</p>
+<p>如果想要修改这个文件判定的默认值，可以通过：<code>FILE_UPLOAD_MAX_MEMORY_SIZE</code>在<code>settings</code>文件下进行设置</p>
+<p><code>f.content_type</code>：上传文件时头部中的<code>Content-Type</code>字段值，参考MIME类型</p>
+<p><code>f.name</code>：上传文件名字</p>
+<p><code>f.charset</code>：上传文件编码</p>
+<p><code>f.size</code>： 上传文件大小，字节为单位：<code>byte</code></p>
+</blockquote>
+</li>
+</ul>
+<blockquote>
+<p>创建好静态资源目录，并在下面创建一个<code>img</code>文件夹，保存我们即将上传的图片；</p>
+<p>完成上传文件的<code>HTML</code>表单页面</p>
+</blockquote>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">"/"</span> <span class="attr">method</span>=<span class="string">"POST"</span> <span class="attr">enctype</span>=<span class="string">"multipart/form-data"</span>&gt;</span> </span><br><span class="line">    &#123;% csrf_token %&#125;   </span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"file"</span> <span class="attr">name</span>=<span class="string">"upload_file"</span> /&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">value</span>=<span class="string">"提交"</span>&gt;</span><span class="tag">&lt;/<span class="name">form</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"&#123;% static 'img/1.jpg' %&#125;"</span> <span class="attr">alt</span>=<span class="string">"这是一张图片"</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 这里使用的是即将要上传的文件名字，只做文件是否上传成功的简单测试 --&gt;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>注意</strong>：上传文件的页面表单，一定要记得设置属性<code>enctype=&quot;multipart/form-data&quot;</code></p>
+</blockquote>
+<ul>
+<li>视图函数如下编写，接收上传图片，并保存在静态目录下刚才创建好的img目录中</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">(request)</span>:</span>  </span><br><span class="line">    <span class="keyword">if</span> request.method == <span class="string">"POST"</span>:   </span><br><span class="line">        f = request.FILES.get(<span class="string">"upload_files"</span>)  </span><br><span class="line">        path = os.path.join(settings.STATICFILES_DIRS[<span class="number">0</span>],<span class="string">'img/'</span>+f.name)  </span><br><span class="line">        <span class="comment"># 上传文件本地保存路径   </span></span><br><span class="line">        <span class="keyword">with</span> open(path,<span class="string">'wb'</span>) <span class="keyword">as</span> fp:     </span><br><span class="line">            <span class="keyword">if</span> f.multiple_chunks: <span class="comment">#判断到上传文件为大于2.5MB的大文件     </span></span><br><span class="line">                <span class="keyword">for</span> buf <span class="keyword">in</span> f.chunks(): <span class="comment">#迭代写入文件      </span></span><br><span class="line">                    fp.write(buf)        </span><br><span class="line">                    <span class="keyword">else</span>:             </span><br><span class="line">                        fp.write(f.read())    </span><br><span class="line">                        <span class="keyword">return</span> HttpResponse(<span class="string">"Success!"</span>)  </span><br><span class="line">                    <span class="keyword">return</span> render(request, <span class="string">'index.html'</span>)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>测试上传一个名为<code>1.jpg</code>的图片，如果成功上传，那么后台<code>static</code>目录下会出现该图片，并且模板页面也可以展示对应图片效果</p>
+</blockquote>
+<h3 id="HTTPResponse"><a href="#HTTPResponse" class="headerlink" title="HTTPResponse"></a>HTTPResponse</h3><blockquote>
+<p>一个视图的返回值经常是为了向用户返回一个<code>HttpResponse</code>响应，</p>
+<p>有如下常用的可以返回<code>HttpResponse</code>的函数</p>
+</blockquote>
+<h4 id="response"><a href="#response" class="headerlink" title="response"></a>response</h4><ul>
+<li><p><code>HttpResponse(content=b&#39;&#39;)</code></p>
+<blockquote>
+<p>返回一个字符串内容</p>
+<p><em>from</em> django.http <em>import</em> HttpResponse</p>
+</blockquote>
+</li>
+<li><p><code>render(request,template_name,context=None,content_type=None,status=None)</code></p>
+<blockquote>
+<p>返回一个可渲染HTML页面，状态码为<code>200</code></p>
+<p><em>from</em> django.shortcuts <em>import</em> render</p>
+</blockquote>
+<blockquote>
+<p><code>request</code>：固定参数，响应的<code>request</code>请求，来自于参数部分接收的<code>HttpRequest</code></p>
+<p><code>template_name</code>：返回的模板页面路径</p>
+<p><code>context</code>：模板页面渲染所需的数据，默认为字典格式</p>
+<p><code>content_type</code>：生成之后的结果使用的<code>MIME</code>类型</p>
+<p><code>status</code>：响应的状态码，默认为<code>200</code></p>
+</blockquote>
+</li>
+<li><p><code>redirect(to, permanent=False)</code></p>
+<blockquote>
+<p>一个重定向，浏览器通过该状态码自动跳转到一个新的路由地址，默认返回响应状态码<code>302</code></p>
+<p><em>from</em> django.shortcuts <em>import</em> redirect</p>
+</blockquote>
+<blockquote>
+<p><code>to</code>：可以是一个<code>django</code>项目中视图函数的路由映射，也可以是一个<code>reverse</code>的反向路由解析</p>
+<p><code>permanent</code>：如果设置为<code>True</code>，将返回<code>301</code>状态码，代表永久重定向</p>
+</blockquote>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">302</span>：临时重定向，旧地址资源临时不能用了，搜索引擎只会暂时抓取新地址的内容而保存旧的地址。<span class="number">301</span>：永久重定向，旧地址资源已经不复存在，搜索引擎不光会抓取新地址的内容，还会替换旧地址为新地址</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="视图错误处理"><a href="#视图错误处理" class="headerlink" title="视图错误处理"></a>视图错误处理</h3><blockquote>
+<p>为了方便我们开发，<code>django</code>提供了一个异常叫做<code>Http404</code>异常，我们可以在视图函数的代码中按照需求进行抛出，抛出之后<code>django</code>项目会自动捕获该异常，并会展示默认的<code>404</code>页面</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.http <span class="keyword">import</span> Http404</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">(request)</span>:</span>   </span><br><span class="line">    <span class="keyword">if</span> request.GET.get(<span class="string">"id"</span>) == <span class="string">"1"</span>:    </span><br><span class="line">        <span class="keyword">raise</span> Http404</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>在<code>settings</code>中的<code>debug</code>配置项为<code>false</code>时，访问<code>http://127.0.0.1:8000/?id=1</code>，可以看到<code>django</code>为我们提供的错误页面；</p>
+<p>除了<code>django</code>默认提供的，我们还可以可以在模板目录下定义全局<code>404.html</code>进行错误页面的定制</p>
+</blockquote>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>    抱歉，找不到你要的东西<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="自定义错误处理视图"><a href="#自定义错误处理视图" class="headerlink" title="自定义错误处理视图"></a>自定义错误处理视图</h4><blockquote>
+<p>除去<code>404</code>错误的自定义，<code>django</code>还提供了覆盖默认错误行为处理的办法；</p>
+<p>有些时候，<code>django</code>自动的错误处理可能不能满足我们的需求，那么我们可以重新定义一些新的视图函数，</p>
+<p>来覆盖掉<code>django</code>所提供的错误处理视图函数，最后在<code>urls.py</code>路由配置文件下通过定义全局变量来重新设置默认的错误处理视图函数</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">handler404：覆盖page_not_found()视图。</span><br><span class="line">handler500：覆盖server_error()视图。</span><br><span class="line">handler403：覆盖permission_denied()视图。</span><br><span class="line">handler400：覆盖bad_request()视图</span><br><span class="line"><span class="keyword">from</span> django.contrib <span class="keyword">import</span> admin</span><br><span class="line"><span class="keyword">from</span> django.urls <span class="keyword">import</span> path,include</span><br><span class="line">urlpatterns = [    path(<span class="string">'admin/'</span>, admin.site.urls),  </span><br><span class="line">               path(<span class="string">''</span>, include(<span class="string">"viewapp.urls"</span>)),]</span><br><span class="line">handler404 = <span class="string">"viewapp.views.error_404"</span></span><br><span class="line"><span class="comment"># APP.模块.视图函数</span></span><br><span class="line">handler500 = <span class="string">"viewapp.views.error_500"</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>相关定义好的错误处理视图函数</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">error_404</span><span class="params">(request)</span>:</span>    </span><br><span class="line">    <span class="keyword">return</span> HttpResponse(<span class="string">"这是404错误"</span>)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">error_403</span><span class="params">(request)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> HttpResponse(<span class="string">"这是403错误"</span>)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">error_500</span><span class="params">(request)</span>:</span> </span><br><span class="line">    <span class="keyword">return</span> HttpResponse(<span class="string">"这是500错误"</span>)</span><br></pre></td></tr></table></figure>
+      
+    </div>
+  <div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+  
+</div>
+
+    
+    
+    
+      
+
+      
+
+      
+        
+      
+      
+        <div id="reward-container">
+  <div>你好我好大家好！</div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/wechatpay.jpg" alt="哼着自己旳小调调 微信支付">
+        <p>微信支付</p>
+      </div>
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/alipay.jpg" alt="哼着自己旳小调调 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+      
+
+      
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>哼着自己旳小调调</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://cy-blogs.cn/Django-Views-视图层/" title="Django-Views-视图层">https://cy-blogs.cn/Django-Views-视图层/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+</ul>
+</div>
+
+      
+
+      <footer class="post-footer">
+        
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/Django/" rel="tag"># Django</a>
+            
+          </div>
+        
+
+        
+
+
+        
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/Django-Urls-路由层/" rel="next" title="Django-Urls-路由层">
+                  <i class="fa fa-chevron-left"></i> Django-Urls-路由层
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/Django初识/" rel="prev" title="Django初识">
+                  Django初识 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#视图层"><span class="nav-text">视图层</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HttpRequest"><span class="nav-text">HttpRequest</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常见请求方式"><span class="nav-text">常见请求方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#get"><span class="nav-text">get</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#post"><span class="nav-text">post</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#request"><span class="nav-text">request</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#request-method"><span class="nav-text">request.method</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#request-GET"><span class="nav-text">request.GET</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#request-POST"><span class="nav-text">request.POST</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#表单多值提交"><span class="nav-text">表单多值提交</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#request-META"><span class="nav-text">request.META</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#request-FILES"><span class="nav-text">request.FILES</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTPResponse"><span class="nav-text">HTTPResponse</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#response"><span class="nav-text">response</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#视图错误处理"><span class="nav-text">视图错误处理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#自定义错误处理视图"><span class="nav-text">自定义错误处理视图</span></a></li></ol></li></ol></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/author.jpg"
+      alt="哼着自己旳小调调">
+  <p class="site-author-name" itemprop="name">哼着自己旳小调调</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives">
+        
+          <span class="site-state-item-count">49</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/CY-xiaobai/" title="GitHub &rarr; https://github.com/CY-xiaobai/" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="/347947872@qq.com" title="E-Mail &rarr; 347947872@qq.com"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://weibo.com" title="Weibo &rarr; https://weibo.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+      </span>
+    
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    
+  
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      大神个人博客
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://lienze.tech/blog/mysql/c813917a.html" title="https://lienze.tech/blog/mysql/c813917a.html" rel="noopener" target="_blank">老渔夫吃虾米</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="https://v3u.cn/l_id_4_p_2" title="https://v3u.cn/l_id_4_p_2" rel="noopener" target="_blank">悦哥</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="https://xiuxiu.tech/" title="https://xiuxiu.tech/" rel="noopener" target="_blank">阳</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="https://www.angle-dream.top/" title="https://www.angle-dream.top/" rel="noopener" target="_blank">梦</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="https://xiaozhuang.tech/" title="https://xiaozhuang.tech/" rel="noopener" target="_blank">壮</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="https://qzloo.cn" title="https://qzloo.cn" rel="noopener" target="_blank">龙</a>
+        </li>
+      
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 豫ICP备19041663号<span itemprop="copyrightYear"></span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">哼着自己旳小调调</span>
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点总字数：</span>
+    
+    <span title="post.totalcount">
+     123.9k字 </span>
+    <span title="站点总字数">319k</span>
+  
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+  
+    <span class="post-meta-divider">|</span>
+  
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+    
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="true"></script>
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.4.1"></script><script src="/js/motion.js?v=7.4.1"></script>
+<script src="/js/schemes/pisces.js?v=7.4.1"></script>
+
+<script src="/js/next-boot.js?v=7.4.1"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.4.1"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/clicklove.js"></script>
+<script language="Javascript">
+document.οncοntextmenu=new Function("event.returnValue=false");
+document.onselectstart=new Function("event.returnValue=false");
+</script>
+</html>
+
